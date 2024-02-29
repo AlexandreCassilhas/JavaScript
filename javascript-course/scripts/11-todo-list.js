@@ -1,0 +1,70 @@
+const todoList = [{
+    name: 'wash the dishes',
+    dueDate: '12/10/2022'
+  }, {
+    name: 'make dinner',
+    dueDate: '12/10/2022'
+  }];
+
+// executa a função no carregamento da página para carregar os itens que já existirem no array.
+renderTodoList();
+
+function renderTodoList() {
+  // Inserindo o resultado do array em uma página HTML
+  let listHTML = '';
+
+  for (let i = 0; i < todoList.length; i++) {
+    const todoObject = todoList[i];
+    // Shortcut para atribuir o valor dos objetos às variáveis de mesmo nome dos seus atributos.
+    const { name, dueDate } = todoObject;
+    /*
+    É o mesmo que:
+    const name = todoObject.name;
+    const dueDate = todoObject.dueDate; 
+        ou
+    const { name } = todoObject;
+    const { dueDate } = todoObject;
+    */
+
+    let itemHTML = `
+      <div>${name}</div>
+      <div>${dueDate}</div>
+      <button onclick="
+        todoList.splice(${i}, 1);
+        renderTodoList();
+      " class="delete-todo-button">Delete</button>
+    `;
+    listHTML += itemHTML;
+  }
+  // Aqui se usa o DOM para acessar a DIV e mandar o listHTML
+  document.querySelector('.js-todo-list')
+    .innerHTML = listHTML;
+}
+
+function executeInsert(event) {
+  if (event.key === 'Enter') {
+    insertTask();
+  }
+}
+
+function insertTask() {
+  const inputTaskElement = document.querySelector('.js-input-taskName');
+  const inputDueDateElement = document.querySelector('.js-input-duedate');
+  const name = inputTaskElement.value;
+  const dueDate = inputDueDateElement.value;
+  
+  todoList.push({
+    //name: name,
+    //dueDate: dueDate
+    // se a propriedade e a variável tiverem o mesmo nome, basta digitar o nome da variável
+    name,
+    dueDate
+  });
+
+  // executa a função para atualizar a página HTML
+  renderTodoList();
+
+  //Limpa a textbox para a inserção da próxima task.
+  inputTaskElement.value = '';
+  inputDueDateElement.value = '0/00/0000';
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Booleans</title>
+  </head>
+  <body>
+    <script>
+      console.log(typeof true);
+      console.log(typeof 'true');
+      console.log(3 > 5);
+      true
+      false
+      console.log(3 < 5);
+      console.log(3 > 5);
+      console.log(5 == '5.00');
+      console.log(5 == '5.01');
+      console.log(5 === '5.00');
+
+      if (true) {console.log('Hello')};
+      if (false) {
+        console.log('Sorry');
+      }
+      else {
+        console.log('Ok')};
+
+      let age = 1;
+      if (age >= 18) {
+        console.log('Can be a Driver');
+      } else if (age > 15) {
+        console.log('Almost there!!');
+      } else {
+        console.log('Can not be a Driver');
+      };
+
+      if (1) {
+        console.log('Truthy');
+      }
+
+      if (0) {
+        console.log('Não retornará nada');
+      }
+
+      const cartQuantity = 1;
+
+      if (cartQuantity) {
+        console.log('Car has products.')
+      }
+
+      // exemplo de NaN
+      console.log('text' / 2);
+
+      // exemplo de undefined;
+      const variable1 = undefined;
+      console.log(variable1);
+
+      // Interessante dos exemplos abaixo é que você pode atribuir uma cláusula de decisão a uma variável.
+      
+      //exemplo de ternary operator
+      const result = true ? 'truthy' : 'falsy';
+      console.log(result);
+
+      // 0 é false -> o resultado será "falsy"
+      const result2 = 0 ? 'truthy' : 'falsy';
+      console.log(result2);
+
+      // exemplo de Guard Operator &&
+      const message = false && 'Hello';
+      console.log(message);
+      // Neste o resultado será Hello, pois 1 é True
+      const message2 = 1 && 'Hello';
+      console.log(message2);
+
+      //exemplo de Default Operator ||
+      const currency = 'EUR' || 'USD';
+      console.log(currency);
+      // exemplo de não escolher nenhuma moeda. O USD é o default
+      const currency2 = undefined || 'USD';
+      console.log(currency2);
+
+    </script>
+  </body>
+</html>

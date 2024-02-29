@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM</title>
+  </head>
+  <body>
+
+    <button>hello</button>
+    <button class="js-button">Second Button</button>
+    <script>
+    /*  document.body.innerHTML = 'hello'; 
+      // when we change this property we change all the page
+      document.title = 'Good Job';
+    */
+   
+    /*
+    console.log(document.title);
+   document.title = 'Changed'; //change the title of the page
+   
+   
+   console.log(document.body); //very special property
+   console.log(typeof document.body); //return an object
+
+   console.log(document.body.innerHTML); // all the page
+   document.body.innerHTML = '<button>Good Job!</button>';
+  */
+      //querySelector can get any element from webpage and put it inside the JS
+      console.log(document.querySelector('button'));
+      console.log(document.querySelector('button').innerHTML);
+              
+      document.querySelector('button')
+        .innerHTML = 'changed'; 
+        //É interessante manter as propriedades identadas para facilitar a leitura do código.
+      
+      console.log(document.querySelector('.js-button'));
+
+      // É possível colocar o elemento HTML em uma variável JS
+      const buttonElement = document.querySelector('.js-button');
+
+      console.log(buttonElement);
+
+    </script>
+  </body>
+</html>

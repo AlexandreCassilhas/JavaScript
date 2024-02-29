@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Advanced Functions</title>
+ 
+  </head>
+  <body>
+    
+    <script>
+      /*
+      function greeting() {
+        console.log('hello');
+      }
+
+      greeting();
+
+      // Atribuição de uma função a uma variável
+      const functionGreeting = function greeting() {
+        console.log('hello');
+      };
+
+      console.log(typeof functionGreeting);
+      console.log(functionGreeting);
+      // Para executar a função basta chamar a variável
+      functionGreeting();
+
+      // Outra forma de escrever a função e armazená-la em uma váriavel é omitindo o nome da função.
+      const functionGreeting2 = function() {
+        console.log('hello2');
+      };
+
+      functionGreeting2();
+
+      // É possível armazenar uma função em um objeto. Neste caso, a função passa a ser chamada de Método
+      const objeto1 = {
+        num: 3,
+        fun: function() {
+          console.log('Hello3');
+        }
+      }
+      // Como executar um método
+      objeto1.fun();
+
+      // Funções podem receber parâmetros
+      function display(param) {
+        console.log(param + 2);
+      }
+
+      display(2);
+
+      // Funções podem receber uma função como parâmetro. A função passada é chamada de Callback Function
+      function run(param) {
+        param();
+      }
+      run(function(){
+        console.log('Hello4');
+      });
+
+      // Você pode executar uma função no futuro, com o comando setTimeout(). Ele seta um timer para a execução. Dois parâmetros: o 1º é a função e o 2º é o tempo em milisegundos.
+      setTimeout(function(){
+        console.log('Vai aparecer em 3 segundos');
+      }, 3000);
+
+      // O seu uso pode provocar a criação do Assyncronous Code, quando uma linha depois do timer é executada antes. Veja o exemplo.
+      console.log('Vou executar antes!');
+
+      // SetInterval() é outro comando assíncrono. Ele executa a mesma função a cada tempo definido no segundo parâmetro.
+      setInterval(function(){
+        console.log('Vou aparecer a cada 3 segundos');
+      }, 3000);
+      
+
+      // Um outro método para varrer um array ".forEach"
+      [
+        'make dinner',
+        'wash dishes',
+        'watch youtube'
+      ].forEach(function(value, index) {
+        if (value === 'wash dishes') {
+          return; 
+          // usado para sair da função e skip um determinado value
+        }
+        console.log(value);
+        console.log(index);
+      });
+*/
+      // Arrow Functions
+
+      const arrowFunction = () => {
+        console.log('Hello Arrow Function');
+      };
+
+      arrowFunction();
+
+      // Em arrow Functions de apenas um parâmetro, os parenteses são opcionais.
+
+      const oneParamFunction = param => {
+        console.log(param);
+      };
+
+      oneParamFunction('Sem parenteses');
+
+      // Uma arrow Function de apenas uma linha, você pode remover as chaves e o 'return'
+
+      const oneLineFunction = () => {
+        return 2 + 3;
+      };
+
+      console.log(oneLineFunction());
+
+      // A arrow Function acima pode se transformar nisso.
+      const oneTrueLine = () => 2 + 4;
+
+      console.log(oneTrueLine());
+
+      // Usando arrow Function no "forEach"
+      [
+        'make dinner',
+        'wash dishes',
+        'watch youtube'
+      ].forEach((value, index) => {
+        if (value === 'wash dishes') {
+          return; 
+          // usado para sair da função e skip um determinado value
+        }
+        console.log(index);
+        console.log(value);
+      });
+
+      // Funções dentro de objetos podem ter a sintaxe ainda mais reduzida.
+
+      const object2 = {
+        method1: () => {
+          console.log('Arrow Function Sintax');
+        },
+        method2() {
+          console.log('Reduced Sintax. Best sintax for Object Functions');
+        }
+      }
+
+      object2.method1();
+      object2.method2();
+
+    </script>
+  </body>
+</html>

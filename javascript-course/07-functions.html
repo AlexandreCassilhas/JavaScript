@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Functions</title>
+  </head>
+  <body>
+    <script>
+      // Let us resuse code
+      function function1() {
+        console.log('Hello');
+        console.log(2 + 2);
+        // this code only create the function. It doesn't run. To run the function you have to type the name of the function and ();
+      }
+
+      function1();
+      function1();
+
+      calculateTax(2000); 
+      //chama uma função com parâmetro  
+      calculateTax(25000);
+
+      //cria uma função com parâmetro
+      function calculateTax(cost) {
+        console.log (cost * 0.1);
+      }
+
+      // chama uma função com 2 parâmetros
+      calculateTaxParam(1000, 0.2);
+
+      // cria uma função com mais de um parâmetro
+      function calculateTaxParam(cost, taxPercent) {
+        console.log (cost * taxPercent);
+      // Função recebe o valor e o percentual para calcular o imposto
+      }
+
+      //chamando uma função com 2 parâmetros e informando apenas 1
+      calculateTaxParam(6000);
+
+      // cria uma função com um valor default
+      function calculateTaxParam(cost, taxPercent = 0.1) {
+        console.log (cost * taxPercent);
+      // caso não receba o argumento para taxPercent ela usará 0.1
+      }
+    </script>
+  </body>
+</html>

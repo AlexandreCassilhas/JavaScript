@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cart Quantit V2</title>
+    <style>
+     
+    </style>
+  </head>
+  <body>
+    <button onclick="
+      showQuantity(0);
+      ">Show Quantity</button>
+
+    <button onclick="
+     showQuantity(1);
+    ">Add to chart</button>
+
+    <button onclick="
+     showQuantity(2);
+    ">+2</button>
+
+    <button onclick="
+     showQuantity(3);
+    ">+3</button>
+
+    <button onclick="
+      cartQuantity = 0;
+      showQuantity(0);
+    ">Reset Cart</button>
+
+    <p class="js-paragraph-quant"></p>
+
+    <script>
+
+      function showQuantity(quantCart) {
+        cartQuantity = cartQuantity + quantCart;
+        document.querySelector('.js-paragraph-quant').innerHTML = `Cart Quantity: ${cartQuantity}`;
+      }
+
+      let cartQuantity = 0;
+      let quantCart = 0;
+
+      const message = 'Mensagem Padrão - Não Muda!';
+      let noDefaultMessage = 'Mensagem que Muda!'
+      console.log(message);
+      console.log(noDefaultMessage);
+
+      noDefaultMessage = 'Mudei a mensagem';
+      console.log(noDefaultMessage);
+      
+      console.log(typeof(message));
+      console.log(typeof(cartQuantity));
+      console.log(typeof(quantCart));
+
+    </script>
+  </body>
+</html>

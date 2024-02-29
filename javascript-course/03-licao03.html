@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Licao 3</title>
+  </head>
+  <body>
+    <p id="paragraph1">...</p>
+    <button onclick="funcionMudaParagraph1()">Mudar</button>
+
+    <button id="calc1" onclick="calculaTestMath()">Cálculo</button>
+
+    <button onclick="readArray()">Ler Array</button>
+
+    <p id="showCarArray"></p>
+
+    <script>
+      function funcionMudaParagraph1() {
+        document.getElementById("paragraph1").innerHTML = 'Teste Muda paragrafo 1.';
+      }
+
+      function calculaTestMath() {
+        let var1 = 9;
+        let var2 = 81;
+        let var3 = (var1 * var2) * var2
+        document.getElementById("paragraph1").innerHTML = var3;
+      }
+
+      function readArray() {
+        const carsBrands = ["Volvo", "Mercedes", "Fiat", "GM", "Ford", "Suzuki", "Toyota", "BMW", "Hyundai", "Kia", "Honda"];
+
+        let carsBrandsLen = carsBrands.length;
+        let textHtml = "<ul>";
+        for (let elem = 0; elem < carsBrandsLen; elem++) {
+          textHtml += "<li>" + carsBrands[elem] + "</li>"; 
+        };
+        textHtml += "</ul>";
+
+      document.getElementById("showCarArray").innerHTML = textHtml;
+      }
+      
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Advanced Functions 3</title>
+ 
+  </head>
+  <body>
+        
+    <script>
+      // [..um array].filter() -> retorna um array com os elementos do array original, caso return true; ou retorna um array vazio, caso retun false.
+      console.log([1, -3, 5].filter((value, index) => {
+        return true;
+      }));
+     
+      console.log([1, -3, 5].filter((value, index) => {
+        return false;
+      }));
+
+      // pode ser utilizado para filtrar os elementos do array. Exemplo: criar um array só com números positivos.
+      console.log([1, -2, 6, 9, -7, 10, 4, -3, -1, 2].filter((value, index) => {
+        if (value > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }));
+
+      // Uma outra forma de escrever isso é fazendo a condição no return:
+      console.log([1, -2, 6, 9, -7, 10, 4, -3, -1, 2].filter((value, index) => {
+        return value > 0;
+      }));
+
+      // Uma outra função é o map() -> é usada para manipular dados do array, criando um outro array modificado pela função return.
+      console.log([1, 1, 3].map((value, index) =>{
+        return value + 10;
+      }));
+
+      // Alguns shortcuts que podem ser aplicados ao código acima: - pode omitir o parâmetro 'index', pois não está sendo usado; - tendo apenas um parâmetro, pode-se omitir os parenteses; - a funçao tendo uma só linha, podem ser retiradas as chaves e a palavra 'return'.
+      console.log([1, 1, 3].map (value => value + 10));
+
+
+    </script>
+  </body>
+</html>

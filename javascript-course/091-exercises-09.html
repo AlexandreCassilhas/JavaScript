@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exercises 09</title>
+  </head>
+  <body>
+    <button class="js-button09"
+      onclick="
+        getButtonNumber()">09</button>
+    
+    <button class="js-button09b" 
+      onclick="
+        changeButton09b();
+      ">09b</button>
+
+    <br><br>
+
+    <button class="js-heads-button" 
+      onclick="
+        changeText('heads');">heads</button>
+    
+    <button class="js-tails-button"
+      onclick="
+        changeText('tails');">tails</button>
+
+    <p class="js-paragraph-result"></p>
+
+    <br><br>
+
+    <input type="text" class="js-input-name" onkeyup="
+      execPrintName(event);">
+
+    <button class="js-button-Submit" onclick="
+      printNamefromInput();
+    ">Submit</button>
+
+    <p class="js-paragraph-name"></p>
+    
+    <script>
+
+      function execPrintName(event) {
+        if (event.key) {
+          printNamefromInput();
+        }
+      }
+
+      function printNamefromInput() {
+        const userName = document.querySelector('.js-input-name').value;
+        document.querySelector('.js-paragraph-name').innerHTML = `Your name is: ${userName}`;
+      }
+
+      function changeText(kindText) {
+        console.log(kindText);
+        if (kindText === 'heads') {
+          document.querySelector('.js-paragraph-result').innerHTML = 'You chose: heads';
+        } else if (kindText === 'tails') {
+          document.querySelector('.js-paragraph-result').innerHTML = 'You chose: tails';
+        }
+      }
+
+      function getButtonNumber() {
+        const button09 = document.querySelector('.js-button09').innerHTML;
+        console.log(button09);
+      }
+    
+      function changeButton09b() {
+        const button09b = document.querySelector('.js-button09b').innerHTML;
+
+        if (button09b === '09b') {
+          document.querySelector('.js-button09b').innerHTML = '9b done!';
+        } else {
+          document.querySelector('.js-button09b').innerHTML = '09b';
+        }
+      }
+     
+    </script>
+  </body>
+</html>

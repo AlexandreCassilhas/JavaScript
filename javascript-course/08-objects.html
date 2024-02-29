@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Objects</title>
+  </head>
+  <body>
+    <script>
+      const product = {
+        name: 'socks',
+        price: 1090
+      };
+
+      console.log(product);
+      console.log(product.name);
+      console.log(product.price);
+
+      // como alterar o valor de uma propriedade de um objeto
+      product.name = 'cotton socks';
+      console.log(product);
+      // como inserir uma nova propriedade em um objeto existente
+      product.newProperty = true;
+      console.log(product);
+      // como deletar uma propriedade de um objeto existente
+      delete product.newProperty;
+      console.log(product);
+
+      console.log(typeof product);
+
+      const product2 = {
+        name: 'shirt',
+        'delivery-time': '1 day',
+        rating: {
+          stars: 4.5,
+          count: 87 //inner object
+        },
+        fun: function() {
+          console.log('Function inside object');
+        }
+         
+      }
+
+      console.log(product2);
+      console.log(product2.name); // dot notation (used by default)
+      console.log(product2['name']); // bracket notation
+      //bracket notation is used when you have a property with '-' exemple: delivery-time
+      console.log(product2['delivery-time']);
+
+      console.log(product2.rating.count); //accessing an inner object property.
+
+      // executing a function inside object
+      product2.fun();
+
+      // Built-in Objects
+      console.log(typeof console); // is an object
+      console.log(typeof console.log); // is a method
+      console.log(typeof Math);
+      console.log(typeof Math.random);
+
+      /* JSON - Javascript Object Notation
+       JSON sintax is more universal. It is understood for several programming languages. We use JSON when we send data between computers. JSON not support Functions. O typeof JSON object is String. */
+
+      // converting JS Object into JSON
+      const newObjectJSON = JSON.stringify(product2);
+
+       console.log(newObjectJSON);
+       console.log(typeof newObjectJSON); //JSON objects are string
+      
+       // converting JSON to JS Object
+       const objectJS = JSON.parse(newObjectJSON);
+       console.log(objectJS);
+
+       // Localstorage -> not delete the variables when  you refresh the page. Only support strings
+       localStorage.setItem('message', 'hello');
+       console.log(localStorage.getItem('message'));
+
+      // strings have properties and methods. JS transform strings in special objects. This feature is called Auto-Boxing.
+       console.log('hello'.length);
+       console.log('hello'.toLocaleUpperCase());
+      
+       const object1 = {
+        message: 'hello'
+       };
+       const object2 = object1; // copy by reference
+       
+       object1.message = 'Good job';
+       console.log(object1);
+       console.log(object2);
+
+       const object3 = {
+        message: 'Good job'
+       };
+       console.log(object3 === object1); 
+       //you can't compare objects. Return False
+
+       console.log(object2 === object1); //they have the same reference. Return True;
+
+       const object4 = {
+        message: 'Good job',
+        price: 799
+       };
+       //This is the way to take properties out of the object and save in the variables
+       // const message = object4.message; 
+       const {message, price} = object4; // is the same that above
+
+       console.log(message);
+       console.log(price);
+
+       const object5 = {
+        message,
+        method: function function1() {
+          console.log('method');
+        },
+        method2() {
+          console.log('Another way to create methods');
+        } // funciona exatamente como o método anterior.
+       };
+       console.log(object5);
+       object5.method(); //executa um método
+       object5.method2();
+       
+
+
+
+       
+
+
+    </script>
+  </body>
+</html>

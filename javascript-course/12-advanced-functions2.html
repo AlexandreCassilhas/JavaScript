@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Advanced Functions 2</title>
+ 
+  </head>
+  <body>
+    <button onclick="" class="js-click-button">click</button>
+    
+    <script>
+      // Usando 'addEventListener' é possível executar mais de uma ação por evento.
+
+      const buttonClickElement = document.querySelector('.js-click-button');
+
+      buttonClickElement.addEventListener('click', () => {
+        console.log('click');
+      });
+
+      buttonClickElement.addEventListener('click', () => {
+        console.log('click2');
+      });
+
+      // Desta forma, é possível também remover um eventListener. Para isso, é necessário atribuir a função a uma variável.
+      const eventListener1 = () => {
+        console.log('click 3');
+      };
+
+      buttonClickElement.addEventListener('click', eventListener1);
+
+      // Agora, vou remover o eventListener1 do botão.
+      buttonClickElement.removeEventListener('click', eventListener1);
+
+    </script>
+  </body>
+</html>

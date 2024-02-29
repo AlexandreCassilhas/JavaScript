@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cart Quantity</title>
+    <style>
+     
+    </style>
+  </head>
+  <body>
+    <button onclick="
+      console.log(`Cart Quantity: ${cartQuantity}`);
+      ">Show Quantity</button>
+    <button onclick="
+      //cartQuantity = cartQuantity + 1;
+      //cartQuantity += 1;
+      cartQuantity++;
+      console.log(`Cart Quantity: ${cartQuantity}`);
+    ">Add to chart</button>
+    <button onclick="
+      //cartQuantity = cartQuantity + 2;
+      cartQuantity += 2;
+      console.log(`Cart Quantity: ${cartQuantity}`);
+    ">+2</button>
+    <button onclick="
+      //cartQuantity = cartQuantity + 3;
+      cartQuantity += 3;
+      console.log(`Cart Quantity: ${cartQuantity}`);
+    ">+3</button>
+    <button onclick="
+      cartQuantity = 0;
+      console.log('Cart was Reset.');
+      console.log(`Cart Quantity: ${cartQuantity}`);
+    ">Reset Cart</button>
+    <script>
+      let cartQuantity = 0;
+
+      const message = 'Mensagem Padrão - Não Muda!';
+      let noDefaultMessage = 'Mensagem que Muda!'
+      console.log(message);
+      console.log(noDefaultMessage);
+
+      noDefaultMessage = 'Mudei a mensagem';
+      console.log(noDefaultMessage);
+      
+      console.log(typeof(message));
+      console.log(typeof(cartQuantity));
+
+    </script>
+  </body>
+</html>
