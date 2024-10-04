@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valor a ser Pago</title>
+</head>
+<body>
+  <script>
+    const valorTotal = Number(prompt('Valor da Conta: '));
+    const qtdClientes = Number(prompt('Número de Clientes: '));
+    const totalCliente = valorTotal/qtdClientes;
+
+    alert(`Valor Total: R$ ${valorTotal.toFixed(2)}\nNúmero de Clientes: ${qtdClientes}\nValor por Cliente: R$ ${totalCliente.toFixed(2)}`);
+  </script>
+</body>
+</html>
