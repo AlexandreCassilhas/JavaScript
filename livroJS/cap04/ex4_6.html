@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caixa Eletrônico</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Programa Caixa Eletrônico</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/caixa-eletronico.jpg" alt="Caixa Eletronico">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <label for="inSaque">Valor do Saque: </label>
+        <input type="number" name="nSaque" id="inSaque" min="10" max="1000" required>
+        <br><br>
+        <input type="submit" value="Exibir Notas para Saque">
+      </form>
+      <!-- Saída do Programa -->
+      <h4 id="outNota100"></h4>
+      <h4 id="outNota50"></h4>
+      <h4 id="outNota10"></h4>
+      <br>
+      <h4 id="outResto"></h4>
+    </div>
+  </main>
+  <script src="js/ex4_6.js"></script>
+</body>
+</html>
