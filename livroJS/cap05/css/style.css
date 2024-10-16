@@ -37,8 +37,9 @@ label {
 .jsEntrada {
   width: 60px;
 }
-h4 {
-  padding-left: 60px;
-  font-size: small;
+pre {
+  padding-left: 50px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:medium;
   color: blue;
 }
