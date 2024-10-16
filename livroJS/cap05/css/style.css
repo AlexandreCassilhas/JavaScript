@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: antiquewhite;
+}
+main {
+  display: flex;
+  flex-flow: row wrap;
+}
+.imagem {
+  flex-basis: 250px;
+}
+img {
+  float: left;
+  height: 300px;
+  width: 200px;
+  border-radius: 20px;
+}
+.formulario {
+  width: 200px;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-top: 10px;
+  flex-grow: 0;
+
+}
+h1 {
+  border-bottom-style: inset;
+  border-color: black;
+}
+label {
+  font-weight: bold;
+}
+
+.jsEntrada {
+  width: 60px;
+}
+h4 {
+  padding-left: 60px;
+  font-size: small;
+  color: blue;
+}
