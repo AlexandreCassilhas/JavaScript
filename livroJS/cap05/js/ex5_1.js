@@ -6,7 +6,7 @@ frm.addEventListener('submit', (calculaTabuada) => {
 
   let vTabuada = ''
   const vNumero = Number(frm.inNumero.value)
-  for(let i=1; i <= 10; i++){
+  for(let i=1; i <= 10; i = i +1){
     vTabuada = vTabuada + `${vNumero} x ${i} = ${vNumero * i} \n` 
     
     // ou vTabuada = vTabuada + vNumero + ' x ' + i + ' = ' + vNumero * i + '\n'
