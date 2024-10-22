@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultório Odontológico</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Consultório Odontológico</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/processamento-dados.jpg" alt="processamento-dados">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <label for="inPaciente">Paciente:</label>
+        <input type="text" name="nPaciente" id="inPaciente" width="35" required>
+        <br><br>
+        <div class="botoes">
+          <input type="submit" value="Adicionar">
+          <input type="button" id="btnUrgencia" value="Urgência">
+          <input type="button" id="btnAtender" value="Atender">
+        </div>
+      </form>
+      <pre id="outAtendimento"></pre>
+      <pre id="outLista"></pre>
+    </div>
+    <pre id="outAtendidos"></pre>
+  </main>
+  <script src="js/ex6_1.js"></script>
+</body>
+</html>
