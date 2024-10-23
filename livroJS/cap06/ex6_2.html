@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descubra o Número</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Jogo Descubra o Número</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/descubra-numero.jpg" alt="descubra-numero">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <label for="inNumero">Digite um Número:</label>
+        <input type="number" name="nNumero" id="inNumero" min="1" max="100" step="1" autofocus required>
+        <input type="submit" class="exibe" id="btnApostar" value="Apostar">
+        <input type="button" class="oculta" id="btnJogarNovamente" value="Jogar novamente">
+      </form>
+
+      <pre id="outChances"></pre>
+    </div>
+    <div class="respostas">
+      <pre id="outErros"></pre>
+      <pre id="outDicas"></pre>
+    </div>
+
+  </main>
+  <script src="js/ex6_2.js"></script>
+</body>
+</html>
