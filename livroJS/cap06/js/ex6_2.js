@@ -25,46 +25,45 @@ numero.addEventListener('keypress', (e)=> {
 frm.addEventListener('submit', (verificaAposta) => {
   verificaAposta.preventDefault()
   const vNumero = Number(numero.value)
-  // Verifica se ainda resta pelo menos 1 chance
-  if (qtdResta != 0) {
-    // Verifica se o número já foi digitado
-    if (numErros.includes(vNumero)) {
-      alert(`Você já apostou o número ${vNumero}. Tente outro!`)
-    } else if (vNumero == numSorteado) {
-      dicas.innerText = `Parabéns, você acertou. O número sorteado foi o ${numSorteado}`
-      // desabilita o campo 'numero' | oculta o botão 'apostar' | exibe o botão 'Jogar Novamente'
-      numero.disabled = true
-      btApostar.className = 'oculta'
-      btJogarNovamente.className = 'exibe'
+  // Verifica se o número já foi digitado
+  if (numErros.includes(vNumero)) {
+    alert(`Você já apostou o número ${vNumero}. Tente outro!`)
+  } 
+  // Verifica se acertou o número sorteado
+  if (vNumero == numSorteado) {
+    dicas.innerText = `Parabéns, você acertou. O número sorteado foi o ${numSorteado}`
+    // desabilita o campo 'numero' | oculta o botão 'apostar' | exibe o botão 'Jogar Novamente'
+    numero.disabled = true
+    btApostar.className = 'oculta'
+    btJogarNovamente.className = 'exibe'
+  } else {
+    numErros.push(vNumero) // grava o número no array de erros
+    qtdResta--
+    qtdErros++
+    if (vNumero < numSorteado) { // verifica se é maior ou menor que o sorteado
+      maiorMenor = 'menor'
     } else {
-      numErros.push(vNumero) // grava o número no array de erros
-      qtdResta--
-      qtdErros++
-      if (vNumero < numSorteado) { // verifica se é maior ou menor que o sorteado
-        maiorMenor = 'menor'
-      } else {
-        maiorMenor = 'maior'
-      }
-      erros.innerText = `Erros: ${qtdErros} - (${numErros.join(', ')})`
-      chances.innerText = `Chances: ${qtdResta}`
-      dicas.innerText = `O número digitado é ${maiorMenor} que o número sorteado`
-    }} else {
-      numErros.push(vNumero) //grava o nº digitado no array de erros
-      qtdResta--
-      qtdErros++
-      alert('Suas Chances Acabaram!')
-      chances.innerText = `Chances: 0`
-      erros.innerText = `Erros: ${qtdErros} - (${numErros.join(', ')})`
-      dicas.innerText = `Game Over!! Você perdeu! O número sorteado foi o ${numSorteado}.`
-      // desabilita o campo 'numero' | oculta o botão 'apostar' | exibe o botão 'Jogar Novamente'
-      numero.disabled = true
-      btApostar.className = 'oculta'
-      btJogarNovamente.className = 'exibe'
-      }
-    // Recarrega a página
-    btJogarNovamente.addEventListener('click', (e) => {
-      location.reload() // recarrega a página
-    })
-    numero.value = ''
-    numero.focus()
+      maiorMenor = 'maior'
+    }
+    erros.innerText = `Erros: ${qtdErros} - (${numErros.join(', ')})`
+    chances.innerText = `Chances: ${qtdResta}`
+    dicas.innerText = `O número digitado é ${maiorMenor} que o número sorteado`
+  }
+  // Verifica se as chances já acabaram
+  if (qtdResta == 0) {
+    chances.innerText = `Chances: 0`
+    erros.innerText = `Erros: ${qtdErros} - (${numErros.join(', ')})`
+    dicas.innerText = `Game Over!! Você perdeu! O número sorteado foi o ${numSorteado}.`
+    alert('Suas Chances Acabaram!')
+    // desabilita o campo 'numero' | oculta o botão 'apostar' | exibe o botão 'Jogar Novamente'
+    numero.disabled = true
+    btApostar.className = 'oculta'
+    btJogarNovamente.className = 'exibe'
+    }
+  // Recarrega a página
+  btJogarNovamente.addEventListener('click', (e) => {
+    location.reload() // recarrega a página
+  })
+  numero.value = ''
+  numero.focus()
 })
