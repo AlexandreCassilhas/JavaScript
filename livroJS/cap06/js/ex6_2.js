@@ -26,12 +26,16 @@ frm.addEventListener('submit', (verificaAposta) => {
   verificaAposta.preventDefault()
   const vNumero = Number(numero.value)
   // Verifica se ainda resta pelo menos 1 chance
-  if (qtdResta > 1) {
+  if (qtdResta != 0) {
     // Verifica se o número já foi digitado
     if (numErros.includes(vNumero)) {
       alert(`Você já apostou o número ${vNumero}. Tente outro!`)
     } else if (vNumero == numSorteado) {
       dicas.innerText = `Parabéns, você acertou. O número sorteado foi o ${numSorteado}`
+      // desabilita o campo 'numero' | oculta o botão 'apostar' | exibe o botão 'Jogar Novamente'
+      numero.disabled = true
+      btApostar.className = 'oculta'
+      btJogarNovamente.className = 'exibe'
     } else {
       numErros.push(vNumero) // grava o número no array de erros
       qtdResta--
