@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testes de Vetores</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Testes de Vetores</h1>
+    <p id="resposta1"></p>
+    <p id="resposta2"></p>
+    <p id="resposta3"></p>
+    <p id="resposta4"></p>
+    <p id="resposta5"></p>
+    <p id="resposta6"></p>
+    <p id="resposta7"></p>
+    <p id="resposta8"></p>
+    <p id="resposta9"></p>
+    <script>
+      const resp = document.querySelector('#resposta1')
+      const resp2 = document.querySelector('#resposta2')
+      const resp3 = document.querySelector('#resposta3')
+      const resp4 = document.querySelector('#resposta4')
+      const resp5 = document.querySelector('#resposta5')
+      const resp6 = document.querySelector('#resposta6')
+      const resp7 = document.querySelector('#resposta7')
+      const resp8 = document.querySelector('#resposta8')
+      const resp9 = document.querySelector('#resposta9')
+      // Utilizando o método push() e os operadores Rest/Spread (...)
+      const carros = []
+      const carros2 = []
+      const carros3 = []
+      let vCarros = ''
+      let vCarros2 = ''
+
+      carros.push({marca: 'Toyota', modelo: 'Rav 4', ano: 2014, cor: 'cinza'})
+      carros.push({marca: 'Citroen', modelo: 'C4 Lounge', ano: 2019})
+      carros.push({marca: 'Renault', modelo: 'Megane', ano: 2014})
+      carros2.push(...carros, {marca: 'VW', modelo: 'Gol', ano: 2014})
+      carros3.push({marca: 'Suzuki', modelo: 'GranVitara', ano: 2009}, ...carros2)
+
+      for(carro of carros3) {
+        vCarros = vCarros + `Marca: ${carro.marca}\nModelo: ${carro.modelo}\nAno: ${carro.ano}\n ---- \n`
+      }
+      // Estas são duas das formas de varrer um vetor
+      carros3.forEach((carro)=> {
+        vCarros = vCarros + `Marca: ${carro.marca}\nModelo: ${carro.modelo}\nAno: ${carro.ano}\n ---- \n`
+      })
+      resp.innerText = vCarros
+
+      // Exemplo de Desestruturação de um vetor
+      for(carro of carros3) {
+        const {marca, modelo, ano} = carro //se não fosse obj usaria ()
+        vCarros2 = vCarros2 + `${marca}\n${modelo}\n${ano}\n---\n`
+      }
+      resp2.innerText = vCarros2
+
+      // Uso do método map -> cria um novo vetor com o dobro dos num
+      let vDobros = ''
+      const numeros = [2, 8, 18, 9, 13]
+      const dobros = numeros.map(num => num * 2)
+      for(dobro of dobros) {
+      vDobros = dobros.join(' | ') // separa os elementos por |
+      }
+      resp3.innerText = vDobros
+
+      // Uso do método map com objetos
+      let vAmigos = ''
+      const amigos = [{nome: 'Ana', idade: 20}, {nome: 'Rafael', idade: 21}, {nome: 'Fernando', idade: 32}]
+      const amigos2 = amigos.map(aux =>({nome: aux.nome, nasc: 2024 - aux.idade}))
+      for(amigo of amigos2) {
+        vAmigos = vAmigos + `${amigo.nome} | ${amigo.nasc} \n`
+      }
+      resp4.innerText = vAmigos
+
+      // Uso do método filter -> cria um novo array baseado em uma condição
+      let vPares = ''
+      const numNumeros = [2, 4, 5, 3, 12, 7, 0, 9, 10]
+      const pares = numNumeros.filter(num => num % 2 == 0) // condição
+      for(par of pares){
+        vPares = 'Números Pares: ' + pares.join(', ')
+      }
+      resp5.innerText = vPares
+
+      // Uso do método filter em um array de objeto
+      let vFiltrado = ''
+      const listaAmigos = [{nome: 'Ana', idade: 20}, {nome: 'Rafael', idade: 21}, {nome: 'Fernando', idade: 32}]
+      const filtrados = listaAmigos.filter(aux => aux.idade > 18 && aux.nome.includes('R')) // condição referenciando os atributos do obj.
+      for(filtrado of filtrados) {
+        vFiltrado = vFiltrado + `Nome: ${filtrado.nome}, Idade: ${filtrado.idade} \n`
+      }
+      if (filtrados.length == 0) {
+        vFiltrado = 'Não há amigos que correspondam ao filtro indicado!'
+      }
+      resp6.innerText = vFiltrado
+
+      // Uso do método reduce -> sua função é acumular os valores do vetor
+      const listaNumeros = [2, 14, 21, 91, 25, 5]
+      const somaNumeros = listaNumeros.reduce((acumulador, num) => acumulador + num, 0)
+      // o 1º parametro acumula e o 2º parametro recebe cada num do array
+      // o 3º parametro é o valor inicial do acumulador
+      resp7.innerText = `A soma dos números é: ${somaNumeros}`
+
+      // Uso do método reduce em objetos
+      const listaAmigos2 = [ {nome: 'Ana', idade: 20},
+                             {nome: 'Rafael', idade: 21},
+                             {nome: 'Fernando', idade: 32}]
+      const somaIdades = listaAmigos2.reduce((acumulador, amigo) => acumulador + amigo.idade, 0)
+      const relacaoAmigos = listaAmigos2.reduce((acumulador, amigo) => acumulador + amigo.nome + ` * `, '')
+      // neste caso é necessário inicializar o acumulador com ''
+      resp8.innerText = `Soma das idades: ${somaIdades}\nAmigos: ${relacaoAmigos}`
+
+      // Uso do método reduce com a função Max -> descobrir o maior numero
+      const listaNumeros2 = [2, 14, 21, 91, 25, 5] 
+      const maior = listaNumeros2.reduce((acumulador, b) => Math.max(acumulador, b), 0)
+      // ele varre o array do início ao fim, atribuindo número a b e depois ao acumulador e vai comparando um com o outro até o final do array. Fica armazenado no acumulador o maior dos números do array
+      resp9.innerText = `O maior número é o : ${maior}`
+    </script>
+</body>
+</html>
