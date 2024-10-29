@@ -44,6 +44,8 @@ label {
   width: 60px;
 }
 pre {
+  border: 1px solid black;
+  border-radius: 10px;
   padding-left: 5px;
   font-family: 'Courier New', Courier, monospace;
   font-size:medium;

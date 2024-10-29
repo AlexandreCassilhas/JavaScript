@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revenda Herbie</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Revenda Herbie</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/processamento-dados.jpg" alt="processamento-dados">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <label for="inModelo">Modelo:</label>
+        <input type="text" name="nModelo" id="inModelo" width="30" required autofocus>
+        <br><br>
+        <label for="inPreco">Preço:</label>
+        <input type="number" name="nPreco" id="inPreco" min="0" step="0.01" required>
+        <input type="submit" value="Adicionar">
+        <br><br>
+        <input type="button" value="Listar Todos" id="btnListarTodos">
+        <input type="button" value="Listar por Preço" id="btnListarPrecos">
+        <input type="button" value="Simular Promoções" id="btnSimularPromo">
+      </form>
+    </div>
+    <pre id="outRetorno"></pre>
+  </main>
+  <script src="js/ex6_3.js"></script>
+</body>
+</html>
