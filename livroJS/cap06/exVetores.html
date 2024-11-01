@@ -18,6 +18,7 @@
     <p id="resposta7"></p>
     <p id="resposta8"></p>
     <p id="resposta9"></p>
+    <p id="resposta10"></p>
     <script>
       const resp = document.querySelector('#resposta1')
       const resp2 = document.querySelector('#resposta2')
@@ -28,6 +29,7 @@
       const resp7 = document.querySelector('#resposta7')
       const resp8 = document.querySelector('#resposta8')
       const resp9 = document.querySelector('#resposta9')
+      const resp10 = document.querySelector('#resposta10')
       // Utilizando o método push() e os operadores Rest/Spread (...)
       const carros = []
       const carros2 = []
@@ -117,6 +119,12 @@
       const maior = listaNumeros2.reduce((acumulador, b) => Math.max(acumulador, b), 0)
       // ele varre o array do início ao fim, atribuindo número a b e depois ao acumulador e vai comparando um com o outro até o final do array. Fica armazenado no acumulador o maior dos números do array
       resp9.innerText = `O maior número é o : ${maior}`
+
+      // Métodos sort(), reverse() e slice()
+      const listaNumeros3 = [2, 14, 21, 91, 25, 5, 36, 17, 62, 9, 0]
+      const listaOrdenada = listaNumeros3.slice().sort((a, b) => a - b)
+      const listaDescendente = listaOrdenada.slice().reverse()
+      resp10.innerText = `${listaOrdenada}\n${listaDescendente}`
     </script>
 </body>
 </html>
