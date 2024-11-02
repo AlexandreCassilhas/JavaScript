@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programa Brinquedoteca</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Programa Brinquedoteca</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/processamento-dados.jpg" alt="processamento-dados">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <label for="inNome">Nome da Criança:</label>
+        <input type="text" name="nNome" id="inNome" width="35" required autofocus>
+        <br><br>
+        <label for="inIdade">Idade:</label>
+        <input type="number" name="nIdade" id="inIdade" min="0" max="15" step="1" required>
+        <input type="submit" value="Adicionar">
+        <br><br>
+        <input type="button" value="Listar Todos" id="btnListarTodos">
+        <input type="button" value="Resumir por Idade" id="btnResumirIdade">
+      </form>
+    </div>
+    <pre id="outResp"></pre>
+  </main>
+  <script src="js/ex6_4.js"></script>
+</body>
+</html>
