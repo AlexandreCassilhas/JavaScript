@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programa Concurso</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Programa Concurso</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/processamento-dados.jpg" alt="processamento-dados">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <label for="inCandidato">Candidato:</label>
+        <input type="text" name="nCandidado" id="inCandidato" width="35" required>
+        <br><br>
+        <label for="inAcertos">Nº de Acertos:</label>
+        <input type="number" name="nAcertos" id="inAcertos" min="0" max="50" step="1">
+        <input type="submit" value="Adicionar">
+        <br><br>
+        <input type="button" id="btnListarTodos" value="Listar Todos">
+        <input type="button" id="btnAprovados" value="Aprovados 2ª Etapa">
+      </form>
+    </div>
+    <pre id="outResp"></pre>
+  </main>
+  <script src="js/resp6_c.js"></script>
+</body>
+</html>
