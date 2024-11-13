@@ -43,6 +43,15 @@ label {
 .jsEntrada {
   width: 60px;
 }
+
+.entre-letras {
+  letter-spacing: 0.5em;
+}
+
+.alinha-direita {
+  text-align: right;
+}
+
 pre {
   border: 1px solid black;
   border-radius: 10px;

@@ -21,11 +21,18 @@
 
     let numA = 0
     for(const letra of anuncio){
-      if(letra == 'A' || letra == 'a'){
+      const maiuscula = letra.toUpperCase()
+      if(maiuscula == 'A'){
         numA += 1
       }
     }
     alert(`Anúncio: ${anuncio}\nNúmero de letras "a": ${numA}`)
+
+    const palavra = 'saladas'
+    const copia1 = palavra.substr(2) // ladas
+    const copia2 = palavra.substr(2, 4) // lada
+    const copia3 = palavra.substr(0, palavra.length -1) // salada
+    const copia4 = palavra.substr(-2) // as
   </script>
 </body>
 </html>
