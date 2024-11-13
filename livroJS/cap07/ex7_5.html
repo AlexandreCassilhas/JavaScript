@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programa Email Institucional</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+</head>
+<body>
+  <h1>Programa Email Institucional (v2)</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/processamento-dados.jpg" alt="processamento-dados">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <label for="inDominio">Digite o domínio:</label>
+        <input type="text" name="nDominio" id="inDominio" autofocus required>
+        <br><br>
+        <label for="inNome">Digite o nome completo:</label>
+        <input type="text" name="nNome" id="inNome" width="40" required>
+        <br><br>
+        <input type="submit" value="Gerar email">
+      </form>
+      <pre id="outEmail"></pre>
+    </div>
+  </main>
+  <script src="js/ex7_5.js"></script>
+</body>
+</html>
