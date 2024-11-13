@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conta Palavras</title>
+</head>
+<body>
+  <script>
+    const anuncio = prompt('Digite o anúncio:')
+    
+    let numPalavras = 0
+    const tamanho = anuncio.length
+    for(let i = 0; i < tamanho; i++){
+      if(anuncio.charAt(i) == ' '){
+        numPalavras += 1
+      }
+    }
+    alert(`O anúncio digitado possui ${(numPalavras + 1)} palavras.`)
+    
+
+    let numA = 0
+    for(const letra of anuncio){
+      if(letra == 'A' || letra == 'a'){
+        numA += 1
+      }
+    }
+    alert(`Anúncio: ${anuncio}\nNúmero de letras "a": ${numA}`)
+  </script>
+</body>
+</html>
