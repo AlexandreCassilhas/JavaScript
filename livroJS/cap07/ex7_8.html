@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caixa da Loja</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Programa Caixa de Loja</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/processamento-dados.jpg" alt="processamento-dados">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <label for="inDtVencimento">Data do Vencimento:</label>
+        <input type="date" name="nDtVencimento" id="inDtVencimento" autofocus required>
+        <br><br>
+        <label for="inVlConta">Valor da Conta:  R$</label>
+        <input type="number" name="nVlConta" id="inVlConta" class="alinha-direita" min="0" step="0.01" required>
+        <input type="submit" value="Calcular Multa e Juros">
+        <br><br>
+        <label for="outVlMulta">Valor da Multa:  R$</label>
+        <input type="number" name="nVlMulta" id="outVlMulta" class="alinha-direita" readonly>
+        <br><br>
+        <label for="outVlJuros">Valor dos Juros: R$</label>
+        <input type="number" name="nVlJuros" id="outVlJuros" class="alinha-direita" readonly>
+        <br><br>
+        <label for="outTotalPagar">Total a Pagar:  R$</label>
+        <input type="number" name="nTotalPagar" id="outTotalPagar" class="alinha-direita" readonly>
+        <br><br>
+        <input type="button" id="btnNovaConta" value="Nova Conta">
+      </form>
+      <pre id="outResp"></pre>
+    </div>
+  </main>
+  <script src="js/ex7_8.js"></script>
+</body>
+</html>
