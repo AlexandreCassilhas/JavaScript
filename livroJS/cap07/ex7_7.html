@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controles de Datas</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Controles para Datas</h1>
+  <h4 id="ex1"></h4>
+  <h4 id="ex2"></h4>
+  <h4 id="ex3"></h4>
+
+  <script>
+    const ex2 = document.querySelector('#ex2')
+
+    const dataHoje = new Date() // cria um objeto com a data de hoje
+    const anoAtual = dataHoje.getFullYear() // extrai o ano do objeto data
+    const idade = prompt(`Quantos anos você comemora em ${anoAtual}?`)
+    const anoNasc = anoAtual - idade // faz um simples cálculo de anos
+    ex2.innerText = `Seu ano de nascimento é ${anoNasc}`
+  </script>
+</body>
+</html>
