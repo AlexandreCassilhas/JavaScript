@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplos de Controles de Strings</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Controles em Strings</h1>
+  <h4 id="ex1"></h4>
+  <h4 id="ex2"></h4>
+  <h4 id="ex3"></h4>
+  <script>
+    const ex1 = document.querySelector('#ex1')
+    const ex2 = document.querySelector('#ex2')
+    const ex3 = document.querySelector('#ex3')
+    const senha = 'ABACAD'
+    const senha1 = senha.replace('A', 'X') // 'XBACAD' -> troca só a primeira ocorrência
+    const senha2 = senha.replace(/A/g, 'X') // 'XBXCXD' -> troca todos os A por X
+    ex1.innerText = `${senha1} - ${senha2}`
+
+    const app = 'App Controle Financeiro'
+    const nome1 = app.replace(' ', '') // -> só suprime o primeiro espaço
+    const nome2 = app.replace(/ /g, '') // -> suprime todos os espaços
+    const nome3 = nome2.toLowerCase() // -> coloca tudo em minúsculas
+    ex2.innerText = `${nome1} - ${nome2} - ${nome3}` 
+
+    // Expressões Regulares 
+    const senhaNova = '#SenhA_123'
+    const vetor1 = senhaNova.match(/[A-Z]/g) // S, A
+    const vetor2 = senhaNova.match(/[a-z]/g) // e, n, h
+    const vetor3 = senhaNova.match(/[0-9]/g) // 1, 2, 3
+    const vetor4 = senhaNova.match(/\W|_/g) // #, _
+    ex3.innerText = `${vetor1} - ${vetor2} - ${vetor3} - ${vetor4}`
+  </script>
+</body>
+</html>
