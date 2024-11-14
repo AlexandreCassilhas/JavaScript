@@ -29,6 +29,19 @@
     const idade = prompt(`Quantos anos você comemora em ${anoAtual}?`)
     const anoNasc = anoAtual - idade // faz um simples cálculo de anos
     ex2.innerText = `Seu ano de nascimento é ${anoNasc}`
+
+    const novaData = new Date() // criando um objeto date
+
+    novaData.setDate(9) // setando um novo dia para a data
+    novaData.setMonth(7) // setando um novo mês (agosto nesse caso)
+    novaData.setFullYear(1951) // setando um novo ano
+    // Lembrand: 0->JAN 1->FEV 2->MAR 3->ABR... 11->DEZ
+    const dd = novaData.getDate() // Recuperando o dia
+    const mm = novaData.getMonth() + 1 // Recuperando o mês (precisa +1)
+    const aaaa = novaData.getFullYear() // Recuperando o ano
+
+    // Fazendo aparecer o 0 no caso de dias e meses de 1 a 9. Formato 01..09
+    ex3.innerText = `${dd.toString().padStart(2, '0')}/${mm.toString().padStart(2, '0')}/${aaaa}`
   </script>
 </body>
 </html>
