@@ -1,5 +1,6 @@
 const frm = document.querySelector('form')
 const inMensagem = document.querySelector('#inMensagem')
+const inCripto = document.querySelector('#inCripto')
 const outCripto = document.querySelector('#outCripto')
 
 frm.addEventListener('submit', (criptografarMsg) =>{
@@ -15,6 +16,7 @@ frm.addEventListener('submit', (criptografarMsg) =>{
       listaImpares += mensagem.substr(i, 1)
     }
   }
+  inCripto.value = `${listaPares}${listaImpares}`
   outCripto.innerText = `${listaPares}${listaImpares}`
 })
 
