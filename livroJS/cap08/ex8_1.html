@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo Passagem de Função</title>
+</head>
+<body>
+  <h1 id="outResultado"></h1>
+  <script>
+    const res = document.querySelector('#outResultado')
+
+    // cria uma função para ler nota e média. Se média não for informada, o default é 7.
+    const situacao = (nota, media = 7) =>{
+      const resultado = nota >= media ? 'Aprovado': 'Reprovado'
+      return resultado
+    }
+
+    const prova = Number(prompt('Digite a nota:'))
+
+    alert(`O aluno foi ${situacao(prova)}`) // A chamada da função dentro de um alert
+    
+    const aluno1 = situacao(prova) // A chamada da função já atribuindo a uma variável
+    res.innerText = `Resultado: ${aluno1}`
+  </script>
+</body>
+</html>
