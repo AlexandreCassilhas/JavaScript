@@ -12,22 +12,34 @@ frm.addEventListener('submit', (calculaDtLimite) =>{
   const hoje = new Date()
   const dtLimite = new Date()
   const dataInfracao = new Date()
+
   // obtendo os valores do campo "dtInfracao" e transformando em data
   const partes = dtInfracao.split('-')
   dataInfracao.setDate(partes[2])
   dataInfracao.setMonth(partes[1] - 1)
   dataInfracao.setFullYear(partes[0])
-  // Acrescendo 90 dias a data da infração e atribuindo a dtLimite
-  dtLimite.setDate(dataInfracao.getDate() + 30)
+
+  // Cálculo da Data-Limite (90 dias da Data-Infração)
+  const passados = hoje - dataInfracao
+  const diasPassados = passados / 86400000
+  const diasFaltam = 90 - diasPassados
+  dtLimite.setDate(dtLimite.getDate() + diasFaltam)
+
   // Calculando o desconto
   const multaDesconto = vlMulta - (vlMulta * 20 / 100)
   // Exibindo a resposta no DOM
-  outResp.innerText = `Valor da Infração: R$ ${vlMulta.toFixed(2)}\nData da Infração: ${dataInfracao.getDate()}/${dataInfracao.getMonth() + 1}/${dataInfracao.getFullYear()}\nData Limite para o Pagamento: ${dtLimite.getDate()}/${dtLimite.getMonth() + 1}/${dtLimite.getFullYear()}\nValor com o desconto de 20%: R$ ${multaDesconto.toFixed(2)}`
+  const ddInf = dataInfracao.getDate().toString().padStart(2, '0')
+  const mmInf = (dataInfracao.getMonth() + 1).toString().padStart(2, '0')
+  const aaaaInf = dataInfracao.getFullYear().toString()
+  const ddLim = dtLimite.getDate().toString().padStart(2, '0')
+  const mmLim = (dtLimite.getMonth() + 1).toString().padStart(2, '0')
+  const aaaaLim = dtLimite.getFullYear().toString()
+  // Montando a apresentação no DOM
+  outResp.innerText = `Valor da Infração: R$ ${vlMulta.toFixed(2)}\nData da Infração: ${ddInf}/${mmInf}/${aaaaInf}\nData Limite para o Pagamento: ${ddLim}/${mmLim}/${aaaaLim}\nValor com o desconto de 20%: R$ ${multaDesconto.toFixed(2)}`
 })
 
 frm.btnNovaInfracao.addEventListener('click', () =>{
   outResp.innerText = ''
-  dtLimite = ''
   frm.reset()
   inDtInfracao.focus()
 })
