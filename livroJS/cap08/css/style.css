@@ -21,7 +21,7 @@ img {
   border-radius: 20px;
 }
 .formulario {
-  width: 500px;
+  width: 400px;
   padding: 5px;
   border: 2px solid black;
   border-radius: 5px;
@@ -53,9 +53,11 @@ label {
 }
 
 pre {
+  width: 400px;
+  height: 40px;
+  padding: 5px;
   border: 1px solid black;
   border-radius: 10px;
-  padding-left: 5px;
   font-family: 'Courier New', Courier, monospace;
   font-size:medium;
   color: blue;

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revenda Avenida</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Revenda Avenida - Promoção</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/processamento-dados.jpg" alt="processamento-dados">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <label for="inModelo">Modelo do Veículo:</label>
+        <input type="text" name="nModelo" id="inModelo" width="30" required autofocus>
+        <br><br>
+        <label for="inAno">Ano de Fabricação:</label>
+        <input type="number" name="nAno" id="inAno" min="1950" step="1" required>
+        <br><br>
+        <label for="inPreco">Preço (R$):</label>
+        <input type="number" name="nPreco" id="inPreco" min="0" step="0.01" required>
+        <br><br>
+        <input type="submit" value="Classificar - Calcular Entrada/Parcelas">
+      </form>
+    </div>
+    <pre id="outClassificacao"></pre>
+    <pre id="outEntradaParcelas"></pre>
+  </main>
+  <script src="js/ex8_2.js"></script>
+</body>
+</html>

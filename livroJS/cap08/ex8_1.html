@@ -12,7 +12,7 @@
 
     // cria uma função para ler nota e média. Se média não for informada, o default é 7.
     const situacao = (nota, media = 7) =>{
-      const resultado = nota >= media ? 'Aprovado': 'Reprovado'
+      const resultado = (nota >= media) ? 'Aprovado': 'Reprovado'
       return resultado
     }
 
