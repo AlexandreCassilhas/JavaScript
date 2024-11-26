@@ -28,9 +28,11 @@ frm.addEventListener('submit', (e) =>{
   const modelo = inModelo.value
   const ano = Number(inAno.value)
   const preco = Number(inPreco.value)
+  // Chamada das funções passando os parâmetros
   const classificacao = classificaCarro(ano)
   const vlEntrada = calculaEntrada(preco, classificacao)
   const vlParcela = calculaParcelas(preco, vlEntrada)
+  // Saída e formatação do DOM
   outClassificacao.innerText = `Veículo: ${modelo} / Ano: ${ano}\nPreço: R$ ${preco.toFixed(2)} - Classificação: ${classificacao}`
   outEntradaParcelas.innerText = `Forma de Pagamento:\nEntrada: R$ ${vlEntrada.toFixed(2)} + 10 x R$ ${vlParcela.toFixed(2)}`
 })
