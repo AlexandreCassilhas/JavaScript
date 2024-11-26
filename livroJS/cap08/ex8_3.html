@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funções com parâmetro REST (...)</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Funções com parâmetros REST (...)</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/processamento-dados.jpg" alt="processamento-dados">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <input type="submit" value="Enviar">
+      </form>
+    </div>
+    <pre id="outResp"></pre>
+  </main>
+  <script>
+    const frm = document.querySelector('form')
+    const outResp = document.querySelector('#outResp')
+
+    // Função com REST (...) n parâmetros
+    const calculaMedia = (...notas) => {
+      const tam = notas.length
+      if (tam == 0) {
+        const msg = `Digite ao menos uma nota`
+        return msg
+      }
+      let soma = 0
+      for(nota of notas){
+        soma += nota
+      }
+      const media = soma / tam
+      return media
+    }
+    frm.addEventListener('submit', (e) => {
+      const resultado = calculaMedia()
+      if (isNaN(resultado)) {
+        outResp.innerText = `${resultado}`
+      } else {
+        outResp.innerText = `A média é: ${resultado}`
+      }
+    })
+
+
+  </script>
+</body>
+</html>
