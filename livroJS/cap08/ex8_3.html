@@ -15,6 +15,17 @@
     </div>
     <div class="formulario">
       <form action="#">
+        <label for="inNota1">1º Bimestre:</label>
+        <input type="number" name="nNota1" id="inNota1" min="0" max="10" step="0.1" autofocus>
+        <br><br>
+        <label for="inNota2">2º Bimestre:</label>
+        <input type="number" name="nNota2" id="inNota2" min="0" max="10" step="0.1">
+        <br><br>
+        <label for="inNota3">3º Bimestre:</label>
+        <input type="number" name="nNota3" id="inNota3" min="0" max="10" step="0.1">
+        <br><br>
+        <label for="inNota2">4º Bimestre:</label>
+        <input type="number" name="nNota4" id="inNota4" min="0" max="10" step="0.1">
         <input type="submit" value="Enviar">
       </form>
     </div>
@@ -22,7 +33,28 @@
   </main>
   <script>
     const frm = document.querySelector('form')
+    const inNota1 = document.querySelector('#inNota1')
+    const inNota2 = document.querySelector('#inNota2')
+    const inNota3 = document.querySelector('#inNota3')
+    const inNota4 = document.querySelector('#inNota4')
     const outResp = document.querySelector('#outResp')
+
+    const carregaNotas = (n1, n2, n3, n4) => {
+      const notas = []
+      if (!isNaN(n1)){
+        notas.push(n1)
+      }
+      if (!isNaN(n2)){
+        notas.push(n2)
+      }
+      if (!isNaN(n3)){
+        notas.push(n3)
+      }
+      if (!isNaN(n4)){
+        notas.push(n4)
+      }
+      return notas
+    }
 
     // Função com REST (...) n parâmetros
     const calculaMedia = (...notas) => {
@@ -30,24 +62,39 @@
       if (tam == 0) {
         const msg = `Digite ao menos uma nota`
         return msg
-      }
-      let soma = 0
-      for(nota of notas){
-        soma += nota
-      }
-      const media = soma / tam
-      return media
+      } else {
+          let soma = 0
+          for(nota of notas){
+            soma += nota
+          }
+          const media = soma / tam
+          return media
+        }
     }
     frm.addEventListener('submit', (e) => {
-      const resultado = calculaMedia()
+      e.preventDefault()
+      const nota1 = Number(inNota1.value)
+      const nota2 = Number(inNota2.value)
+      const nota3 = Number(inNota3.value)
+      const nota4 = Number(inNota4.value)
+      
+      const notas = carregaNotas(nota1, nota2, nota3, nota4)
+      let listaNotas = ''
+      for(nota of notas){
+        if(!isNaN(nota)){
+          listaNotas += `${nota}, `
+        }
+      }
+      outResp.innerText = `${listaNotas}`
+      /*
+      const resultado = calculaMedia(nota1, nota2, nota3, nota4)
       if (isNaN(resultado)) {
         outResp.innerText = `${resultado}`
       } else {
         outResp.innerText = `A média é: ${resultado}`
       }
+        */
     })
-
-
   </script>
 </body>
 </html>
