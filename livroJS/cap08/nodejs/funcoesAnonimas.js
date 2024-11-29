@@ -9,4 +9,7 @@ const mostraHora = () => {
   console.log(`Atenção para o horário: ${hora}:${minutos}:${segundos}`)
 }
 // Faz uma chamada a função a cada 5000 milisegundos (5s)
+if (segundos % 5 == 0){
+  
+}
 setInterval(mostraHora, 5000)
