@@ -56,7 +56,8 @@
       return notas
     }
 
-    // Função com REST (...) n parâmetros
+    // Função com REST (...) n parâmetros 
+    // Função que calcula a média, independente do nº de notas
     const calculaMedia = (...notas) => {
       const tam = notas.length
       if (tam == 0) {
@@ -73,27 +74,27 @@
     }
     frm.addEventListener('submit', (e) => {
       e.preventDefault()
-      const nota1 = Number(inNota1.value)
-      const nota2 = Number(inNota2.value)
-      const nota3 = Number(inNota3.value)
-      const nota4 = Number(inNota4.value)
+      // Se o campo ficar vazio, atribui NaN. Senão, atribui a nota digitada
+      const nota1 = inNota1.value == '' ? NaN : Number(inNota1.value)
+      const nota2 = inNota2.value == '' ? NaN : Number(inNota2.value)
+      const nota3 = inNota3.value == '' ? NaN : Number(inNota3.value)
+      const nota4 = inNota4.value == '' ? NaN : Number(inNota4.value)
       
+      // Função que carrega as notas para montar a lista, apenas com as notas digitadas
       const notas = carregaNotas(nota1, nota2, nota3, nota4)
       let listaNotas = ''
       for(nota of notas){
         if(!isNaN(nota)){
-          listaNotas += `${nota}, `
+          listaNotas += `${Number(nota).toFixed(2)} | `
         }
       }
-      outResp.innerText = `${listaNotas}`
-      /*
-      const resultado = calculaMedia(nota1, nota2, nota3, nota4)
+      // Função que apresenta a média ou a mensagem de erro, caso não tenha notas 
+      const resultado = calculaMedia(...notas)
       if (isNaN(resultado)) {
         outResp.innerText = `${resultado}`
       } else {
-        outResp.innerText = `A média é: ${resultado}`
+        outResp.innerText = `As notas são: ${listaNotas}\nA média é: ${resultado.toFixed(2)}`
       }
-        */
     })
   </script>
 </body>
