@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizzaria Avenida</title>
+  <link rel="shortcut icon" href="img/icon-weight.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Pizzaria Avenida - Controle de Pedidos</h1>
+  <main>
+    <div class="imagem">
+      <img src="img/processamento-dados.jpg" alt="processamento-dados">
+    </div>
+    <div class="formulario">
+      <form action="#">
+        <label for="rbPizza">Item do Pedido:</label>
+        <input type="radio" name="produto" id="rbPizza" checked autofocus>Pizza
+        <input type="radio" name="produto" id="rbBebida">Bebida
+        <br><br>
+        <label for="inPizza">Item:</label>
+        <select name="nPizza" id="inPizza">
+          <option value="media">Pizza Média</option>
+          <option value="grande">Pizza Grande</option>
+          <option value="familia">Pizza Família</option>
+        </select>
+        <select name="nBebida" id="inBebida" class="oculta">
+          <option value="refri">Refrigerante</option>
+          <option value="suco">Suco</option>
+          <option value="agua">Água</option>
+        </select>
+        <br><br>
+        <label for="inDetalhes">Detalhes do Item:</label>
+        <input type="text" name="nDetalhes" id="inDetalhes" class="detalhes">
+        <input type="submit" value="Adicionar">
+      </form>
+    </div>
+    <pre id="outResp"></pre>
+  </main>
+  <script src="js/ex8_4.js"></script>
+</body>
+</html>
