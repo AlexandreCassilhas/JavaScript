@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: antiquewhite;
+}
+main {
+  border: 2px solid lightslategray;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-flow: row wrap;
+}
+.imagem {
+  flex-basis: 320px;
+}
+img {
+  float: left;
+  height: 300px;
+  width: 300px;
+  border-radius: 20px;
+}
+.formulario {
+  width: 500px;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-top: 10px;
+  flex-grow: 0;
+
+}
+div.botoes{
+  text-align: center;
+}
+h1 {
+  border-bottom-style: inset;
+  border-color: black;
+}
+label {
+  font-weight: bold;
+}
+
+.jsEntrada {
+  width: 60px;
+}
+
+.entre-letras {
+  letter-spacing: 0.5em;
+}
+
+.alinha-direita {
+  text-align: right;
+}
+
+pre {
+  width: 500px;
+  height: 100px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:medium;
+  color: blue;
+}
+
+.cores-Brasil {
+  color: black;
+  background-color: red;
+}
+.cores-Pelotas {
+  color: blue;
+  background-color: yellow;
+}
+.cores-Farroupilha {
+  color: green;
+  background-color: white;
+}
+
+
+.oculta {
+  display: none;
+}
+
+.exibe {
+  display: inline;
+}
