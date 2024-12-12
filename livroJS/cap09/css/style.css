@@ -74,8 +74,10 @@ pre {
 .cores-Farroupilha {
   color: green;
   background-color: white;
+}.cores-Vasco {
+  color: white;
+  background-color: black;
 }
-
 
 .oculta {
   display: none;
