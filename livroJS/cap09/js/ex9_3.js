@@ -7,7 +7,7 @@ frm.addEventListener('submit', (e) =>{
   const pesoMelancia = Number(frm.inPeso.value)
 
   if(checarPeso(pesoMelancia)){
-    alert(`O peso de ${pesoMelancia} já foi escolhido. Escolha outro.`)
+    alert(`O peso de ${pesoMelancia} gr já foi escolhido. Escolha outro.`)
     frm.inPeso.focus()
     return
   }
@@ -43,7 +43,7 @@ const mostrarApostas = () => {
     outResp.innerText = ''
     return
   }
-
+  // Recupera os itens armazenados e transforma em arrays
   const nomes = localStorage.getItem('jogoMelanciaNome').split(';')
   const pesos = localStorage.getItem('jogoMelanciaPeso').split(';')
   let linhas = ''
