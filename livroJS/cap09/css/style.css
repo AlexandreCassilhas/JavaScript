@@ -21,14 +21,20 @@ img {
   border-radius: 20px;
 }
 .formulario {
-  width: 500px;
   padding: 5px;
   border: 2px solid black;
   border-radius: 5px;
   margin-top: 10px;
-  flex-grow: 0;
+  flex-shrink: 1;
+  flex-grow: 1;
 
 }
+
+.botoes{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 div.botoes{
   text-align: center;
 }

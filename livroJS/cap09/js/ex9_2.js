@@ -5,6 +5,8 @@ const trocarClube = () => {
   const clubes = ['Brasil', 'Pelotas', 'Farroupilha', 'Vasco']
   
   let selecao
+  let contador = 0
+  let qtdVisitas = 0
 
   // Percorre os inRadios para verificar qual está checked
   for(let i = 0; i < inRadios.length; i++){
@@ -37,6 +39,17 @@ for(const inRadio of inRadios){
 
 
 const verificarClube = () => {
+  // Checa se é a primeira visita ao site
+  if(!localStorage.getItem('contaVisitas')){
+    alert(`Muito Bem-Vindo! Esta é a sua primeira visita ao nosso site!`)
+    localStorage.setItem('contaVisitas', 1)
+  } else {
+    qtdVisitas = Number(localStorage.getItem('contaVisitas'))
+    contador = qtdVisitas + 1
+    localStorage.setItem('contaVisitas', contador)
+    alert(`Que bom que você voltou! Esta é a sua visita de número ${contador} ao nosso site.`)
+  }
+
   if(localStorage.getItem('clube')){
     const clube = localStorage.getItem('clube')
 
