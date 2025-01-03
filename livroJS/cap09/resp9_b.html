@@ -11,20 +11,24 @@
 </head>
 <body>
   <main class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Lista de Compras</h1>
+      </div>
+    </div>
     <div class="row" id="divTitulo">
-      <h1>Lista de Compras</h1>
-      <div class="col-sm-7">
+      <div class="col-sm-5">
         <img src="img/processamento-dados.jpg" alt="processamento-dados">
       </div>
-      <div class="col-sm-5">
+      <div class="col-sm-7">
         <form action="#">
           <label for="inProduto">Produto:</label>
           <input type="text" name="nProduto" id="inProduto" autofocus required class="form-control">
           <input type="submit" value="Adicionar" class="botoes btn btn-primary">
           <input type="button" value="Limpar Lista" class="botoes btn btn-warning" id="btnLimpaLista">
         </form>
-        <pre id="outResp"></pre>
-    </div>
+      </div>
+      <pre id="outResp" class="form-control"></pre>
   </div>
   </main>
   <script src="js/resp9_b.js"></script>
