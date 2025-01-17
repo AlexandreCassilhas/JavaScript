@@ -28,7 +28,9 @@ function armazenarProduto(produto) {
 function apresentarProduto() {
   let listaProdutos = ''
   const produtos = localStorage.getItem('storageProduto').split(';')
-  for(let produto of produtos){
+  // Ordenando considerando os caracteres locais (localeCompare)
+  const produtosOrdenados = produtos.sort((a, b) =>{return a.localeCompare(b)})
+  for(let produto of produtosOrdenados){
     listaProdutos += `${produto}\n`
   }
   outResp.innerText = listaProdutos

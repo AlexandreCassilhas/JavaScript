@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: antiquewhite;
+}
+
+#linha1 {
+  background-color: yellow;
+}
+
+#coluna1 {
+  background-color: green;
+}
+
+#coluna2 {
+  background-color: blue;
+}
+
+#coluna3 {
+  background-color: violet;
+}
