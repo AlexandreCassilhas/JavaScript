@@ -95,8 +95,6 @@ function mostrarListaServicoExecutado(servicoExecutado, veiculoExecutado){
   const titulo = `Serviços Executados:\n${'='.repeat(20)}\n`
   // Loop para recuperar os serviços executados, exceto o último, pois ainda está em execução (length - 1).
   for(let i = 0; i < servicoExecutado.length - 1; i++){
-    console.log(servicoExecutado.length)
-    console.log(servicoExecutado[i] + veiculoExecutado[i])
     listaServicosExecutados = listaServicosExecutados + `${servicoExecutado[i]} - ${veiculoExecutado[i]}\n`
   }
   outExecutados.innerText = titulo + listaServicosExecutados
