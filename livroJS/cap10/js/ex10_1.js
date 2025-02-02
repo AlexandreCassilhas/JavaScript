@@ -16,14 +16,15 @@ frm.addEventListener('submit', (e) =>{
 })
 
 frm.btnSelecionar.addEventListener('click', () => {
-  const tarefas = document.querySelectorAll('h5') // obtém todas as h5 da página
+  // obtém todas as h5 da página e cria o array 'tarefas'
+  const tarefas = document.querySelectorAll('h5')
 
   if(tarefas.length == 0) {
     alert('Não há tarefas para selecionar.')
     return
   }
 
-  let aux = -1 // variável para indicar linha selecionada
+  let aux = -1 // variável auxiliar para indicar linha selecionada
 
   // loop p/ checar qual tarefa está selecionada e mudar para normal
   for(let i = 0; i < tarefas.length; i++) {
@@ -38,5 +39,48 @@ frm.btnSelecionar.addEventListener('click', () => {
     aux = -1
   }
 
-  tarefas[aux + 1].className = 'tarefa-selecionada' // muda o estilo da próxima linha
+  // muda o estilo da próxima linha
+  tarefas[aux + 1].className = 'tarefa-selecionada' 
+})
+
+frm.btnRetirar.addEventListener('click', () =>{
+  const tarefas = document.querySelectorAll('h5')
+  let aux = -1
+
+  tarefas.forEach((tarefa, i) => {
+    if(tarefa.className == 'tarefa-selecionada'){
+      aux = i
+    }
+  })
+
+  if(aux == -1) { // se não selecionou nenhuma tarefa
+    alert('Selecione uma tarefa para removê-la.')
+    return
+  }
+  // Usa innerText pois o conteúdo do array é um elemento h5.
+  if(confirm(`Deseja realmente excluir a tarefa ${tarefas[aux].innerText}?`)) {
+    divQuadro.removeChild(tarefas[aux])
+  }
+})
+
+frm.btnGravar.addEventListener('click', () =>{
+  const tarefas = document.querySelectorAll('h5')
+
+  if(tarefas.length == 0) {
+    alert('Não há tarefas para serem salvas!')
+    return
+  }
+  // Varre o array de tarefas e acumula na variável dados
+  let dados = ''
+  tarefas.forEach((tarefa, i) => {
+    dados += tarefa.innerText + ',' 
+  })
+
+  // Grava na localStorage, excluindo a última ',' com slice
+  localStorage.setItem('tarefasDia', dados.slice(0, -1))
+
+  // Confere se a gravação foi bem sucedida
+  if(localStorage.getItem('tarefasDia')){
+    alert('Tarefas gravadas com sucesso!')
+  }
 })
