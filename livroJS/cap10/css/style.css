@@ -5,6 +5,7 @@ h1 {
 }
 
 .tarefa-selecionada {
+  background-color: lightblue;
   color: red;
   font-style: italic;
 }

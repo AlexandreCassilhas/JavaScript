@@ -84,3 +84,18 @@ frm.btnGravar.addEventListener('click', () =>{
     alert('Tarefas gravadas com sucesso!')
   }
 })
+
+// Checa se tem tarefas no localStorage e carrega na página
+window.addEventListener('load', () => {
+  if(localStorage.getItem('tarefasDia')){
+    // cria um array com os itens armazenados no localStorage
+    const dados = localStorage.getItem('tarefasDia').split(',')
+    // varre o array criando o elemento h5, o textNode e adicionando na div
+    dados.forEach((dado) =>{
+      const h5 = document.createElement('h5')
+      const texto = document.createTextNode(dado)
+      h5.appendChild(texto)
+      divQuadro.appendChild(h5)
+    })
+  }
+})
