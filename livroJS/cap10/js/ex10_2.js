@@ -1,5 +1,7 @@
 const frm = document.querySelector('form')
 const divMoedas = document.querySelector('#divMoedas')
+const inSoma = document.querySelector('#inSoma')
+const btnConfere = document.querySelector('#btnConfere')
 
 window.addEventListener('load', () => {
   // gera números aleatórios entre 1 e 5 para cada moeda
@@ -33,3 +35,43 @@ function criarMoedas(num, moeda, textoAlt, classe) {
   const br = document.createElement('br')
   divMoedas.appendChild(br)
 }
+
+frm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  const soma = Number(inSoma.value)
+  const moedas = divMoedas.querySelectorAll('img') // obtém todas as moedas
+  let totalMoedas = 0
+
+  for(const moeda of moedas) {
+    if(moeda.className == 'moeda1-00'){
+      totalMoedas += 1
+    } else if(moeda.className == 'moeda0-50'){
+      totalMoedas += 0.50
+    } else if(moeda.className == 'moeda0-25'){
+      totalMoedas += 0.25
+    } else if(moeda.className == 'moeda0-10'){
+      totalMoedas += 0.10
+    }
+  }
+  const div = document.createElement('div')
+  const h3 = document.createElement('h3')
+
+  let mensagem = ''
+  if(soma == totalMoedas.toFixed(2)){
+    div.className = 'alert alert-success'
+    mensagem = 'Parabéns!! Você acertou!!!'
+  } else {
+    div.className = 'alert alert-danger'
+    mensagem = `Ops. Você errou! A resposta correta é ${totalMoedas.toFixed(2)}`
+  }
+  const texto = document.createTextNode(mensagem)
+  h3.appendChild(texto)
+  div.appendChild(h3)
+  divMoedas.appendChild(div)
+
+  btnConfere.disabled = true // desabilita o botão 
+})
+
+frm.addEventListener('reset', ()=>{
+  window.location.reload() // recarrega a página
+})
