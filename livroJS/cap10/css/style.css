@@ -41,3 +41,8 @@ h1 {
 .alinha-direita {
   text-align: right;
 }
+
+.exclui:hover {
+  color: red;
+  cursor: pointer;
+}
