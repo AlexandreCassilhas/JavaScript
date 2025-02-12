@@ -1,5 +1,6 @@
 const frm = document.querySelector('form')
 const mainDiv = document.querySelector('#mainDiv')
+const btnExibir = document.querySelector('#btnExibir')
 const btnNovasVelas = document.querySelector('#btnNovasvelas')
 const inIdade = document.querySelector('#inIdade')
 
@@ -64,8 +65,13 @@ frm.addEventListener('submit', (e) =>{
     const img = document.createElement('img')
     img.src = 'img/numerais/' + nomeImagem
     img.alt = altImagem
-    img.width = 100
+    img.width = 150
+    img.className = 'animaNum'
     divIdade.appendChild(img)
+    btnExibir.disabled = true
   }
+})
 
+btnNovasVelas.addEventListener('click', () => {
+  window.location.reload()
 })
