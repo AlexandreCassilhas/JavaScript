@@ -27,7 +27,7 @@ function criarMoedas(num, moeda, textoAlt, classe) {
   for(let i = 0; i < num; i++){
     const novaMoeda = document.createElement('img')
     novaMoeda.src = 'img/' + moeda
-    novaMoeda.textoAlt = textoAlt
+    novaMoeda.alt = textoAlt
     novaMoeda.width = 100
     novaMoeda.className = classe
     divMoedas.appendChild(novaMoeda)

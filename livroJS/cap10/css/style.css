@@ -1,7 +1,17 @@
 @charset "UTF-8";
 
 h1 {
+  padding-top: 10px;
   border-bottom-style: inset;
+}
+
+img {
+  margin: 10px;
+  padding: 5px;
+  border-radius: 30px;
+  border-color: aqua;
+  border-style: groove;
+  border-width: 0.5em;
 }
 
 .tarefa-selecionada {
