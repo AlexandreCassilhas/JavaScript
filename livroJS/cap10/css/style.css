@@ -14,6 +14,10 @@ img {
   border-width: 0.5em;
 }
 
+#mainDiv {
+  padding-left: 50px;
+}
+
 .animaNum {
   padding: 0px;
   border-style: none;
