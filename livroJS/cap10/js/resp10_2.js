@@ -7,14 +7,29 @@ frm.addEventListener('submit', (e) => {
   e.preventDefault()
   const nome = inNome.value
   const partesNome = nome.split(' ')
+  checarElementos()
   criarDivResp()
   
+  // checa a existência da div 'resultado' e remove os h2 enquanto existirem
+  function checarElementos() {
+    let aux = 0
+    const divResultado = document.getElementsByClassName('resultado')
+    if(divResultado){
+      while(document.getElementById(`pedaco${aux}`)){
+        document.getElementById(`pedaco${aux}`).remove()
+        aux++
+      }
+    }
+  }
 
   function criarDivResp() {
     const divResp = document.createElement('div')
-    partesNome.forEach(nome => {
+    divResp.className = 'resultado'
+    partesNome.forEach((nome, i) => {
       const idCor = Math.ceil(Math.random() * 10)
       const h2Resp = document.createElement('h2')
+      const idString = 'pedaco' + i.toString()
+      h2Resp.id = idString
       
       definirCor(idCor) // executa função (10 cores)
 
