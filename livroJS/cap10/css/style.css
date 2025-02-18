@@ -19,6 +19,11 @@ img {
   padding-left: 50px;
 }
 
+#resultado {
+  margin-top: 20px;
+  color: blueviolet;
+}
+
 .animaNum {
   padding: 0px;
   border-style: none;
