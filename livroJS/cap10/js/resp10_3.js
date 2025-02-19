@@ -24,22 +24,21 @@ btnMostrarTabela.addEventListener('click', () => {
     inClube.focus()
     return
   } else {
-    let cont = 0
-    for(let i = 0; i < clubes.length; i++){
-      if (cont % 2 == 0){
-        const linha = tabela.insertRow(-1)
-        var col1 = linha.insertCell(0)
-        var col2 = linha.insertCell(1)
-        var col3 = linha.insertCell(2)
+      for(let i = 0; i < clubes.length; i++){
+        if (i % 2 == 0){
+          // cria a linha e as colunas na tabela
+          const linha = tabela.insertRow(-1)
+          var col1 = linha.insertCell(0)
+          var col2 = linha.insertCell(1)
+          var col3 = linha.insertCell(2)
+          // insere o clube na 1ª coluna e o 'x' na 2ª coluna da tabela
+          col1.innerText = clubes[i].innerText
+          col2.innerText = 'x'
+        } else {
+          // insere o clube na 3ª coluna da tabela
+          col3.innerText = clubes[i].innerText
+        }
       }
-      if(i % 2 == 0) {
-        col1.innerText = clubes[i].innerText
-        col2.innerText = 'x'
-      } else {
-        col3.innerText = clubes[i].innerText
-      }
-      cont++
-    }
   }
   btnAdicionar.disabled = true
   btnMostrarTabela.disabled = true
