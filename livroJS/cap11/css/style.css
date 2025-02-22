@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+h1 {
+  padding-top: 10px;
+  border-bottom-style: inset;
+}
+
+h5 {
+  font-style: italic;
+}
+
+h6 {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+pre {
+  font-style: italic;
+  font-size: 1.1em;
+}
+
+img {
+  width: 200px;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 30px;
+  border-color: aqua;
+  border-style: groove;
+  border-width: 0.3em;
+}
+
