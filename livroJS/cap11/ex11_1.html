@@ -17,33 +17,43 @@
       </div>
       <div class="col-sm-8">
         <h1>Jockey Club</h1>
-        <h6>Controle de Apostas</h6> 
+        <h6>Controle de Apostas</h6>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-8">
         <form action="#">
           <div class="row">
-              <div class="col-sm-6">
-                <label for="inCavalo">Nº Cavalo:</label>
-                <input type="number" name="nCavalo" id="inCavalo" min="1" class="form-control" required autofocus>
-              </div>
-              <div class="col-sm-6">
-                <h5 id="outCavalo" class="mt-4"></h5>
-              </div>
+            <div class="col-sm-8">
+              <label for="inCavalo">Nº Cavalo:</label>
+              <input type="number" name="nCavalo" id="inCavalo" min="1" step="1" class="form-control" required autofocus>
+            </div>
+            <div class="col-sm-4">
+              <h5 id="outCavalo" class="mt-4"></h5>
+            </div>
           </div>
           <div class="row">
             <div class="col-sm-6">
+              <p></p>
               <label for="inAposta">Aposta R$:</label>
               <input type="number" name="nAposta" id="inAposta" class="form-control" min="1" step="0.5" required>
-            </div>
-            <div class="col-sm-6">
+              <br>
               <input type="submit" value="Apostar" class="btn btn-primary" id="btnApostar">
               <input type="button" value="Resumo" class="btn btn-warning" id="btnResumo">
               <input type="button" value="Ganhador" class="btn btn-success" id="btnGanhador">
               <input type="button" value="Novo Páreo" class="btn btn-danger" id="btnNovo">
             </div>
           </div>
+          <div class="row">
+            <p></p>
+            <div class="col-sm-6" id="msgErro"></div>
+        </div>
         </form>
-        <pre class="mt-3" id="outLista"></pre>
       </div>
     </div>
+    <pre class="mt-3" id="outLista"></pre>
   </main>
   <script src="js/ex11_1.js"></script>
 </body>
