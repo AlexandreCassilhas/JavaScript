@@ -60,7 +60,7 @@ function emiteErro(mensagem){
   h5.appendChild(textErro)
   divErro.appendChild(h5)
   msgErro.appendChild(divErro)
-  setTimeout(limpaDiv, 2000, h5, divErro)
+  setTimeout(limpaDiv, 2000, h5, divErro) 
 }
 
 function limpaDiv(h5, divErro){
