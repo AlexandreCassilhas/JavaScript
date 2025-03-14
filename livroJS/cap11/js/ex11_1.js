@@ -42,15 +42,55 @@ frm.addEventListener('submit', (e) => {
 
 inCavalo.addEventListener('blur', () =>{
   const tam = CAVALOS.length
-  const idCavalo = Number(inCavalo.value)
-  if(idCavalo > tam){
+  if(inCavalo.value == ''){
+    outCavalo.innerText = ''
+    return
+  } else{
+    const idCavalo = Number(inCavalo.value)
+    if(idCavalo > tam){
       outCavalo.innerText = ''
-    const mensagem =  `Número inválido! Escolha um número entre 1 e ${tam}`
-    emiteErro(mensagem)
-  } else {
-      outCavalo.innerText = CAVALOS[idCavalo - 1]
+      const mensagem =  `Número inválido! Escolha um número entre 1 e ${tam}`
+      emiteErro(mensagem)
+    } else {
+      outCavalo.innerText = `${obterCavalo(idCavalo)} - Nº Apostas: ${contarApostas(idCavalo)} - Total: R$ ${totalizarApostas(idCavalo).toFixed(2)}`
+    }
   }
+ 
 })
+
+function obterCavalo(idCavalo){
+  const nomeCavalo = CAVALOS[idCavalo - 1]
+  return nomeCavalo
+}
+
+function contarApostas(idCavalo){
+  let contador = 0
+  if(localStorage.getItem('storageCavalo')){
+    const carregaCavalos = localStorage.getItem('storageCavalo').split(',')
+    carregaCavalos.forEach((numCavalo) => {
+      if(Number(numCavalo) == idCavalo){
+        contador++
+      }
+    })
+    return contador
+  }
+}
+
+function totalizarApostas(idCavalo){
+  let total = 0
+  if(localStorage.getItem('storageAposta')){
+    const carregaCavalos = localStorage.getItem('storageCavalo').split(',')
+    const carregaApostas = localStorage.getItem('storageAposta').split(',')
+    for(let i = 0; i < carregaCavalos.length; i++){
+      const numCavalo = carregaCavalos[i]
+      const totAposta = Number(carregaApostas[i])
+      if(Number(numCavalo) == idCavalo){
+        total += totAposta
+      }
+    }
+  }
+  return total
+}
 
 function emiteErro(mensagem){
   const divErro = document.createElement('div')
@@ -70,6 +110,11 @@ function limpaDiv(h5, divErro){
   inCavalo.focus()
 }
 
+inCavalo.addEventListener('focus', () =>{
+  inCavalo.value = ''
+  outCavalo.innerText = ''
+})
+
 window.addEventListener('load', () =>{
   carregaLista()
 })
@@ -83,10 +128,19 @@ function carregaLista(){
     for(let i = 0; i < tam; i++){
       const cavalo = carregaCavalos[i]
       const vlAposta = carregaApostas[i]
-      lista += `${CAVALOS[cavalo - 1]} - R$ ${Number(vlAposta).toFixed(2)}\n`
+      lista += `${obterCavalo(cavalo)} - R$ ${Number(vlAposta).toFixed(2)}\n`
     }
     outLista.innerText = lista
   } else {
       return
     }
 }
+
+btnResumo.addEventListener('click', () => {
+  const tam = CAVALOS.length
+  let resumo = `Resumo das Apostas Realizadas\n${'='.repeat(25)}\n`
+  for(let i = 1; i <= tam; i++){
+    resumo += `${obterCavalo(i)} ${'.'.repeat(5)} ${contarApostas(i)} apostas ${'.'.repeat(5)} Total Apostado: R$ ${totalizarApostas(i)}\n`
+  }
+  outLista.innerText = resumo
+})
