@@ -155,3 +155,11 @@ btnResumo.addEventListener('click', () => {
   }
   outLista.innerText = resumo
 })
+
+btnGanhador.addEventListener('click', () => {
+  const ganhador = Number(prompt('Digite o número do cavalo ganhador:'))
+  const tam = CAVALOS.length
+  if(validarCavalo(ganhador, tam)){
+    alert(`Cavalo inválido! Digite um número entre 1 e ${tam}.`)
+  }
+})
