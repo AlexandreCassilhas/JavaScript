@@ -101,6 +101,16 @@ function totalizarApostas(idCavalo){
   return total
 }
 
+function totalizarApostasGeral(){
+  let total = 0
+  const carregaApostas = localStorage.getItem('storageAposta').split(',')
+  const qtdeApostas = carregaApostas.length
+  carregaApostas.forEach((aposta) => {
+    total += Number(aposta)
+  })
+  return { total, qtdeApostas } // retornando 2 valores em uma função
+}
+
 function emiteErro(mensagem){
   const divErro = document.createElement('div')
   const h5 = document.createElement('h5')
@@ -159,7 +169,30 @@ btnResumo.addEventListener('click', () => {
 btnGanhador.addEventListener('click', () => {
   const ganhador = Number(prompt('Digite o número do cavalo ganhador:'))
   const tam = CAVALOS.length
-  if(validarCavalo(ganhador, tam)){
+  let resumo = `Resultado Final do Páreo\n${'='.repeat(30)}\n`
+  if(isNaN(ganhador) || validarCavalo(ganhador, tam)){
     alert(`Cavalo inválido! Digite um número entre 1 e ${tam}.`)
+    btnGanhador.focus()
+    return
   }
+  const { total, qtdeApostas } = totalizarApostasGeral()
+  resumo += `Valor total apostado: R$ ${total.toFixed(2)}\n`
+  resumo += `Quantidade total de apostas: ${qtdeApostas}\n`
+  resumo += `Quantidade total de cavalos no páreo: ${tam}\n`
+  resumo += `Cavalo Vencedor: ${ganhador} - ${obterCavalo(ganhador)}\n`
+  resumo += `Total de apostas no cavalo vencedor: ${contarApostas(ganhador)}\n`
+  resumo += `Total apostado no cavalo vencedor: R$ ${totalizarApostas(ganhador).toFixed(2)}\n`
+
+  outLista.innerText = resumo
+
+  frm.btnApostar.disabled = true
+  frm.btnGanhador.disabled = true
+  frm.btnResumo.disabled = true
+  btnNovo.focus()
+})
+
+btnNovo.addEventListener('click', () => {
+  localStorage.removeItem('storageCavalo')
+  localStorage.removeItem('storageAposta')
+  window.location.reload()
 })
