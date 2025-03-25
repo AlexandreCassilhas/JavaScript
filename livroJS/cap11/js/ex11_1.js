@@ -185,7 +185,7 @@ btnGanhador.addEventListener('click', () => {
 
   outLista.innerText = resumo
 
-  frm.btnApostar.disabled = true
+  frm.btnApostar.disabled = true // Para funcionar o disabled é necessário acrescentar o 'frm'. BUG JS
   frm.btnGanhador.disabled = true
   frm.btnResumo.disabled = true
   btnNovo.focus()
