@@ -18,4 +18,19 @@ pre {
   font-size: 1.1em;
 }
 
+figure {
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: 5px;
+}
+
+.poltrona {
+  width: 24;
+  height: 12px;
+}
+
+.entre-letras {
+  letter-spacing: 0.5em;
+} 
+
 
