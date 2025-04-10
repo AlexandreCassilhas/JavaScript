@@ -1,7 +1,7 @@
 const frm = document.querySelector('form')
 const divPalco = document.getElementById('divPalco')
 
-const POLTRONAS = 240 // const com o nº de poltronas do teatro
+const POLTRONAS = 324  // const com o nº de poltronas do teatro
 const {reservadas} = carregarReservadasOcupadas()
 const {ocupadas} = carregarReservadasOcupadas()
 
@@ -17,7 +17,7 @@ window.addEventListener('load', () =>{
       reservadas.includes(i.toString()) ? 'img/reservada.png'
       : 'img/disponivel.png'
 
-    imgStatus.className = 'poltrona' // classe com a dimensão da img
+    imgStatus.className = 'poltrona' // classe com a dimensão da img (não implementado)
     const figureCap = document.createElement('figcaption') // cria figcaption
 
     // quantidade de zeros antes do nº da poltrona
@@ -29,17 +29,15 @@ window.addEventListener('load', () =>{
     figure.appendChild(imgStatus)
     figure.appendChild(figureCap)
 
-    // se i % 24 == 12, é o corredor -> define margem direita 60px
-    if(i % 24 == 12){
-      figure.style.marginRight = '60px' // corredor
+    // se i % 12 == 0, é o corredor -> define quantas cadeiras para o corredor (50px)
+    if(i % 12 == 0){
+      figure.style.marginRight = '50px' // corredor (i % 24 == 12)
     }
 
     divPalco.appendChild(figure) // insere a figura na divPalco
 
-    // se i % 24 == 0 (usando o operador && para substituir o 'if')
-    //(i % 24 == 0) && divPalco.appendChild(document.createElement('br'))
-
-    if(i % 24 == 0) {
+    // se i % 36 == 0, termina a fileira (pula linha) -> define quantas cadeiras por fileira
+    if(i % 36 == 0) {
       divPalco.appendChild(document.createElement('br'))
     }
   }
@@ -108,14 +106,19 @@ frm.btnConfirmar.addEventListener('click', () =>{
   
   // recriando a localStorage 'Reservadas'
   localStorage.removeItem('storageReservadas')
+  
+  /*
   for(let i = 0; i < reservadas.length; i++){
     if(i < reservadas.length - 1){
       localStorage.setItem('storageReservadas', reservadas[i] + ',')
     } else {
       localStorage.setItem('storageReservadas', reservadas[i])
     }
-
   }
+  */
+
+  // Carregando uma localStorage a partir de um array utilizando join. Faz o mesmo que o código acima
+  localStorage.setItem('storageReservadas', reservadas.join(','))
   localStorage.setItem('storageOcupadas', ocupadas.join(','))
 })
 
