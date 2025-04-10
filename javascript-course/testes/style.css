@@ -90,6 +90,17 @@ header {
   margin-left: 200px;
 }
 
+input[type="text"] {
+  transition: transform 0.3s ease;
+}
+
+input[type="text"]:hover,
+input[type="text"]:focus {
+  transform: scale(1.05);
+  border-color: #FF5722;
+}
+
+
 footer {
   background-color: #2f0999;
   color: #fff;
