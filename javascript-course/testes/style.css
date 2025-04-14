@@ -11,6 +11,15 @@ body {
   background-color: #f9f9f9;
 }
 
+.conteudo-principal h1 {
+  color: whitesmoke;
+}
+
+.conteudo-principal h6 {
+  color: lightblue;
+  font-size: small;
+}
+
 header {
   background-color: #333;
   color: #fff;
@@ -32,7 +41,7 @@ header {
 }
 
 .navbar a {
-  color: blue;
+  color: lightcyan;
   text-decoration: none;
 }
 
@@ -47,7 +56,7 @@ header {
 }
 
 .menu-lateral {
-  background-color: #333;
+  background-color: rgb(14, 128, 128);
   color: #fff;
   padding: 1em;
   width: 160px;
@@ -58,8 +67,10 @@ header {
 }
 .menu-lateral ul {
   list-style: none;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .menu-lateral li {
@@ -67,12 +78,12 @@ header {
   text-align: center;
   padding: 10px;
   border-radius: 5px;
-  background-color: #2f0999;
+  background-color: grey;
   margin-bottom: 10px;
 }
 
 .menu-lateral li:hover {
-  background-color: blueviolet;
+  background-color: black;
 }
 
 .menu-lateral a {
@@ -85,9 +96,19 @@ header {
 }
 
 .conteudo-principal {
+  background-color: rgb(14, 128, 128);
+  vertical-align: middle;
+  border-radius: 10px;
   flex: 1;
   padding: 2em;
-  margin-left: 200px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 120px;
+}
+
+label {
+  color: whitesmoke;
 }
 
 input[type="text"] {
@@ -100,9 +121,18 @@ input[type="text"]:focus {
   border-color: #FF5722;
 }
 
+input[type="email"] {
+  transition: transform 0.3s ease;
+}
+
+input[type="email"]:hover,
+input[type="email"]:focus {
+  transform: scale(1.05);
+  border-color: #FF5722;
+}
 
 footer {
-  background-color: #2f0999;
+  background-color:#333;
   color: #fff;
   padding: 1em;
   text-align: center;
@@ -111,11 +141,19 @@ footer {
 
 @media (max-width: 768px) {
   .menu-lateral {
-    position: static;
+    position:static;
     width: 100%;
     height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
   }
-  
+
+  .navbar ul {
+    flex-wrap: wrap;
+    position: static;
+    margin-left: 0px;
+  }
+
   .conteudo-principal {
     margin-left: 0;
   }
