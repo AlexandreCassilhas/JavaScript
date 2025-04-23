@@ -23,15 +23,15 @@ img {
 
 .header {
   background-color: #1d1e20;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; /* configura o header flexivel */
+  flex-wrap: wrap; /* Permite a quebra */
+  justify-content: space-between; /* mantém o mesmo espaçamento entre os elementos do header */
+  align-items: center; /* Centraliza dos elementos do header */
   padding: 20px;
 }
 
 .menu {
-  display: flex;
+  display: flex; /* configura o menu flexível */
 }
 
 .menu li {
@@ -39,8 +39,8 @@ img {
 }
 
 .menu li a {
-  display: block;
-  padding: 10px;
+  display: block; /* configura os hiperlinks do menu travados */
+  padding: 10px; /* cria o padding de 10px em todos os lados no hiperlink */
 }
 
 /* CSS Flexbox */
@@ -48,29 +48,29 @@ img {
 .flex {
   display: flex;
   flex-wrap: wrap;
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 800px; /* configura o tamanho máximo do container em 800 px */
+  margin: 0 auto; /* Centraliza o conteúdo do container */
 }
 
 .flex > div {
-  flex: 1 1 200px;
+  flex: 1 1 200px; /* configura as divs de dentro do container em wrap e reduzível e tamanho máximo 200px */
   margin: 10px;
 }
 
 /* CSS Grid */
 .grid {
-  display: grid;
-  margin: 0 auto;
-  max-width: 780px;
-  grid-gap: 20px;
+  display: grid; /* configura o container em grid */
+  margin: 0 auto; /* centraliza o conteúdo do container*/
+  max-width: 780px; /* define o tamanho máximo do container em 780px */
+  grid-gap: 20px; /* configura o espaço entre os elementos (divs) do container */
    /* 
    grid-template-columns: 1fr 1fr 1fr; 
    (dividindo em 3 colunas)
    */
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* configura a qtd de colunas do grid */
 }
 
-.grid > div:nth-child(n+4) {
+.grid > div:nth-child(n+4) { /* configura a partir do 4º elemento (div) do grid */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
@@ -78,7 +78,7 @@ img {
 }
 
 .grid > div.anuncio {
-  grid-column: 1;
-  grid-row: 2 / 5;
-  display: block;
+  grid-column: 1; /* configura a posição do elemento na grid (posição 1) */
+  grid-row: 2 / 5; /* configura as linhas que o elemento vai ocupar (linhas de 2 a 5) */
+  display: block; /* trava o elemento */
 }
