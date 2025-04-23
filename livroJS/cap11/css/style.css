@@ -1,5 +1,35 @@
 @charset "UTF-8";
 
+header {
+  padding: 10px;
+  background-color: darkgreen;
+  color: white;
+}
+
+header > h1 {
+  text-align: center;
+}
+
+main {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.menu {
+  flex-wrap: wrap;
+  padding: 10px 0px;
+}
+
+.formulario {
+  flex-wrap: wrap;
+}
+
+label {
+  font-weight: bold;
+}
+
 h1 {
   padding-top: 10px;
   border-bottom-style: inset;
