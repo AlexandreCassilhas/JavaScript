@@ -60,6 +60,25 @@ img {
 /* CSS Grid */
 .grid {
   display: grid;
-   /* grid-template-columns: 1fr 1fr 1fr; */
+  margin: 0 auto;
+  max-width: 780px;
+  grid-gap: 20px;
+   /* 
+   grid-template-columns: 1fr 1fr 1fr; 
+   (dividindo em 3 colunas)
+   */
   grid-template-columns: repeat(3, 1fr);
+}
+
+.grid > div:nth-child(n+4) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  align-items: center;
+}
+
+.grid > div.anuncio {
+  grid-column: 1;
+  grid-row: 2 / 5;
+  display: block;
 }
