@@ -12,7 +12,7 @@ frm.addEventListener('submit', (e) =>{
   e.preventDefault()
   const palavra = inPalavra.value
   const dica = inDica.value
-  const palavraLimpa = retiraEspacos(palavra)
+  const palavraLimpa = retiraEspacos(palavra) 
   let erro = false
   // checando se existe espaços
   if(palavraLimpa.includes(' ')){

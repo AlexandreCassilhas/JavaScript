@@ -2,7 +2,7 @@
   Arquivo contendo as funções desenvolvidas por mim
   Data Início: 24/04/2025
 */
-
+// Retira os espaços de ambos os lados do texto e coloca tudo em maiúsculas
 export function retiraEspacos(texto) {
   const semEspacos = (texto.trim()).toUpperCase()
   return semEspacos
