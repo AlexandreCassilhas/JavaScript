@@ -7,7 +7,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/cap12', (req, res) => {
-  res.send('<h2>Capítulo 12: Introdução ao Express')
+  res.send('<h2>Capítulo 12: Introdução ao Express. Após a falha e clone do repositório. Sucesso!!!</h2>')
 })
 
 app.listen(port, () => {
