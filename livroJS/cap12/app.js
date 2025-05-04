@@ -17,7 +17,21 @@ app.post('/filmes', (req, res) => {
   const titulo = req.body.titulo
   const genero = req.body.genero
   // poderia ser const {titulo, genero} = req.body
-  res.send(`Filme; ${titulo} - Gênero: ${genero}, recebido...`)
+  res.send(`Filme: ${titulo} - Gênero: ${genero}, recebido...`)
+})
+
+// Exemplo de middleware que é executado sempre que uma determinada
+// rota for solicitada. Como exemplo, um log de transações bancárias
+function log(req, res, next) {
+  console.log(`.............. Acessado em ${new Date()}`)
+  next() // serve para acionar a rota que se pretende acessar
+}
+
+// Toda vez que a rota transfere for acionada, será disparada uma msg no prompt
+// "app.use(log)" -> desta forma, todas as rotas abaixo passariam pelo middleware
+// Não seria necessário colocá-lo na declaração de rota
+app.get('/transfere', log, (req, res) => {
+  res.send('Ok! Valor transferido com sucesso!')
 })
 
 app.listen(port, () => {
