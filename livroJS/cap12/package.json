@@ -2,11 +2,11 @@
   "name": "cap12",
   "version": "1.0.0",
   "description": "Express Learning",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Alexandre Cassilhas",
   "license": "ISC",
   "dependencies": {
     "express": "^5.1.0",
