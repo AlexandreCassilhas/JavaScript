@@ -10,19 +10,29 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       titulo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(80),
+        allowNull: false,
       },
       autor: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(60),
+        allowNull: false,
       },
       anoPublicacao: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+          min: 1500,
+          max: new Date().getFullYear(),
+        }
       },
       preco: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL,
+        allowNull: false,
+        defaultValue: 0.00,
       },
       foto: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(100),
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
