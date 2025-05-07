@@ -21,18 +21,18 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         validate: {
-          min: 1500,
-          max: new Date().getFullYear(),
+          min: 1900,
+          max: new Date().getFullYear()
         }
       },
       preco: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(9,2),
         allowNull: false,
         defaultValue: 0.00,
       },
       foto: {
         type: Sequelize.STRING(100),
-        allowNull: true,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
