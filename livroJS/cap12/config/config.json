@@ -1,8 +1,7 @@
 {
-  {
-    "development": {
+    "development": 
+    {
       "dialect": "sqlite",
       "storage": "../data/editora.db" 
     }
-  }
 }
