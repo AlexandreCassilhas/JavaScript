@@ -2,6 +2,6 @@
   "development": 
   {
     "dialect": "sqlite",
-    "storage": "./data/editora.db"  
+    "storage": "database.sqlite"  
   }
 }
