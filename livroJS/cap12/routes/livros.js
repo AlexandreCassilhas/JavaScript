@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Livros } = require('./models');
+const { Livros } = require('../models');
 
 const app = express();
 app.use(express.json());
@@ -16,20 +16,17 @@ router.get('/', async (req, res) => {
   }
 })
 
-module.exports = router
-/*
-// Criar um livro via API
-app.post('/livros', async (req, res) => {
+//Criar um livro via API
+router.post('/', async(req, res) => {
   try {
     const novoLivro = await Livros.create(req.body);
     res.status(201).json(novoLivro);
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
   }
 });
 
-app.listen(3000, () => {
-  console.log('Servidor rodando na porta 3000');
-});
+module.exports = router
 
-*/
+
+

@@ -4,11 +4,11 @@ async function criarLivro() {
   try {
     await sequelize.sync(); // Garante que o banco esteja sincronizado
     const novoLivro = await Livros.create({
-      titulo: 'Teste Livro',
-      autor: 'Autor Teste',
-      anoPublicacao: 2020,
-      preco: 19.99,
-      foto: 'teste.jpg'
+      titulo: 'Dom Quixote',
+      autor: 'Miguel de Cervantes',
+      anoPublicacao: 1605,
+      preco: 39.99,
+      foto: 'dom-quixote.jpg'
     });
 
     console.log('Livro criado:', novoLivro.toJSON());

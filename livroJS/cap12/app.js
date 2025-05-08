@@ -13,12 +13,9 @@ app.get('/cap12', (req, res) => {
 // middleware informando que será utilizado o formato JSON para troca de informações
 app.use(express.json())
 
-const livrosRouter = require('./livros')
+const livrosRouter = require('./routes/livros')
 
 app.use('/livros', livrosRouter)
-
-
-
 
 app.post('/filmes', (req, res) => {
   const titulo = req.body.titulo
