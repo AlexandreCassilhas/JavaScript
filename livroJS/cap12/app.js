@@ -2,10 +2,11 @@ const express = require('express')
 const app = express()
 const port = 3001
 
+// Exemplo de rota na raíz da aplicação. Poderia ser uma landing-page
 app.get('/', (req, res) => {
   res.send('Olá... Bem vindo!')
 })
-
+// Exemplo de uma rota estática da aplicação.
 app.get('/cap12', (req, res) => {
   res.send('<h2>Capítulo 12: Introdução ao Express. Após a falha e clone do repositório. Sucesso!!!</h2>')
 })
@@ -13,10 +14,15 @@ app.get('/cap12', (req, res) => {
 // middleware informando que será utilizado o formato JSON para troca de informações
 app.use(express.json())
 
+// aqui você declara os diversos arquivos de rotas de acordo com a app
 const livrosRouter = require('./routes/livros')
 
+// aqui você faz uso da rota da aplicação, associando ao arquivo de rotas
 app.use('/livros', livrosRouter)
 
+// aqui uma rota escrita diretamente no app.js, sem utilização de arquivos de rota
+// essa rota demonstra como recuperar as informações de um formulário (por ex) e usá-la,
+// nesse caso para renderizar uma frase com o filme o gênero.
 app.post('/filmes', (req, res) => {
   const titulo = req.body.titulo
   const genero = req.body.genero
@@ -37,7 +43,7 @@ function log(req, res, next) {
 app.get('/transfere', log, (req, res) => {
   res.send('Ok! Valor transferido com sucesso!')
 })
-
+// aqui é o escutador do app, com o endereço (url) + a porta que está rodando.
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`)
 })

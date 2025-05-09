@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { Livros } = require('../models');
+const { Livros } = require('../models')
+// const Livros = require('../models').Livros
 
 const app = express();
 app.use(express.json());

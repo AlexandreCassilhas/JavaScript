@@ -6,7 +6,7 @@ async function criarLivro() {
     const novoLivro = await Livros.create({
       titulo: 'Dom Quixote',
       autor: 'Miguel de Cervantes',
-      anoPublicacao: 1605,
+      anoPublicacao: 1650,
       preco: 39.99,
       foto: 'dom-quixote.jpg'
     });
