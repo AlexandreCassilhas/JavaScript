@@ -4,7 +4,7 @@ const router = express.Router()
 // Importanto o submódulo "Op" para uso nas clausulas Where.
 const { Op } = require('sequelize');
 // Importando o model "Livros" para o arquivo de rotas
-const { Livros } = require('../models')
+const { Livros, sequelize } = require('../models')
 // const Livros = require('../models').Livros
 
 // Informando que é uma app express 
@@ -109,6 +109,29 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+// Uso de outros métodos do Sequelize
+router.get('/resumo', async(req, res) => {
+  try {
+    if(await Livros.count() > 0){
+      // métodos Sequelize para contar, somar e extrair o maior e menor valor de um campo
+      const totalLivros = await Livros.count()
+      const somaPrecos = await Livros.sum('preco')
+      const maiorPreco = await Livros.max('preco')
+      const menorPreco = await Livros.min('preco')
+
+      // método Sequelize para funções Agregadas
+      const resultado = await Livros.findOne({attributes: [[sequelize.fn('AVG', sequelize.col('preco')), 'mediaPrecos']]})
+      const mediaPrecos = resultado.dataValues.mediaPrecos
+
+      res.status(200).json({totalLivros, somaPrecos, maiorPreco, menorPreco, mediaPrecos: mediaPrecos.toFixed(2)})
+    } else {
+      res.status(404).json({msg: 'Não há livros cadastrados!'})
+    }
+    
+  } catch(error) {
+      res.status(400).json({msg: error.message})
+  }
+})
 
 module.exports = router
 
