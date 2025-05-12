@@ -1,6 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
+// Liberação do "Access-Control-Allow-Origin Policy"
+// Políticas de Controle de Acesso (CORS)
+const cors = require('cors')
+router.use(cors())
+
 // Importanto o submódulo "Op" para uso nas clausulas Where.
 const { Op } = require('sequelize');
 // Importando o model "Livros" para o arquivo de rotas
@@ -119,7 +124,7 @@ router.get('/resumo', async(req, res) => {
       const maiorPreco = await Livros.max('preco')
       const menorPreco = await Livros.min('preco')
 
-      // método Sequelize para funções Agregadas
+      // método Sequelize para funções Agregadas (ex.: avg)
       const resultado = await Livros.findOne({attributes: [[sequelize.fn('AVG', sequelize.col('preco')), 'mediaPrecos']]})
       const mediaPrecos = resultado.dataValues.mediaPrecos
 
@@ -130,7 +135,33 @@ router.get('/resumo', async(req, res) => {
     
   } catch(error) {
       res.status(400).json({msg: error.message})
+      return
   }
+})
+
+router.get('/resumo/grafico', async (req, res) => {
+  try {
+    if(await Livros.count() > 0) {
+      const agrupadoAno = await Livros.findAll({attributes: [
+        'anoPublicacao',
+          [sequelize.fn('COUNT', sequelize.col('id')), 'totalLivros'],
+          [sequelize.fn('SUM', sequelize.col('preco')), 'somaPrecos'],
+          [sequelize.fn('MIN', sequelize.col('preco')), 'menorPreco'],
+          [sequelize.fn('MAX', sequelize.col('preco')), 'maiorPreco'],
+          [sequelize.fn('AVG', sequelize.col('preco')), 'mediaPrecos'],
+       ]
+        , group: ['anoPublicacao']
+        , order: [['anoPublicacao', 'ASC']]
+      })
+      res.status(200).json({agrupadoAno})
+    } else {
+      res.status(404).json({msg: 'Não há livros cadastrados!'})
+      return
+    } 
+    } catch (error) {
+      res.status(400).json({msg: error.message})
+      return
+   } 
 })
 
 module.exports = router
