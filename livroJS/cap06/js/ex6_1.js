@@ -61,6 +61,7 @@ frm.btnAtender.addEventListener('click', (atenderPaciente) => {
   } else {
     const pacienteAtendimento = pacientes.shift() // retira o 1º do array
     pacientesAtendidos.unshift(pacienteAtendimento) // insere na 1ª posição do array
+   
     atendimento.innerText = `Paciente em Atendimento: ${pacienteAtendimento}`
     listaPacientes = ''
     listaAtendidos = ''
