@@ -45,6 +45,7 @@ router.post('/', async(req, res) => {
     }
     const novoLivro = await Livros.create(req.body);
     res.status(201).json(novoLivro);
+    console.log(novoLivro)
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
