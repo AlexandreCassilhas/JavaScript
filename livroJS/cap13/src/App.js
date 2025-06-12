@@ -12,7 +12,7 @@ function App() {
        <MenuSuperior />
        <Routes>
         <Route path='/' element={<InclusaoLivros />} />
-        <Route path='manut' element={<ManutencaoLivros />} />
+        <Route path='manutencao' element={<ManutencaoLivros />} />
         <Route path='resumo' element={<RevisaoLivros />} />
        </Routes>
     </>
