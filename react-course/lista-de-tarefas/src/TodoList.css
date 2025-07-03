@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  outline: none;
+}
+
+body {
+  background-color: #222435;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-weight: 800;
+  color: #7d83b9;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  position: relative; /* será usado o position absolute para o botão */
+  width: 600px;
+  height: 60px;
+  margin: 30px auto;
+  margin-bottom: 60px;
+}
+
+input {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  background-color: #2d3046;
+  border: none;
+  padding-left: 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  color: white;
+}
+
+button.add {
+  position: absolute;
+  top: 0; /* colar em cima */
+  right: 0; /* colar a direita */
+  background-color: #363b65;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px 25px;
+  height: 62px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+button.add:hover {
+  background-color: #363f90;
+  color: white;
+}
+
+.listaTarefas {
+  display: flex; 
+  justify-content: center; /* Centraliza o conteúdo da div */
+  flex-flow: column wrap; /* coloca o conteúdo em colunas */
+  width: 600px;
+  margin: auto;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between; /* espaço uniforme entre os dois itens (tarefa e botão) */
+  border: 1px solid #363b65;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.item:hover {
+  background-color: #151627;
+}
+
+.item span {
+  text-align: start;
+  width: 100%;
+  color: white;
+  margin-right: 10px;
+  padding: 13px 15px;
+}
+
+.item.completo {
+  display: flex;
+  justify-content: space-between; /* espaço uniforme entre os dois itens (tarefa e botão) */
+  background-color: #1e1f2e;
+  border: none;
+  margin-bottom: 10px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.item.completo span {
+  text-align: start;
+  width: 100%;
+  color: #4d506e;
+  margin-right: 10px;
+  padding: 13px 15px;
+  text-decoration: line-through; /* faz o riscado das letras */
+}
+
+button.del {
+  background: none; /* retira o background do botão */
+  color: #4d506e;
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+}
+
+button.del:hover {
+  background-color: #ff004c; 
+  color: white;
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+}
+
+button.deleteAll {
+  border: 1px solid #ff004c;
+  background: none;
+  margin-top: 20px;
+  padding: 15px;
+  color: #ff004c;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.deleteAll:hover {
+  background-color: #ff004c;
+  color: white;
+}
+
+.icone-central {
+  max-width: 100%;
+}
+
+/* faz o tamanho do form e da listaTarefas ficar em 100% (600px) */
+@media screen and (max-width: 900px) {
+  form {
+    width: 100%;
+  }
+
+  .listaTarefas {
+    width: 100%;
+  }
+  
+}
