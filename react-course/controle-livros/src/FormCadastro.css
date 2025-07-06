@@ -1,0 +1,133 @@
+
+div.form-livro {
+  display: flex;
+  flex-flow: column wrap;
+  width: 600px;
+  margin: 50px auto;
+  border: 1px solid #223445;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+div.campo {
+  padding-bottom: 20px;
+}
+
+div.dois-campos {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+div.campo-um {
+  width: 200px;
+}
+
+div.campo-dois {
+  width: 100px;
+}
+
+input.class-ano {
+  width: 170px;
+  appearance: none;
+}
+
+input.class-preco {
+  width: 390px;
+}
+
+/* Retirando as setinha dos campos number */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+
+
+label {
+  font-size: smaller;
+  color: rgb(179, 150, 98);
+  padding-right: 10px;
+  padding-bottom: 5px;
+}
+
+input {
+  border: none;
+  width: 590px;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #3d3d5e;
+  color: white;
+}
+
+div.botoes {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+button.form-buttons {
+  margin-top: 30px;
+  border: 1px solid #223445;
+  color: white;
+  background: none;
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+}
+
+button.red-button:hover {
+  background-color: lightseagreen;
+  color: white;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #363f90;
+  color: white;
+  border-radius: 5px;
+}
+
+div.imagem {
+  text-align: center;
+}
+
+img.figura {
+  margin-top: 50px;
+  display: inline-block;
+  width: 300px;
+}
+
+@media screen and (max-width: 600px) {
+  div.form-livro {
+    display: flex;
+    flex-flow: column wrap;
+    width: 95%;
+  }
+
+  input {
+    width: 90%;
+  }
+
+  input.class-ano {
+    width: 80%;
+    appearance: none;
+  }
+
+  input.class-preco {
+    width: 105%;
+  }
+
+  div.botoes {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: start;
+  }
+
+  button.form-buttons {
+    margin-left: 15px;
+
+}
+
+img.figura {
+  width: 200px;
+}
