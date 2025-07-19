@@ -1,28 +1,54 @@
 import React, {useState, useEffect} from "react";
 import  {useForm} from "react-hook-form";
+import { inAxios } from "../config_axios";
 
 import iconLivros from "./assets/livros.webp"
 
 import './FormCadastro.css';
 
-const status = 'inserir';
+import './MenuSuperior.jsx';
 
-function FormCadastro() {
+function FormCadastro({clickInsert, clickLista}) {
 
-  const {register, handleSubmit} = useForm();
+  const {register, handleSubmit, reset} = useForm();
 
-  function salvar(dadosLivro){
-    alert(JSON.stringify(dadosLivro));
+  const [aviso, setAviso] = useState("");
+
+  async function salvar(dadosLivro) {
+    
+    try{
+      const response =  await inAxios.post('livros', dadosLivro);
+      setAviso(`Ok! Livro cadastrado com sucesso. Código: ${response.data.id}`)
+    } catch(error){
+      setAviso(`Erro...Não foi possível cadastrar o livro! Erro: ${error}`);
+    }
+
+    // setTimeout -> executa o comando após o tempo em milisegundos.
+    setTimeout(() => {
+      setAviso('');
+    }, 5000);
+
+    // Limpa os campos do formulário para a nova inclusão
+    reset({
+      titulo: '',
+      autor: '',
+      urlFoto: '',
+      anoPublicacao: '',
+      preco: ''
+    });
+    // seta focus no campo título
+    document.getElementById('titulo').focus();
+    
   }
 
-  if (status == 'inserir'){
+  if (clickInsert){
       return(
         <div>
           <form onSubmit={handleSubmit(salvar)}>
             <div className="form-livro">
               <div className="campo">
                 <label htmlFor="titulo">Título:</label>
-                <input type="text" name="nTitulo" id="titulo" required placeholder="digite o título do livro" {...register('titulo')} />
+                <input type="text" name="nTitulo" id="titulo" required autoFocus placeholder="digite o título do livro" {...register('titulo')} />
               </div>
               <div className="campo">
                 <label htmlFor="autor">
@@ -52,19 +78,25 @@ function FormCadastro() {
               </div>
             </div>
           </form>
+          <div className={aviso.startsWith('Ok')?  'msg-success': aviso.startsWith('Erro')? 'msg-error': ''}>{aviso}</div>
         </div>
       )
-  } else {
-    return(
-      <div className="imagem">
-       <img 
-        className="figura"
-        src={iconLivros}
-        alt="todo list img"
-      />
-      </div>
-    )
-  }
+  } else {if(clickLista) {
+            return (
+              <div>Lista de Livros</div>
+            )
+            } else {
+                return(
+                  <div className="imagem">
+                    <img 
+                      className="figura"
+                      src={iconLivros}
+                      alt="todo list img"
+                    />
+                  </div>
+                )
+            }
+          }
   
 }
 

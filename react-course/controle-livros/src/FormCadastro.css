@@ -3,7 +3,7 @@ div.form-livro {
   display: flex;
   flex-flow: column wrap;
   width: 600px;
-  margin: 50px auto;
+  margin: auto;
   border: 1px solid #223445;
   border-radius: 5px;
   padding: 15px;
@@ -95,6 +95,28 @@ img.figura {
   margin-top: 50px;
   display: inline-block;
   width: 300px;
+}
+
+div.msg-success {
+  width: 600px;
+  margin: auto;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: lightgreen;
+  color:#363f90;
+  border: 1px solid green;
+  border-radius: 5px;
+}
+
+div.msg-error {
+  width: 600px;
+  margin: auto;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: lightcoral;
+  color: #363f90;
+  border: 1px solid red;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 600px) {
