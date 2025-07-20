@@ -8,7 +8,7 @@ import './FormCadastro.css';
 
 import './MenuSuperior.jsx';
 
-function FormCadastro({clickInsert, clickLista}) {
+function FormCadastro({clickMenu}) {
 
   const {register, handleSubmit, reset} = useForm();
 
@@ -41,8 +41,10 @@ function FormCadastro({clickInsert, clickLista}) {
     
   }
 
-  if (clickInsert){
-      return(
+  switch(clickMenu) {
+    case 'insert':
+      {
+         return(
         <div>
           <form onSubmit={handleSubmit(salvar)}>
             <div className="form-livro">
@@ -73,31 +75,58 @@ function FormCadastro({clickInsert, clickLista}) {
                 </div>
               </div>
               <div className="botoes">
-                <button className="form-buttons" type="submit">Salvar</button>
+                <button className="form-buttons green-button" type="submit">Salvar</button>
                 <button className="form-buttons red-button">Limpar</button>
               </div>
             </div>
           </form>
           <div className={aviso.startsWith('Ok')?  'msg-success': aviso.startsWith('Erro')? 'msg-error': ''}>{aviso}</div>
         </div>
-      )
-  } else {if(clickLista) {
+      );
+      break;
+      }
+    case 'list':
+      {
+        return(
+          <div>Lista de Livros</div>
+        );
+        break;
+      }
+    case 'resumo':
+      {
+        return(
+          <div>Resumo dos Livros</div>
+        );
+        break;
+      }
+    default:
+      {
+        return(
+           <div className="imagem">
+              <img 
+                className="figura"
+                src={iconLivros}
+                alt="todo list img"
+              />
+            </div>
+        )
+      }
+  }
+  
+  /*
+  if (clickMenu == 'insert'){
+     
+  } else {if(clickMenu == 'list') {
             return (
-              <div>Lista de Livros</div>
+              
             )
             } else {
                 return(
-                  <div className="imagem">
-                    <img 
-                      className="figura"
-                      src={iconLivros}
-                      alt="todo list img"
-                    />
-                  </div>
+                 
                 )
             }
           }
-  
+  */
 }
 
 export default FormCadastro;

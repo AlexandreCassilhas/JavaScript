@@ -5,6 +5,7 @@ div.form-livro {
   width: 600px;
   margin: auto;
   border: 1px solid #223445;
+  background-color: #2d2b41;
   border-radius: 5px;
   padding: 15px;
 }
@@ -62,29 +63,32 @@ input {
 div.botoes {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content:center;
 }
 
 button.form-buttons {
   margin-top: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
   border: 1px solid #223445;
+  background-color: #007BFF;
+  border-radius: 10px;
   color: white;
-  background: none;
   cursor: pointer;
   width: 100px;
-  height: 40px;
+  height: 45px;
 }
 
 button.red-button:hover {
-  background-color: lightseagreen;
+  background-color: lightcoral;
   color: white;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
-button:hover {
-  background-color: #363f90;
+button.green-button:hover {
+  background-color: rgb(75, 155, 75);
   color: white;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 div.imagem {
@@ -142,7 +146,7 @@ div.msg-error {
   div.botoes {
     display: flex;
     flex-flow: row wrap;
-    justify-content: start;
+    justify-content: center;
   }
 
   button.form-buttons {

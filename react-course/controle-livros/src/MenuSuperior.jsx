@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import './MenuSuperior.css';
 
-function MenuSuperior({setClickInsert, setClickLista}) {
+function MenuSuperior({setClickMenu}) {
 
   
 
@@ -12,9 +12,9 @@ return(
         <h1>Controle Pessoal de Livros</h1>
       </div>
       <div className="navbar">
-        <button onClick={() => setClickInsert(true)}>Inclusão</button>
-        <button onClick={() => {setClickLista(true); setClickInsert(false);}}>Manutenção</button>
-        <button>Resumo</button>
+        <button onClick={() => setClickMenu('insert')}>Inclusão</button>
+        <button onClick={() => setClickMenu('list')}>Manutenção</button>
+        <button onClick={() => setClickMenu('resumo')}>Resumo</button>
       </div>
     </div>
   )

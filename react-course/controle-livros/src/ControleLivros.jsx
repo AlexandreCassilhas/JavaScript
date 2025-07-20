@@ -6,13 +6,12 @@ import FormCadastro from "./FormCadastro";
 
 function ControleLivros() {
 
-  const [clickInsert, setClickInsert] = useState(false);
-  const [clickLista, setClickLista] = useState(false);
+  const [clickMenu, setClickMenu] = useState('');
 
   return(
     <div>
-      <MenuSuperior setClickInsert={setClickInsert} setClickLista={setClickLista} />
-      <FormCadastro clickInsert={clickInsert} clickLista={clickLista} />
+      <MenuSuperior setClickMenu={setClickMenu} />
+      <FormCadastro clickMenu={clickMenu} />
     </div>
   )
 }
