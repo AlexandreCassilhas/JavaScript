@@ -1,4 +1,21 @@
 
+div.titulo-form {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 20px auto 0px;
+  width: 632px;
+  height: 40px;
+  background-color: #3a3f5f;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+div.titulo-form > h4 {
+  margin: auto;
+  font-size: large;
+  color: rgb(179, 150, 98);
+}
+
 div.form-livro {
   display: flex;
   flex-flow: column wrap;
@@ -6,7 +23,8 @@ div.form-livro {
   margin: auto;
   border: 1px solid #223445;
   background-color: #2d2b41;
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   padding: 15px;
 }
 
@@ -30,7 +48,6 @@ div.campo-dois {
 
 input.class-ano {
   width: 170px;
-  appearance: none;
 }
 
 input.class-preco {
@@ -124,10 +141,17 @@ div.msg-error {
 }
 
 @media screen and (max-width: 600px) {
+
+  div.titulo-form {
+    display: flex;
+    flex-flow: column wrap;
+    width: 92%;
+  }
+
   div.form-livro {
     display: flex;
     flex-flow: column wrap;
-    width: 95%;
+    width: 85%;
   }
 
   input {

@@ -6,7 +6,7 @@ import iconLivros from "./assets/livros.webp"
 
 import './FormCadastro.css';
 
-import './MenuSuperior.jsx';
+// import './MenuSuperior.jsx';
 
 function FormCadastro({clickMenu}) {
 
@@ -46,6 +46,9 @@ function FormCadastro({clickMenu}) {
       {
          return(
         <div>
+          <div className="titulo-form">
+            <h4>Módulo de Inclusão</h4>
+          </div>
           <form onSubmit={handleSubmit(salvar)}>
             <div className="form-livro">
               <div className="campo">
