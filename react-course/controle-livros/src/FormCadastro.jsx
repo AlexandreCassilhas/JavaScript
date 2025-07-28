@@ -32,7 +32,7 @@ function FormCadastro({clickMenu}) {
     reset({
       titulo: '',
       autor: '',
-      urlFoto: '',
+      foto: '',
       anoPublicacao: '',
       preco: ''
     });
@@ -61,9 +61,9 @@ function FormCadastro({clickMenu}) {
                 <input type="text" name="nAutor" id="autor" required placeholder="digite o autor do livro" {...register('autor')} />
               </div>
               <div className="campo">
-                <label htmlFor="urlFoto">
+                <label htmlFor="foto">
                   URL:</label>
-                <input type="text" name="nUrlFoto" id="urlFoto" placeholder="digite a URL da foto do livro" {...register('urlFoto')} />
+                <input type="text" name="nFoto" id="foto" placeholder="digite a URL da foto do livro" {...register('foto')} />
               </div>
               <div className="dois-campos">
                 <div className="campo-um">

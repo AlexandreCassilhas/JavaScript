@@ -145,7 +145,7 @@ div.msg-error {
   div.titulo-form {
     display: flex;
     flex-flow: column wrap;
-    width: 92%;
+    width: 94%;
   }
 
   div.form-livro {
@@ -158,13 +158,24 @@ div.msg-error {
     width: 90%;
   }
 
+  div.dois-campos {
+    display: flex;
+    flex-flow: row wrap;
+    width: 92%;
+    justify-content: space-between;
+  }
+
+
+  div.campo-dois {
+    width: 80px;
+  }
+
   input.class-ano {
-    width: 80%;
-    appearance: none;
+    width: 70%;
   }
 
   input.class-preco {
-    width: 105%;
+    width: 90%;
   }
 
   div.botoes {
@@ -176,6 +187,14 @@ div.msg-error {
   button.form-buttons {
     margin-left: 15px;
 
+}
+
+div.msg-success {
+  width: 90%;
+}
+
+div.msg-error {
+  width: 90%;
 }
 
 img.figura {
