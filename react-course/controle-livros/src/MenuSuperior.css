@@ -25,12 +25,13 @@ div.titulo {
 div.navbar {
   position: absolute;
   display: flex;
+  flex-flow: row wrap;
   top: 0;
   right: 0;
   padding: 0px 0px;
 }
 
-button {
+li {
   border: none;
   color: white;
   background: none;
@@ -39,7 +40,7 @@ button {
   height: 84px;
 }
 
-button:hover {
+li:hover {
   background-color: #363f90;
   color: white;
   border-radius: 10px;
