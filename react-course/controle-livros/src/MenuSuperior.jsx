@@ -10,7 +10,7 @@ return(
 
     <div className="principal">
       <div className="titulo">
-        <h1>Controle Pessoal de Livros</h1>
+        <h1><a href="/">Controle Pessoal de Livros</a></h1>
       </div>
       <div className="navbar">
         <ul>

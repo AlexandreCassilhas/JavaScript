@@ -151,7 +151,7 @@ div.msg-error {
   div.form-livro {
     display: flex;
     flex-flow: column wrap;
-    width: 85%;
+    width: 87%;
   }
 
   input {
