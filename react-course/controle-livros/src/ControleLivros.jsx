@@ -6,6 +6,7 @@ import MenuSuperior from "./MenuSuperior";
 import FormCadastro from "./FormCadastro";
 import ManutencaoLivros from "./ManutencaoLivros";
 import ResumoLivros from "./ResumoLivros";
+import PaginaInicial from "./PaginaInicial";
 
 
 function ControleLivros() {
@@ -16,7 +17,7 @@ function ControleLivros() {
     <div>
       <MenuSuperior />
       <Routes>
-        <Route path="/" element={<FormCadastro />} />
+        <Route path="/" element={<PaginaInicial />} />
         <Route path="inclusao" element={<FormCadastro />} />
         <Route path="lista" element={<ManutencaoLivros />} />
         <Route path="controle" element={<ResumoLivros />} />
