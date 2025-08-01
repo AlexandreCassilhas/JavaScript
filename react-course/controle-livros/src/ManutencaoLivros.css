@@ -1,0 +1,49 @@
+
+
+.campo-pesquisa {
+  width: 350px;
+  margin-right: 10px;
+}
+
+button {
+  margin-top: 30px;
+  margin-right: 10px;
+  border: 1px solid #223445;
+  background-color: #007BFF;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+}
+
+button:hover {
+  background-color: rgb(75, 155, 75);
+  color: white;
+  border-radius: 12px;
+}
+
+div.tabela-itens {
+  margin-top: 10px;
+}
+
+table {
+  text-align: center;
+  color: rgb(179, 150, 98);
+
+}
+
+th {
+  background-color: #007BFF;
+  color: antiquewhite;
+  font-size:medium;
+  font-weight: lighter;
+}
+
+table tr:nth-child(even) {
+  background-color: #223445;
+}
+
+table tr:nth-child(odd) {
+  background-color: #3a3f5f;
+}

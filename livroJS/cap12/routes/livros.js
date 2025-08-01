@@ -23,11 +23,11 @@ router.get('/', async (req, res) => {
     // retornado os registros em ordem crescente por titulo
     // com mais de uma clausula "where"
     const livros = await Livros.findAll({
-      where: {
+     /* where: {
          autor: { [Op.like]: '%M%'},
          anoPublicacao: {[Op.eq]: 2017}
-        }
-     , order:[['titulo', 'ASC']]})
+        } 
+     , */ order:[['titulo', 'ASC']]})
     res.status(200).json(livros)
     console.log(livros)
   } catch(error) {

@@ -2,14 +2,15 @@ import React, {useState, useEffect} from "react";
 import './MenuSuperior.css';
 import { Link } from "react-router-dom";
 
-function MenuSuperior() {
+import logo from './assets/logo.png'
 
-  
+function MenuSuperior() {
 
 return(
 
     <div className="principal">
       <div className="titulo">
+      <div className="logo"><img src={logo} width={100} alt="logo" /></div>
         <h1><a href="/">Controle Pessoal de Livros</a></h1>
       </div>
       <div className="navbar">
