@@ -7,7 +7,7 @@ const ItemLista = (props) => {
       <td>{props.id}</td>
       <td>{props.titulo}</td>
       <td>{props.autor}</td>
-      <td>{props.ano}</td>
+      <td>{props.anoPublicacao}</td>
       <td>{Number(props.preco).toLocaleString("pt-br", {maximumFractionDigits: 2})}</td>
       <td><img src={props.foto} alt= "Capa do Livro" width="75" /></td>
       <td>

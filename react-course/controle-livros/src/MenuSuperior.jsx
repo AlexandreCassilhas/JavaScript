@@ -9,8 +9,8 @@ function MenuSuperior() {
 return(
 
     <div className="principal">
-      <div className="titulo">
       <div className="logo"><img src={logo} width={100} alt="logo" /></div>
+      <div className="titulo">
         <h1><a href="/">Controle Pessoal de Livros</a></h1>
       </div>
       <div className="navbar">
@@ -23,12 +23,5 @@ return(
     </div>
   )
 }
-
-/* 
-        <button onClick={() => setClickMenu('insert')}>Inclusão</button>
-        <button onClick={() => setClickMenu('list')}>Manutenção</button>
-        <button onClick={() => setClickMenu('resumo')}>Resumo</button>
-*/
-
 
 export default MenuSuperior;
