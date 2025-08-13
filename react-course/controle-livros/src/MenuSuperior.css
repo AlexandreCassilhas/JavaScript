@@ -96,7 +96,7 @@ div.logo {
 @media screen and (max-width: 740px) {
 
   h1 {
-    margin: 10px 0px;
+    margin: 10px 10px;
     padding: 0px 0px;
     font-size: 15px;
   }
