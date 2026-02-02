@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polifonia - PDV</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo-circle">
+                <span class="dot"></span>
+                <span class="brand-name">polifonia</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="form-group">
+                <label for="buyerName">Nome do Comprador</label>
+                <input type="text" id="buyerName" value="Comprador">
+            </div>
+
+            <hr>
+
+            <div class="form-group">
+                <label for="product">Produto</label>
+                <select id="product" onchange="updatePrice()">
+                    <option value="0" data-name="">Selecione um item...</option>
+                    <option value="89.90" data-name="T-Shirt Basic">T-Shirt Basic - R$ 89,90</option>
+                    <option value="159.00" data-name="Calça Jeans Slim">Calça Jeans Slim - R$ 159,00</option>
+                    <option value="299.00" data-name="Casaco Polifonia">Casaco Polifonia - R$ 299,00</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="quantity">Qtd</label>
+                    <input type="number" id="quantity" value="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="price">Preço Unit. (R$)</label>
+                    <input type="number" id="price" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="discount">Desc. (R$)</label>
+                    <input type="number" id="discount" value="0" step="0.01">
+                </div>
+            </div>
+
+            <button class="btn-secondary" onclick="addToCart()">Adicionar ao Carrinho</button>
+
+            <section class="cart-section">
+                <h3>Carrinho</h3>
+                <div id="cart-container">
+                    <table id="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Qtd</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-body">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="form-group">
+                <label>Forma de Pagamento</label>
+                <div class="payment-methods">
+                    <label class="radio-btn"><input type="radio" name="payment" value="crédito"> Crédito</label>
+                    <label class="radio-btn"><input type="radio" name="payment" value="débito"> Débito</label>
+                    <label class="radio-btn"><input type="radio" name="payment" value="pix"> PIX</label>
+                    <label class="radio-btn"><input type="radio" name="payment" value="dinheiro"> Dinheiro</label>
+                </div>
+            </div>
+
+            <div class="discount-global-section">
+                <label for="globalDiscount">Desconto Global no Total (R$)</label>
+                <input type="number" id="globalDiscount" value="0" step="0.01" oninput="renderCart()">
+            </div>
+
+            <div class="total-section">
+                <span>Total Geral: R$ <span id="grand-total">0,00</span></span>
+            </div>
+
+            <button class="btn-finish" onclick="finishSale()">Concluir Venda</button>
+
+            <hr>
+
+            <section class="history-section">
+              <div class="history-header">
+                  <h3>Histórico de Vendas</h3>
+                  <button class="btn-clear" onclick="clearHistory()">Limpar Tudo</button>
+              </div>
+
+              <div class="filter-controls">
+                  <input type="text" id="filterName" placeholder="Filtrar por cliente..." oninput="renderHistory()">
+                  <input type="date" id="filterDate" onchange="renderHistory()">
+                  <button class="btn-reset-filters" onclick="resetFilters()">Limpar Filtros</button>
+              </div>
+
+              <div id="sales-history-list">
+              </div>
+            </section>
+            
+        </main>
+    </div>
+
+    <div id="receipt-modal" class="modal">
+    <div class="modal-content">
+        <div class="receipt-header">
+            <span class="dot"></span>
+            <strong>POLIFONIA</strong>
+        </div>
+        <div id="receipt-details">
+            </div>
+        <div class="modal-actions">
+            <button class="btn-whatsapp" onclick="sendWhatsApp()">Enviar WhatsApp</button>
+            <button class="btn-print" onclick="window.print()">Imprimir</button>
+            <button class="btn-close" onclick="closeModal()">Novo Pedido</button>
+        </div>
+    </div>
+</div>
+
+    <script src="js/script-venda.js"></script>
+</body>
+</html>
