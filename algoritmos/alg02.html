@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Lançamentos Diários</title>
+</head>
+<body>
+  <h1>Livro Caixa</h1>
+  <h3>Lançamentos Diários</h3>
+  <h4 id="dtHora">Data: </h4>
+  <form action="#">
+    <div>
+      <label for="inItem">Item: </label>
+      <input type="text" name="item" id="inItem" required max="30">
+    </div>
+    <div>
+      <label for="inQtd">Quantidade: </label>
+      <input type="number" name="quantidade" id="inQuantidade" step="1" max="10" required>
+    </div>
+    <div>
+      <label for="inPreco">Preço: </label>
+      <input type="number" name="preco" id="inpreco" min="5" max="1000" step=".50" required>
+    </div>
+    <div>
+      <input type="submit" value="Salvar">
+    </div>
+  </form>
+  
+</body>
+</html>

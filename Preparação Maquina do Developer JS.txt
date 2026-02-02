@@ -1,0 +1,17 @@
+PREPARAÇÃO DA MÁQUINA PARA O DEVELOPER
+======================================
+
+1) Instalar do engine NODE-JS;
+
+2) Instalar do Editor de Códigos MS VS-CODE;
+
+3) Instalar do GIT:
+	- Não esquecer de selecionar o editor VSCode;
+
+4) Instalar o GITHUB DESKTOP;
+
+5) Instalar o SQLite Studio;
+
+
+
+	

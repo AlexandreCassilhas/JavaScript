@@ -1,14 +1,21 @@
 
 h1 {
-  font-weight: 800;
+  font-weight: 600;
+  font-size: 25px;
   color: #9494a1;
   text-align: start;
   margin-left: 25px;
+  margin-top: 25px;
+}
+
+h1 > a {
+   color:rgb(224, 90, 36);
+   text-decoration: none;
 }
 
 div.principal {
   background-color: #2d3046;
-  display:block;
+  display:inline-block;
   position: relative;
   flex-flow: row wrap;
   width: 100%;
@@ -20,56 +27,114 @@ div.principal {
 
 div.titulo {
   display: flex;
+  position: absolute;
+  flex-flow: row wrap;
+  top: 0;
+  left: 0;
 }
 
 div.navbar {
   position: absolute;
   display: flex;
+  flex-flow: row wrap;
   top: 0;
   right: 0;
   padding: 0px 0px;
 }
 
-button {
-  border: none;
-  color: white;
-  background: none;
+ul {
+  display: flex;
+  list-style: none; /* remove os marcadores padrão */
+  margin: 0px;
+  padding: 0px 0px;
+}
+li {
+  padding: 0px 0px;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  color:antiquewhite;
   cursor: pointer;
   width: 100px;
   height: 84px;
+
 }
 
-button:hover {
+li > a {
+  display: block; /* Faz o link ocupar toda a área */
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 84px; /* Centraliza verticalmente o texto */
+  font-size: small;
+  text-decoration: none;
+  color: #9494a1;
+}
+
+li:hover {
   background-color: #363f90;
+  border-radius: 5px;
+  border-color:black;
+}
+
+li > a:hover {
   color: white;
-  border-radius: 10px;
+}
+
+div.logo {
+  display: flex;
+  margin: 5px;
+}
+
+.logo > img {
+  justify-content: center;
+  margin: auto;
+  width: 100px;
+  border-radius: 20px;
 }
 
 @media screen and (max-width: 740px) {
 
   h1 {
-    margin: 10px 0px;
+    margin: 10px 10px;
     padding: 0px 0px;
-    text-align: center;
-    font-size: larger;
+    font-size: 15px;
   }
+
+  h1 > a {
+   font-size:larger;
+   text-decoration: none;
+}
   
  div.principal {
-  width: 100%;
+  width: 95%;
+  display: flex;
   flex-flow: row wrap;
   }
 
   div.titulo {
   display: flex;
-  flex-flow: column wrap;
+  position: absolute;
+  flex-flow: row wrap;
 }
 
   div.navbar {
   position: relative;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   justify-content: center;
+  margin-top: 45px;
   padding: 0px 0px;
+  }
+
+  li {
+    margin-top: 5px;
+    height: 30px;
+  }
+
+  li > a {
+    font-size: small;
+    line-height: 32px; 
   }
 
   button {
@@ -80,5 +145,17 @@ button:hover {
   button:hover {
     border-radius: 3px;
   }
+
+  div.logo {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .logo > img {
+  justify-content: right;
+  width: 100px;
+  border-radius: 10px;
+}
 
 }

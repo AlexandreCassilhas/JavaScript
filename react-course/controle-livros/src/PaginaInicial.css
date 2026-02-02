@@ -1,0 +1,14 @@
+h3 {
+  color: aliceblue;
+  font-weight: lighter;
+  font-size: medium;
+  background-color: rgb(32, 28, 37);
+}
+
+div.imagem-inicial {
+  text-align: center;
+}
+
+img.imagem {
+  width: 200px;
+}
