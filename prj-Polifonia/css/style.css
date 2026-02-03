@@ -394,3 +394,26 @@ td {
 .btn-export:hover {
     background-color: #388bfd;
 }
+
+/* ... (Manter estilos anteriores) ... */
+
+.sale-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-edit {
+    background: none;
+    border: 1px solid #1f6feb;
+    color: #1f6feb;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.btn-edit:hover {
+    background-color: rgba(31, 111, 235, 0.1);
+}

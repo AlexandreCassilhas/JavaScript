@@ -195,14 +195,12 @@ function closeModal() {
     resetFields();
 }
 
-// ... (Manter variáveis e funções anteriores) ...
 
+// 1. Atualizar a função renderHistory para incluir o botão de Editar
 function renderHistory() {
     const historyList = document.getElementById('sales-history-list');
     const filterName = document.getElementById('filterName').value.toLowerCase();
     const filterDate = document.getElementById('filterDate').value;
-    
-    // Elementos do resumo
     const summaryCount = document.getElementById('summary-count');
     const summaryTotal = document.getElementById('summary-total');
 
@@ -214,10 +212,8 @@ function renderHistory() {
         return matchesName && matchesDate;
     });
 
-    // Cálculos do Resumo
     let totalAcumulado = 0;
     filteredSales.forEach(sale => {
-        // Remove "R$" e converte para número para somar
         const valorNumerico = parseFloat(sale.total.replace(',', '.'));
         totalAcumulado += valorNumerico;
     });
@@ -226,7 +222,7 @@ function renderHistory() {
     summaryTotal.innerText = `R$ ${totalAcumulado.toFixed(2).replace('.', ',')}`;
 
     if (filteredSales.length === 0) {
-        historyList.innerHTML = "<p style='color:#8b949e; font-size:0.8rem; text-align:center;'>Nenhum registo encontrado.</p>";
+        historyList.innerHTML = "<p style='color:#8b949e; text-align:center;'>Nenhum registo.</p>";
         return;
     }
 
@@ -237,9 +233,60 @@ function renderHistory() {
                 <p><strong>Cliente:</strong> ${sale.buyer}</p>
                 <p><strong>Itens:</strong> ${sale.items.map(i => i.name).join(', ')}</p>
                 <p class="sale-total">Total: R$ ${sale.total} (${sale.payment})</p>
+                <div class="sale-actions">
+                    <button class="btn-edit" onclick="openEditModal(${sale.id})">✎ Editar</button>
+                    <button class="btn-remove" onclick="removeSale(${sale.id})">✕ Remover</button>
+                </div>
             </div>
         `;
     });
+}
+
+// 2. Função para abrir o modal de edição carregando os dados
+function openEditModal(id) {
+    const sale = salesHistory.find(s => s.id === id);
+    if (!sale) return;
+
+    document.getElementById('edit-sale-id').value = id;
+    document.getElementById('edit-buyer-name').value = sale.buyer;
+    document.getElementById('edit-total-value').value = sale.total.replace(',', '.');
+
+    document.getElementById('edit-modal').style.display = 'flex';
+}
+
+// 3. Função para salvar as alterações
+function saveEdit() {
+    const id = parseInt(document.getElementById('edit-sale-id').value);
+    const newName = document.getElementById('edit-buyer-name').value;
+    const newTotal = parseFloat(document.getElementById('edit-total-value').value);
+
+    if (!newName || isNaN(newTotal)) {
+        alert("Preencha os campos corretamente!");
+        return;
+    }
+
+    // Localizar a venda no array original e atualizar
+    const index = salesHistory.findIndex(s => s.id === id);
+    if (index !== -1) {
+        salesHistory[index].buyer = newName;
+        salesHistory[index].total = newTotal.toFixed(2).replace('.', ',');
+        
+        localStorage.setItem('polifonia_sales', JSON.stringify(salesHistory));
+        closeEditModal();
+        renderHistory();
+    }
+}
+
+function closeEditModal() {
+    document.getElementById('edit-modal').style.display = 'none';
+}
+
+function removeSale(id) {
+    if (confirm("Tem certeza que deseja apagar esta venda permanentemente?")) {
+        salesHistory = salesHistory.filter(s => s.id !== id);
+        localStorage.setItem('polifonia_sales', JSON.stringify(salesHistory));
+        renderHistory();
+    }
 }
 
 function exportToCSV() {
