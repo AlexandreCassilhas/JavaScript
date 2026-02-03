@@ -194,3 +194,75 @@ function closeModal() {
     renderCart();
     resetFields();
 }
+
+// ... (Manter variáveis e funções anteriores) ...
+
+function renderHistory() {
+    const historyList = document.getElementById('sales-history-list');
+    const filterName = document.getElementById('filterName').value.toLowerCase();
+    const filterDate = document.getElementById('filterDate').value;
+    
+    // Elementos do resumo
+    const summaryCount = document.getElementById('summary-count');
+    const summaryTotal = document.getElementById('summary-total');
+
+    historyList.innerHTML = "";
+
+    const filteredSales = salesHistory.filter(sale => {
+        const matchesName = sale.buyer.toLowerCase().includes(filterName);
+        const matchesDate = filterDate === "" || sale.simpleDate === filterDate;
+        return matchesName && matchesDate;
+    });
+
+    // Cálculos do Resumo
+    let totalAcumulado = 0;
+    filteredSales.forEach(sale => {
+        // Remove "R$" e converte para número para somar
+        const valorNumerico = parseFloat(sale.total.replace(',', '.'));
+        totalAcumulado += valorNumerico;
+    });
+
+    summaryCount.innerText = filteredSales.length;
+    summaryTotal.innerText = `R$ ${totalAcumulado.toFixed(2).replace('.', ',')}`;
+
+    if (filteredSales.length === 0) {
+        historyList.innerHTML = "<p style='color:#8b949e; font-size:0.8rem; text-align:center;'>Nenhum registo encontrado.</p>";
+        return;
+    }
+
+    filteredSales.slice().reverse().forEach(sale => {
+        historyList.innerHTML += `
+            <div class="sale-card">
+                <p><small>${sale.fullDate}</small></p>
+                <p><strong>Cliente:</strong> ${sale.buyer}</p>
+                <p><strong>Itens:</strong> ${sale.items.map(i => i.name).join(', ')}</p>
+                <p class="sale-total">Total: R$ ${sale.total} (${sale.payment})</p>
+            </div>
+        `;
+    });
+}
+
+function exportToCSV() {
+    if (salesHistory.length === 0) return alert("Não há dados para exportar.");
+
+    // Cabeçalho do arquivo
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Data;Cliente;Itens;Pagamento;Total\n";
+
+    // Linhas de dados
+    salesHistory.forEach(sale => {
+        const itensString = sale.items.map(i => `${i.qty}x ${i.name}`).join(" | ");
+        const row = `${sale.fullDate};${sale.buyer};${itensString};${sale.payment};${sale.total}`;
+        csvContent += row + "\n";
+    });
+
+    // Criar link invisível para download
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `Relatorio_Vendas_Polifonia_${new Date().toLocaleDateString()}.csv`);
+    document.body.appendChild(link);
+
+    link.click(); // Dispara o download
+    document.body.removeChild(link);
+}

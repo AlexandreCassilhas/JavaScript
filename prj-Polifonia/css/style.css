@@ -342,3 +342,55 @@ td {
         flex-direction: column;
     }
 }
+
+/* ... (Estilos anteriores) ... */
+
+.summary-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.summary-card {
+    background-color: #1c2128;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #30363d;
+}
+
+.summary-card.highlight {
+    border-color: #8b1a1a;
+}
+
+.summary-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #8b949e;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.summary-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-export {
+    width: 100%;
+    background-color: #1f6feb; /* Azul corporativo para exportação */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.btn-export:hover {
+    background-color: #388bfd;
+}
