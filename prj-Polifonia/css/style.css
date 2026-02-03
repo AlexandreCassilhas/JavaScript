@@ -417,3 +417,31 @@ td {
 .btn-edit:hover {
     background-color: rgba(31, 111, 235, 0.1);
 }
+
+/* ... (Estilos anteriores) ... */
+
+.analytics-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #30363d;
+}
+
+.chart-box {
+    background-color: #161b22;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #30363d;
+}
+
+.chart-box h4 {
+    color: #8b949e;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto !important;
+}

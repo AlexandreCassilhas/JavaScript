@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polifonia - PDV</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -124,6 +125,26 @@
 
             <div id="sales-history-list">
             </div>
+
+            <section class="analytics-section">
+                <h3>Análise de Desempenho</h3>
+                
+                <div class="chart-box">
+                    <h4>Vendas por Hora (Hoje)</h4>
+                    <canvas id="todayChart"></canvas>
+                </div>
+
+                <div class="chart-box">
+                    <h4>Evolução Diária</h4>
+                    <div class="filter-controls">
+                        <input type="date" id="chartStart">
+                        <input type="date" id="chartEnd">
+                        <button class="btn-edit" onclick="renderAnalytics()">Atualizar Gráfico</button>
+                    </div>
+                    <canvas id="periodChart"></canvas>
+                </div>
+            </section>
+
        </main>
     </div>
 

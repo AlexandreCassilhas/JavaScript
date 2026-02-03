@@ -313,3 +313,92 @@ function exportToCSV() {
     link.click(); // Dispara o download
     document.body.removeChild(link);
 }
+
+
+// Variáveis para guardar as instâncias dos gráficos
+let todayChartInstance = null;
+let periodChartInstance = null;
+
+// Chamar esta função sempre que uma venda for concluída ou o histórico mudar
+function renderAnalytics() {
+    renderTodayChart();
+    renderPeriodChart();
+}
+
+// 1. Gráfico de Vendas por Hora (Hoje)
+function renderTodayChart() {
+    const ctx = document.getElementById('todayChart').getContext('2d');
+    const hoje = new Date().toISOString().split('T')[0];
+    
+    // Inicializar array de 24 horas com zeros
+    const hoursData = Array(24).fill(0);
+    const labels = Array.from({length: 24}, (_, i) => `${i}h`);
+
+    // Filtrar vendas de hoje e somar por hora
+    salesHistory.filter(s => s.simpleDate === hoje).forEach(sale => {
+        // Extrair a hora da string fullDate (ex: "03/02/2026 14:30:00")
+        const hora = parseInt(sale.fullDate.split(' ')[1].split(':')[0]);
+        hoursData[hora] += parseFloat(sale.total.replace(',', '.'));
+    });
+
+    if (todayChartInstance) todayChartInstance.destroy();
+
+    todayChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Total R$',
+                data: hoursData,
+                borderColor: '#8b1a1a',
+                backgroundColor: 'rgba(139, 26, 26, 0.2)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+}
+
+// 2. Gráfico de Vendas por Período
+function renderPeriodChart() {
+    const ctx = document.getElementById('periodChart').getContext('2d');
+    const start = document.getElementById('chartStart').value;
+    const end = document.getElementById('chartEnd').value;
+
+    // Filtrar por intervalo
+    const filteredSales = salesHistory.filter(s => {
+        if (!start || !end) return true;
+        return s.simpleDate >= start && s.simpleDate <= end;
+    });
+
+    // Agrupar totais por data
+    const totalsByDate = {};
+    filteredSales.forEach(sale => {
+        totalsByDate[sale.simpleDate] = (totalsByDate[sale.simpleDate] || 0) + parseFloat(sale.total.replace(',', '.'));
+    });
+
+    const labels = Object.keys(totalsByDate).sort();
+    const dataValues = labels.map(date => totalsByDate[date]);
+
+    if (periodChartInstance) periodChartInstance.destroy();
+
+    periodChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels.map(d => d.split('-').reverse().slice(0,2).join('/')), // Formata para DD/MM
+            datasets: [{
+                label: 'Vendas por Dia',
+                data: dataValues,
+                backgroundColor: '#1f6feb'
+            }]
+        },
+        options: { responsive: true }
+    });
+}
+
+// Atualizar o window.onload para incluir os analytics
+window.onload = () => {
+    renderHistory();
+    renderAnalytics();
+};
