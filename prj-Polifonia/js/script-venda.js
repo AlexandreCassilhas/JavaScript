@@ -1,5 +1,23 @@
+// Rotina de Segurança - Controle de Acesso ***
+document.addEventListener('DOMContentLoaded', () => {
+    const userData = JSON.parse(localStorage.getItem('polifonia_user'));
+
+    if (!userData) {
+        window.location.href = 'login.html'; // Se não logou, volta para o login
+        return;
+    }
+
+    // Exemplo de Restrição: Só administradores vêm o botão de Limpar Histórico
+    const isAdmin = userData.perfis.includes('Administrador');
+    const clearBtn = document.querySelector('.btn-clear');
+    
+    if (clearBtn && !isAdmin) {
+        clearBtn.style.display = 'none'; // Esconde para vendedores
+    }
+});
+
 let cartItems = [];
-let salesHistory = JSON.parse(localStorage.getItem('polifonia_sales')) || [];
+//let salesHistory = JSON.parse(localStorage.getItem('polifonia_sales')) || [];
 
 // Carregar histórico ao iniciar
 window.onload = renderHistory;
@@ -52,64 +70,66 @@ function renderCart() {
     grandTotalDisplay.innerText = totalFinal.toFixed(2).replace('.', ',');
 }
 
-// ... (Manter variáveis iniciais e funções de carrinho) ...
 
-function finishSale() {
+// AGORA: Buscar vendas do Banco de Dados ao carregar a página
+async function renderHistory() {
+    try {
+        const response = await fetch('http://localhost:3000/vendas');
+        const salesFromDB = await response.json();
+
+        const historyList = document.getElementById('sales-history-list');
+        historyList.innerHTML = "";
+
+        // Lógica de filtros (opcional, podes adaptar os filtros aqui depois)
+        salesFromDB.forEach(sale => {
+            historyList.innerHTML += `
+                <div class="sale-card">
+                    <p><small>${new Date(sale.data_venda).toLocaleString()}</small></p>
+                    <p><strong>Cliente:</strong> ${sale.comprador}</p>
+                    <p><strong>Total: R$ ${sale.total.replace('.', ',')}</strong> (${sale.pagamento})</p>
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.error("Erro ao buscar histórico:", error);
+    }
+}
+
+// AGORA: Enviar a venda para o Servidor
+async function finishSale() {
     const buyer = document.getElementById('buyerName').value;
     const payment = document.querySelector('input[name="payment"]:checked');
-    const total = document.getElementById('grand-total').innerText;
+    const totalRaw = document.getElementById('grand-total').innerText;
+    const total = parseFloat(totalRaw.replace(',', '.'));
 
     if (cartItems.length === 0) return alert("Carrinho vazio!");
     if (!payment) return alert("Selecione o pagamento!");
 
-    const agora = new Date();
-    
-    const sale = {
-        id: Date.now(),
-        fullDate: agora.toLocaleString(), // Para exibição no recibo
-        simpleDate: agora.toISOString().split('T')[0], // Formato AAAA-MM-DD para o filtro
-        buyer: buyer,
-        items: [...cartItems],
-        payment: payment.value,
+    const novaVenda = {
+        comprador: buyer,
+        itens: cartItems,
+        pagamento: payment.value,
         total: total
     };
 
-    salesHistory.push(sale);
-    localStorage.setItem('polifonia_sales', JSON.stringify(salesHistory));
-    
-    showReceipt(buyer, payment.value, total);
-    renderHistory();
-}
+    try {
+        const response = await fetch('http://localhost:3000/vendas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(novaVenda)
+        });
 
-function renderHistory() {
-    const historyList = document.getElementById('sales-history-list');
-    const filterName = document.getElementById('filterName').value.toLowerCase();
-    const filterDate = document.getElementById('filterDate').value;
-
-    historyList.innerHTML = "";
-
-    // Filtra o histórico baseado nos inputs
-    const filteredSales = salesHistory.filter(sale => {
-        const matchesName = sale.buyer.toLowerCase().includes(filterName);
-        const matchesDate = filterDate === "" || sale.simpleDate === filterDate;
-        return matchesName && matchesDate;
-    });
-
-    if (filteredSales.length === 0) {
-        historyList.innerHTML = "<p style='color:#8b949e; font-size:0.8rem;'>Nenhuma venda encontrada.</p>";
-        return;
+        if (response.ok) {
+            alert("Venda gravada no Banco de Dados!");
+            cartItems = [];
+            renderHistory(); // Atualiza a lista vinda do banco
+            renderCart();
+            resetFields();
+            document.getElementById('buyerName').value = "Comprador";
+        }
+    } catch (error) {
+        alert("Erro ao conectar com o servidor.");
     }
-
-    filteredSales.slice().reverse().forEach(sale => {
-        historyList.innerHTML += `
-            <div class="sale-card">
-                <p><small>${sale.fullDate}</small></p>
-                <p><strong>Cliente:</strong> ${sale.buyer}</p>
-                <p><strong>Itens:</strong> ${sale.items.map(i => i.name).join(', ')}</p>
-                <p class="sale-total">Total: R$ ${sale.total} (${sale.payment})</p>
-            </div>
-        `;
-    });
 }
 
 function resetFilters() {
@@ -195,85 +215,124 @@ function closeModal() {
     resetFields();
 }
 
+// Variável global para guardar as vendas que vieram do banco
+let currentSalesFromDB = [];
 
-// 1. Atualizar a função renderHistory para incluir o botão de Editar
-function renderHistory() {
+async function renderHistory() {
     const historyList = document.getElementById('sales-history-list');
     const filterName = document.getElementById('filterName').value.toLowerCase();
     const filterDate = document.getElementById('filterDate').value;
+    
+    // Elementos do resumo
     const summaryCount = document.getElementById('summary-count');
     const summaryTotal = document.getElementById('summary-total');
 
-    historyList.innerHTML = "";
+    try {
+        // 1. Busca os dados do seu servidor Node.js
+        const response = await fetch('http://localhost:3000/vendas');
+        if (!response.ok) throw new Error('Falha ao buscar dados do servidor');
+        
+        // 2. Transforma a resposta em JSON e guarda na nossa "memória global"
+        currentSalesFromDB = await response.json();
 
-    const filteredSales = salesHistory.filter(sale => {
-        const matchesName = sale.buyer.toLowerCase().includes(filterName);
-        const matchesDate = filterDate === "" || sale.simpleDate === filterDate;
-        return matchesName && matchesDate;
-    });
+        // 3. Limpa a lista visual antes de preencher
+        historyList.innerHTML = "";
 
-    let totalAcumulado = 0;
-    filteredSales.forEach(sale => {
-        const valorNumerico = parseFloat(sale.total.replace(',', '.'));
-        totalAcumulado += valorNumerico;
-    });
+        // 4. Aplica os filtros (igual fazíamos antes, mas agora nos dados do banco)
+        const filteredSales = currentSalesFromDB.filter(sale => {
+            const matchesName = sale.comprador.toLowerCase().includes(filterName);
+            // No MySQL, a data vem completa, pegamos apenas a parte YYYY-MM-DD para comparar
+            const saleDateOnly = sale.data_venda.split('T')[0]; 
+            const matchesDate = filterDate === "" || saleDateOnly === filterDate;
+            return matchesName && matchesDate;
+        });
 
-    summaryCount.innerText = filteredSales.length;
-    summaryTotal.innerText = `R$ ${totalAcumulado.toFixed(2).replace('.', ',')}`;
+        // 5. Cálculos para o Resumo
+        let totalAcumulado = 0;
+        filteredSales.forEach(sale => {
+            totalAcumulado += parseFloat(sale.total);
+        });
 
-    if (filteredSales.length === 0) {
-        historyList.innerHTML = "<p style='color:#8b949e; text-align:center;'>Nenhum registo.</p>";
-        return;
-    }
+        summaryCount.innerText = filteredSales.length;
+        summaryTotal.innerText = `R$ ${totalAcumulado.toFixed(2).replace('.', ',')}`;
 
-    filteredSales.slice().reverse().forEach(sale => {
-        historyList.innerHTML += `
-            <div class="sale-card">
-                <p><small>${sale.fullDate}</small></p>
-                <p><strong>Cliente:</strong> ${sale.buyer}</p>
-                <p><strong>Itens:</strong> ${sale.items.map(i => i.name).join(', ')}</p>
-                <p class="sale-total">Total: R$ ${sale.total} (${sale.payment})</p>
-                <div class="sale-actions">
-                    <button class="btn-edit" onclick="openEditModal(${sale.id})">✎ Editar</button>
-                    <button class="btn-remove" onclick="removeSale(${sale.id})">✕ Remover</button>
+        // 6. Se não houver vendas, mostra aviso
+        if (filteredSales.length === 0) {
+            historyList.innerHTML = "<p style='color:#8b949e; text-align:center;'>Nenhum registo encontrado.</p>";
+            return;
+        }
+
+        // 7. Renderiza cada venda na tela
+        filteredSales.forEach(sale => {
+            // Formatamos a data para ficar bonita (DD/MM/AAAA HH:MM)
+            const dataFormatada = new Date(sale.data_venda).toLocaleString();
+
+            historyList.innerHTML += `
+                <div class="sale-card">
+                    <p><small>${dataFormatada}</small></p>
+                    <p><strong>Cliente:</strong> ${sale.comprador}</p>
+                    <p><strong>Itens:</strong> ${sale.itens.map(i => i.name).join(', ')}</p>
+                    <p class="sale-total">Total: R$ ${parseFloat(sale.total).toFixed(2).replace('.', ',')} (${sale.pagamento})</p>
+                    <div class="sale-actions">
+                        <button class="btn-edit" onclick="openEditModal(${sale.id})">✎ Editar</button>
+                        <button class="btn-remove" onclick="removeSale(${sale.id})">✕ Remover</button>
+                    </div>
                 </div>
-            </div>
-        `;
-    });
+            `;
+        });
+
+        // 8. Atualiza os gráficos com os novos dados
+        renderAnalytics();
+
+    } catch (error) {
+        console.error("Erro ao renderizar histórico:", error);
+        historyList.innerHTML = "<p style='color:red;'>Erro ao carregar dados do servidor. Verifique se o server.js está rodando.</p>";
+    }
 }
 
 // 2. Função para abrir o modal de edição carregando os dados
+
 function openEditModal(id) {
-    const sale = salesHistory.find(s => s.id === id);
+    // Procuramos a venda dentro da nossa lista salva na memória
+    const sale = currentSalesFromDB.find(s => s.id === id);
     if (!sale) return;
 
     document.getElementById('edit-sale-id').value = id;
-    document.getElementById('edit-buyer-name').value = sale.buyer;
-    document.getElementById('edit-total-value').value = sale.total.replace(',', '.');
+    document.getElementById('edit-buyer-name').value = sale.comprador;
+    // No MySQL o total vem como número, não precisamos de replace aqui se configurado como DECIMAL
+    document.getElementById('edit-total-value').value = sale.total;
 
     document.getElementById('edit-modal').style.display = 'flex';
 }
 
 // 3. Função para salvar as alterações
-function saveEdit() {
-    const id = parseInt(document.getElementById('edit-sale-id').value);
+
+async function saveEdit() {
+    const id = document.getElementById('edit-sale-id').value;
     const newName = document.getElementById('edit-buyer-name').value;
     const newTotal = parseFloat(document.getElementById('edit-total-value').value);
 
-    if (!newName || isNaN(newTotal)) {
-        alert("Preencha os campos corretamente!");
-        return;
-    }
+    if (!newName || isNaN(newTotal)) return alert("Dados inválidos!");
 
-    // Localizar a venda no array original e atualizar
-    const index = salesHistory.findIndex(s => s.id === id);
-    if (index !== -1) {
-        salesHistory[index].buyer = newName;
-        salesHistory[index].total = newTotal.toFixed(2).replace('.', ',');
-        
-        localStorage.setItem('polifonia_sales', JSON.stringify(salesHistory));
-        closeEditModal();
-        renderHistory();
+    const dadosAtualizados = {
+        comprador: newName,
+        total: newTotal
+    };
+
+    try {
+        const response = await fetch(`http://localhost:3000/vendas/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dadosAtualizados)
+        });
+
+        if (response.ok) {
+            alert("Venda atualizada no Banco de Dados!");
+            closeEditModal();
+            renderHistory(); // Recarrega a lista e os gráficos
+        }
+    } catch (error) {
+        alert("Erro ao atualizar a venda.");
     }
 }
 
@@ -281,13 +340,25 @@ function closeEditModal() {
     document.getElementById('edit-modal').style.display = 'none';
 }
 
-function removeSale(id) {
-    if (confirm("Tem certeza que deseja apagar esta venda permanentemente?")) {
-        salesHistory = salesHistory.filter(s => s.id !== id);
-        localStorage.setItem('polifonia_sales', JSON.stringify(salesHistory));
-        renderHistory();
+// 4. Função para Excluir uma venda
+
+async function removeSale(id) {
+    if (!confirm("Tem certeza que deseja apagar esta venda do banco de dados?")) return;
+
+    try {
+        const response = await fetch(`http://localhost:3000/vendas/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            alert("Venda removida com sucesso!");
+            renderHistory(); // Recarrega a lista do banco
+        }
+    } catch (error) {
+        alert("Erro ao tentar remover a venda.");
     }
 }
+
 
 function exportToCSV() {
     if (salesHistory.length === 0) return alert("Não há dados para exportar.");
@@ -328,17 +399,22 @@ function renderAnalytics() {
 // 1. Gráfico de Vendas por Hora (Hoje)
 function renderTodayChart() {
     const ctx = document.getElementById('todayChart').getContext('2d');
+    
+    // Pegamos a data de hoje no formato YYYY-MM-DD
     const hoje = new Date().toISOString().split('T')[0];
     
-    // Inicializar array de 24 horas com zeros
     const hoursData = Array(24).fill(0);
     const labels = Array.from({length: 24}, (_, i) => `${i}h`);
 
-    // Filtrar vendas de hoje e somar por hora
-    salesHistory.filter(s => s.simpleDate === hoje).forEach(sale => {
-        // Extrair a hora da string fullDate (ex: "03/02/2026 14:30:00")
-        const hora = parseInt(sale.fullDate.split(' ')[1].split(':')[0]);
-        hoursData[hora] += parseFloat(sale.total.replace(',', '.'));
+    // Mudança importante: Usamos currentSalesFromDB e campos do SQL
+    currentSalesFromDB.forEach(sale => {
+        const saleDate = sale.data_venda.split('T')[0]; // Extrai YYYY-MM-DD
+        
+        if (saleDate === hoje) {
+            // O MySQL devolve a hora no formato ISO. Vamos extrair a hora local:
+            const hora = new Date(sale.data_venda).getHours();
+            hoursData[hora] += parseFloat(sale.total);
+        }
     });
 
     if (todayChartInstance) todayChartInstance.destroy();
@@ -348,15 +424,18 @@ function renderTodayChart() {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Total R$',
+                label: 'Total Vendido (R$)',
                 data: hoursData,
-                borderColor: '#8b1a1a',
+                borderColor: '#8b1a1a', // Vermelho Polifonia
                 backgroundColor: 'rgba(139, 26, 26, 0.2)',
                 fill: true,
                 tension: 0.4
             }]
         },
-        options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true } }
+        }
     });
 }
 
@@ -366,18 +445,21 @@ function renderPeriodChart() {
     const start = document.getElementById('chartStart').value;
     const end = document.getElementById('chartEnd').value;
 
-    // Filtrar por intervalo
-    const filteredSales = salesHistory.filter(s => {
-        if (!start || !end) return true;
-        return s.simpleDate >= start && s.simpleDate <= end;
-    });
-
-    // Agrupar totais por data
     const totalsByDate = {};
-    filteredSales.forEach(sale => {
-        totalsByDate[sale.simpleDate] = (totalsByDate[sale.simpleDate] || 0) + parseFloat(sale.total.replace(',', '.'));
+
+    // Filtramos os dados da nossa variável global que veio do Banco
+    currentSalesFromDB.forEach(sale => {
+        const saleDate = sale.data_venda.split('T')[0]; // Formato YYYY-MM-DD
+
+        // Verifica se está dentro do intervalo escolhido pelo usuário
+        const isWithinRange = (!start || saleDate >= start) && (!end || saleDate <= end);
+
+        if (isWithinRange) {
+            totalsByDate[saleDate] = (totalsByDate[saleDate] || 0) + parseFloat(sale.total);
+        }
     });
 
+    // Ordenar as datas para o gráfico não ficar bagunçado
     const labels = Object.keys(totalsByDate).sort();
     const dataValues = labels.map(date => totalsByDate[date]);
 
@@ -386,14 +468,17 @@ function renderPeriodChart() {
     periodChartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: labels.map(d => d.split('-').reverse().slice(0,2).join('/')), // Formata para DD/MM
+            labels: labels.map(d => d.split('-').reverse().slice(0, 2).join('/')), // Formata para DD/MM
             datasets: [{
-                label: 'Vendas por Dia',
+                label: 'Faturamento Diário',
                 data: dataValues,
-                backgroundColor: '#1f6feb'
+                backgroundColor: '#1f6feb' // Azul para contraste
             }]
         },
-        options: { responsive: true }
+        options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true } }
+        }
     });
 }
 
