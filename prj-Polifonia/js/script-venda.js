@@ -1,5 +1,39 @@
+
+function carregarSessaoUsuario() {
+    const rawData = localStorage.getItem('polifonia_user');
+    
+    if (!rawData) {
+        // Se não houver dados, expulsa para o login
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const userData = JSON.parse(rawData);
+
+    // 1. Atualiza Nome e Perfil (pega o primeiro perfil se houver vários)
+    document.getElementById('userNameDisplay').innerText = userData.user;
+    document.getElementById('userRoleDisplay').innerText = userData.perfis[0];
+
+    // 2. Atualiza a Foto (se existir no banco)
+    if (userData.foto) {
+        document.getElementById('userPhotoDisplay').src = userData.foto;
+    } else {
+        // Foto padrão caso o usuário não tenha cadastrado uma
+        document.getElementById('userPhotoDisplay').src = 'https://via.placeholder.com/40';
+    }
+}
+
+function logout() {
+    if (confirm("Deseja realmente sair do sistema?")) {
+        localStorage.removeItem('polifonia_user');
+        window.location.href = 'login.html';
+    }
+}
+
+
 // Rotina de Segurança - Controle de Acesso ***
 document.addEventListener('DOMContentLoaded', () => {
+    carregarSessaoUsuario();
     const userData = JSON.parse(localStorage.getItem('polifonia_user'));
 
     if (!userData) {

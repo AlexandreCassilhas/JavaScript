@@ -10,10 +10,23 @@
 <body>
 
     <div class="container">
-        <header>
-            <div class="logo-circle">
-                <span class="dot"></span>
-                <span class="brand-name">polifonia</span>
+        <header class="main-header">
+            <div class="header-brand">
+                <div class="logo-circle">
+                    <span class="dot"></span>
+                    <span class="brand-name">polifonia</span>
+                </div>
+            </div>
+
+            <div class="user-profile" id="userProfileArea">
+                <div class="user-details">
+                    <span id="userNameDisplay" class="user-name">Carregando...</span>
+                    <span id="userRoleDisplay" class="user-role">Perfil</span>
+                </div>
+                <div class="profile-img-container">
+                    <img id="userPhotoDisplay" src="https://via.placeholder.com/40" alt="Foto">
+                </div>
+                <button class="btn-logout" onclick="logout()" title="Sair do Sistema">✕</button>
             </div>
         </header>
 
