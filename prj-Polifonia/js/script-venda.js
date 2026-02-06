@@ -133,8 +133,10 @@ async function renderHistory() {
 async function finishSale() {
     const buyer = document.getElementById('buyerName').value;
     const payment = document.querySelector('input[name="payment"]:checked');
+    const totalDiscountRaw = document.getElementById('globalDiscount').value;
+    const totalDiscount = parseFloat(totalDiscountRaw.replace('.', ','))
     const totalRaw = document.getElementById('grand-total').innerText;
-    const total = parseFloat(totalRaw.replace(',', '.'));
+    const total = parseFloat(totalRaw.replace('.', ','));
 
     if (cartItems.length === 0) return alert("Carrinho vazio!");
     if (!payment) return alert("Selecione o pagamento!");
@@ -155,7 +157,7 @@ async function finishSale() {
 
         if (response.ok) {
             alert("Venda gravada no Banco de Dados!");
-            cartItems = [];
+            showReceipt(buyer, payment.value, totalDiscount, total);
             renderHistory(); // Atualiza a lista vinda do banco
             renderCart();
             resetFields();
@@ -195,7 +197,7 @@ function resetFields() {
     document.getElementById('globalDiscount').value = "0";
 }
 
-function showReceipt(buyer, payment, total) {
+function showReceipt(buyer, payment, totalDiscount, total) {
     const details = document.getElementById('receipt-details');
     let itemsList = "";
 
@@ -210,7 +212,8 @@ function showReceipt(buyer, payment, total) {
         ${itemsList}
         <hr style="border: 0.5px dashed #ccc; margin: 10px 0;">
         <p><strong>Pagamento:</strong> ${payment.toUpperCase()}</p>
-        <p style="font-size: 1.2rem;"><strong>TOTAL: R$ ${total}</strong></p>
+        <p><strong>Desconto:</strong> R$ ${totalDiscount.toFixed(2)}</strong></p>
+        <p style="font-size: 1.2rem;"><strong>TOTAL: R$ ${total.toFixed(2)}</strong></p>
     `;
 
     document.getElementById('receipt-modal').style.display = 'flex';
