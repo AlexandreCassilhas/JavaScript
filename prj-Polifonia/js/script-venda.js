@@ -135,9 +135,9 @@ async function finishSale() {
     const buyer = document.getElementById('buyerName').value;
     const payment = document.querySelector('input[name="payment"]:checked');
     const totalDiscountRaw = document.getElementById('globalDiscount').value;
-    const totalDiscount = parseFloat(totalDiscountRaw.replace('.', ','));
+    const totalDiscount = parseFloat(totalDiscountRaw.replace(',', '.'));
     const totalRaw = document.getElementById('grand-total').innerText;
-    const total = parseFloat(totalRaw.replace('.', ','));
+    const total = parseFloat(totalRaw.replace(',', '.'));
 
     if (cartItems.length === 0) return alert("Carrinho vazio!");
     if (!payment) return alert("Selecione o pagamento!");
@@ -158,10 +158,9 @@ async function finishSale() {
 
         if (response.ok) {
             alert("Venda gravada no Banco de Dados!");
-            showReceipt(buyer, payment.value, totalDiscountRaw, totalRaw);
+            showReceipt(buyer, payment.value, totalDiscount, total);
             renderHistory(); // Atualiza a lista vinda do banco
             renderCart();
-            resetFields();
             document.getElementById('buyerName').value = "Comprador";
         }
     } catch (error) {
@@ -213,8 +212,8 @@ function showReceipt(buyer, payment, totalDiscount, total) {
         ${itemsList}
         <hr style="border: 0.5px dashed #ccc; margin: 10px 0;">
         <p><strong>Pagamento:</strong> ${payment.toUpperCase()}</p>
-        <p><strong>Desconto:</strong> R$ ${totalDiscount}</strong></p>
-        <p style="font-size: 1.2rem;"><strong>TOTAL: R$ ${total}</strong></p>
+        <p><strong>Desconto:</strong> R$ ${totalDiscount.toFixed(2).toString().replace('.', ',')}</strong></p>
+        <p style="font-size: 1.2rem;"><strong>TOTAL: R$ ${total.toFixed(2).toString().replace('.', ',')}</strong></p>
     `;
 
     document.getElementById('receipt-modal').style.display = 'flex';
@@ -223,7 +222,8 @@ function showReceipt(buyer, payment, totalDiscount, total) {
 function sendWhatsApp() {
     const buyer = document.getElementById('buyerName').value;
     const total = document.getElementById('grand-total').innerText;
-    
+    const totalDiscountWhatsapp = document.getElementById('globalDiscount').value;
+
     let text = `*POLIFONIA - RECIBO DE VENDA*\n\n`;
     text += `*Cliente:* ${buyer}\n`;
     text += `*Data:* ${new Date().toLocaleDateString()}\n`;
@@ -234,7 +234,7 @@ function sendWhatsApp() {
     });
     
     text += `---------------------------\n`;
-    // text += `Desconto: R$ ${totalDiscount.toFixed(2).replace('.', ',')}\n`;
+    text += `Desconto: R$ ${parseFloat(totalDiscountWhatsapp).toFixed(2).toString().replace('.', ',')}\n`;
     text += `*TOTAL: R$ ${total}*\n\n`;
     text += `Nos siga no Instagram: @polifonia.rio \n`;
     text += `https://www.instagram.com/polifonia.rio/ \n\n`;

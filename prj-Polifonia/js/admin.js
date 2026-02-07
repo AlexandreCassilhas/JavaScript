@@ -121,4 +121,15 @@ async function salvarUsuario() {
         const err = await response.json();
         alert("Erro: " + err.message);
     }
+    resetFields();
 }
+
+/*
+function resetFields() {
+    document.getElementById('regNome').value = "";
+    document.getElementById('regEmail').value = "";
+    document.getElementById('regCelular').value = "";
+    document.getElementById('regCPF').value = "";
+    document.getElementById('regSenha').value = "";
+}
+*/
