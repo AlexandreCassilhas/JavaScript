@@ -104,7 +104,7 @@ function renderCart() {
     grandTotalDisplay.innerText = totalFinal.toFixed(2).replace('.', ',');
 }
 
-
+/*
 // AGORA: Buscar vendas do Banco de Dados ao carregar a página
 async function renderHistory() {
     try {
@@ -128,13 +128,14 @@ async function renderHistory() {
         console.error("Erro ao buscar histórico:", error);
     }
 }
+*/
 
 // AGORA: Enviar a venda para o Servidor
 async function finishSale() {
     const buyer = document.getElementById('buyerName').value;
     const payment = document.querySelector('input[name="payment"]:checked');
     const totalDiscountRaw = document.getElementById('globalDiscount').value;
-    const totalDiscount = parseFloat(totalDiscountRaw.replace('.', ','))
+    const totalDiscount = parseFloat(totalDiscountRaw.replace('.', ','));
     const totalRaw = document.getElementById('grand-total').innerText;
     const total = parseFloat(totalRaw.replace('.', ','));
 
@@ -157,7 +158,7 @@ async function finishSale() {
 
         if (response.ok) {
             alert("Venda gravada no Banco de Dados!");
-            showReceipt(buyer, payment.value, totalDiscount, total);
+            showReceipt(buyer, payment.value, totalDiscountRaw, totalRaw);
             renderHistory(); // Atualiza a lista vinda do banco
             renderCart();
             resetFields();
@@ -202,7 +203,7 @@ function showReceipt(buyer, payment, totalDiscount, total) {
     let itemsList = "";
 
     cartItems.forEach(item => {
-        itemsList += `<div>${item.qty}x ${item.name} - R$ ${item.total.toFixed(2)}</div>`;
+        itemsList += `<div>${item.qty}x ${item.name} - R$ ${item.total.toFixed(2).replace('.', ',')}</div>`;
     });
 
     details.innerHTML = `
@@ -212,8 +213,8 @@ function showReceipt(buyer, payment, totalDiscount, total) {
         ${itemsList}
         <hr style="border: 0.5px dashed #ccc; margin: 10px 0;">
         <p><strong>Pagamento:</strong> ${payment.toUpperCase()}</p>
-        <p><strong>Desconto:</strong> R$ ${totalDiscount.toFixed(2)}</strong></p>
-        <p style="font-size: 1.2rem;"><strong>TOTAL: R$ ${total.toFixed(2)}</strong></p>
+        <p><strong>Desconto:</strong> R$ ${totalDiscount}</strong></p>
+        <p style="font-size: 1.2rem;"><strong>TOTAL: R$ ${total}</strong></p>
     `;
 
     document.getElementById('receipt-modal').style.display = 'flex';
@@ -229,13 +230,14 @@ function sendWhatsApp() {
     text += `---------------------------\n`;
     
     cartItems.forEach(item => {
-        text += `${item.qty}x ${item.name} - R$ ${item.total.toFixed(2)}\n`;
+        text += `${item.qty}x ${item.name} - R$ ${item.total.toFixed(2).replace('.', ',')}\n`;
     });
     
     text += `---------------------------\n`;
+    // text += `Desconto: R$ ${totalDiscount.toFixed(2).replace('.', ',')}\n`;
     text += `*TOTAL: R$ ${total}*\n\n`;
-    text += `Nos siga no Instagram: @polifonia.rio \n`
-    text += `https://www.instagram.com/polifonia.rio/ \n\n`
+    text += `Nos siga no Instagram: @polifonia.rio \n`;
+    text += `https://www.instagram.com/polifonia.rio/ \n\n`;
     text += `Obrigado pela preferência!`;
 
     // Codifica o texto para URL
@@ -308,7 +310,7 @@ async function renderHistory() {
                 <div class="sale-card">
                     <p><small>${dataFormatada}</small></p>
                     <p><strong>Cliente:</strong> ${sale.comprador}</p>
-                    <p><strong>Itens:</strong> ${sale.itens.map(i => i.name).join(', ')}</p>
+                    <p><strong>Itens:</strong> ${sale.itens.map(({name, qty}) => `${qty} x ${name}` ).join(', ')}</p>
                     <p class="sale-total">Total: R$ ${parseFloat(sale.total).toFixed(2).replace('.', ',')} (${sale.pagamento})</p>
                     <div class="sale-actions">
                         <button class="btn-edit" onclick="openEditModal(${sale.id})">✎ Editar</button>
