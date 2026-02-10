@@ -23,4 +23,9 @@ while (cont <= 9) {
   }
   result2+= `Valor da Variável é: ${cont}; \n`
 };
-paragrafo2.innerText = result2;
+paragrafo2.innerText =  formatBRL(1324.43);
+
+function formatBRL(valor) {
+  const valorBRL = new Intl.NumberFormat("pt-br", {style: "currency", currency: "BRL"}).format(valor);
+  return valorBRL;
+}

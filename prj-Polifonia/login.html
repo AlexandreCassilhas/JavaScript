@@ -19,17 +19,17 @@
 
         <div class="form-group">
             <label>Utilizador</label>
-            <input type="text" id="userLogin" placeholder="Seu login">
+            <input type="text" id="userLogin" placeholder="Seu login" autocomplete="username" required>
         </div>
 
         <div class="form-group">
             <label>Senha</label>
-            <input type="password" id="userPass" placeholder="******">
+            <input type="password" id="userPass" placeholder="******" autocomplete="current-password" required>
         </div>
 
         <div class="captcha-box">
             <div id="captcha-img-container"></div>
-            <input type="text" id="captchaInput" placeholder="Digite o código" style="color: rgb(115, 113, 113);">
+            <input type="text" id="captchaInput" placeholder="Digite o código" style="color: rgb(115, 113, 113);" required>
         </div>
         <small style="color: #8b949e; display: block; margin-bottom: 15px;">Clique na imagem para trocar o código.</small>
 
@@ -64,7 +64,7 @@
             if (response.ok) {
                 // Guardar dados da sessão (simples)
                 localStorage.setItem('polifonia_user', JSON.stringify(data));
-                window.location.href = 'venda.html'; // Redireciona para o PDV
+                window.location.href = 'dashboard.html'; // Redireciona para o Dashboard
             } else {
                 document.getElementById('msg-erro').innerText = data.message;
                 reloadCaptcha();

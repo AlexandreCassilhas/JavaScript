@@ -83,7 +83,9 @@ function validarImagem(input) {
     reader.readAsDataURL(file);
 }
 
-async function salvarUsuario() {
+async function salvarUsuario(event) {
+    // Impede o recarregamento da página
+    event.preventDefault(); 
 
     // ... capturar valores ...
     const cpfFormatado = document.getElementById('regCPF').value;
@@ -116,6 +118,7 @@ async function salvarUsuario() {
 
     if (response.ok) {
         alert("Usuário cadastrado com sucesso!");
+        resetFields();
         window.location.reload();
     } else {
         const err = await response.json();
@@ -124,7 +127,6 @@ async function salvarUsuario() {
     resetFields();
 }
 
-/*
 function resetFields() {
     document.getElementById('regNome').value = "";
     document.getElementById('regEmail').value = "";
@@ -132,4 +134,3 @@ function resetFields() {
     document.getElementById('regCPF').value = "";
     document.getElementById('regSenha').value = "";
 }
-*/

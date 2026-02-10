@@ -30,6 +30,35 @@ function logout() {
     }
 }
 
+async function carregarProdutosDoBanco() {
+    try {
+        const res = await fetch('http://localhost:3000/produtos');
+        const produtos = await res.json();
+        const select = document.getElementById('product');
+
+        // Limpa opções antigas
+        select.innerHTML = '<option value="0" data-name="" data-custo="0">Selecione um item...</option>';
+
+        produtos.forEach(p => {
+            // Se estoque for 0, desabilita a opção
+            const disabled = p.estoque_atual <= 0 ? 'disabled' : '';
+            const textoEstoque = p.estoque_atual <= 0 ? '(Sem Estoque)' : '';
+            
+            // Guardamos o Custo e o ID no dataset para usar na venda
+            select.innerHTML += `
+                <option value="${p.preco_venda}" 
+                        data-id="${p.id}" 
+                        data-name="${p.nome}"
+                        data-custo="${p.custo_cpv}" 
+                        ${disabled}>
+                    ${p.nome} - R$ ${p.preco_venda} ${textoEstoque}
+                </option>
+            `;
+        });
+    } catch (e) { console.error("Erro ao carregar produtos:", e); }
+}
+
+
 
 // Rotina de Segurança - Controle de Acesso ***
 document.addEventListener('DOMContentLoaded', () => {
@@ -53,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
 let cartItems = [];
 //let salesHistory = JSON.parse(localStorage.getItem('polifonia_sales')) || [];
 
-// Carregar histórico ao iniciar
-window.onload = renderHistory;
+// Carregar histórico ao iniciar renderHistory
+window.onload = carregarProdutosDoBanco(), renderHistory();
 
 function updatePrice() {
     const productSelect = document.getElementById('product');
@@ -64,18 +93,29 @@ function updatePrice() {
 
 function addToCart() {
     const productSelect = document.getElementById('product');
+    const selectedOption = productSelect.options[productSelect.selectedIndex];
     const productName = productSelect.options[productSelect.selectedIndex].getAttribute('data-name');
     const price = parseFloat(document.getElementById('price').value);
     const quantity = parseInt(document.getElementById('quantity').value);
     const discount = parseFloat(document.getElementById('discount').value) || 0;
+    // Novos dados necessários para o Backend
+    const productId = Number(selectedOption.getAttribute('data-id')); // Converte para Número
+    const productCost = Number(selectedOption.getAttribute('data-custo')); // Converte para Número
 
     if (!productName || isNaN(price)) {
         alert("Selecione um produto válido!");
         return;
     }
-
+   
     const subtotal = (price * quantity) - discount;
-    cartItems.push({ id: Date.now(), name: productName, qty: quantity, total: subtotal });
+    cartItems.push({ 
+        id: productId, 
+        name: productName, 
+        qty: quantity, 
+        price: price,
+        custo: productCost,
+        total: subtotal 
+    });
     renderCart();
     resetFields();
 }
@@ -104,32 +144,6 @@ function renderCart() {
     grandTotalDisplay.innerText = totalFinal.toFixed(2).replace('.', ',');
 }
 
-/*
-// AGORA: Buscar vendas do Banco de Dados ao carregar a página
-async function renderHistory() {
-    try {
-        const response = await fetch('http://localhost:3000/vendas');
-        const salesFromDB = await response.json();
-
-        const historyList = document.getElementById('sales-history-list');
-        historyList.innerHTML = "";
-
-        // Lógica de filtros (opcional, podes adaptar os filtros aqui depois)
-        salesFromDB.forEach(sale => {
-            historyList.innerHTML += `
-                <div class="sale-card">
-                    <p><small>${new Date(sale.data_venda).toLocaleString()}</small></p>
-                    <p><strong>Cliente:</strong> ${sale.comprador}</p>
-                    <p><strong>Total: R$ ${sale.total.replace('.', ',')}</strong> (${sale.pagamento})</p>
-                </div>
-            `;
-        });
-    } catch (error) {
-        console.error("Erro ao buscar histórico:", error);
-    }
-}
-*/
-
 // AGORA: Enviar a venda para o Servidor
 async function finishSale() {
     const buyer = document.getElementById('buyerName').value;
@@ -139,11 +153,14 @@ async function finishSale() {
     const totalRaw = document.getElementById('grand-total').innerText;
     const total = parseFloat(totalRaw.replace(',', '.'));
 
+    const userData = JSON.parse(localStorage.getItem('polifonia_user'));
+
     if (cartItems.length === 0) return alert("Carrinho vazio!");
     if (!payment) return alert("Selecione o pagamento!");
 
     const novaVenda = {
         comprador: buyer,
+        vendedor: userData ? userData.user : 'Desconhecido',
         itens: cartItems,
         pagamento: payment.value,
         total: total
@@ -161,7 +178,6 @@ async function finishSale() {
             showReceipt(buyer, payment.value, totalDiscount, total);
             renderHistory(); // Atualiza a lista vinda do banco
             renderCart();
-            document.getElementById('buyerName').value = "Comprador";
         }
     } catch (error) {
         alert("Erro ao conectar com o servidor.");
@@ -185,7 +201,7 @@ function clearHistory() {
 // ... (Manter funções showReceipt, sendWhatsApp, closeModal, removeItem e resetFields) ...
 
 function removeItem(id) {
-    cartItems = cartItems.filter(item => item.id !== id);
+    cartItems = cartItems.filter(item => item.id != id);
     renderCart();
 }
 
@@ -223,7 +239,6 @@ function sendWhatsApp() {
     const buyer = document.getElementById('buyerName').value;
     const total = document.getElementById('grand-total').innerText;
     const totalDiscountWhatsapp = document.getElementById('globalDiscount').value;
-
     let text = `*POLIFONIA - RECIBO DE VENDA*\n\n`;
     text += `*Cliente:* ${buyer}\n`;
     text += `*Data:* ${new Date().toLocaleDateString()}\n`;
@@ -252,6 +267,7 @@ function closeModal() {
     document.getElementById('buyerName').value = "Comprador";
     renderCart();
     resetFields();
+    document.getElementById('buyerName').value = "Comprador";
 }
 
 // Variável global para guardar as vendas que vieram do banco
