@@ -62,12 +62,17 @@ function renderProductsTable() {
                 <td class="${stockClass}">${stockIcon}${p.estoque_atual}</td>
                 <td><span class="badge ${abcClass}">${p.classificacao_abc}</span></td>
                 <td>
-                    <button class="btn-edit" onclick="openEditProduct(${p.id})">✎</button>
+                    <button class="btn-edit" onclick="openEditProduct(${p.id})" title="Editar">✎</button>
+                    
+                    <button class="btn-delete" onclick="softDeleteProduct(${p.id}, '${p.nome}')" title="Excluir do Catálogo">
+                       ✖
+                    </button>
                 </td>
             </tr>
         `;
     });
 }
+
 
 // 2. Abrir Modal PREENCHIDO (Modo Edição)
 function openEditProduct(id) {
@@ -250,4 +255,28 @@ async function calculateABC() {
     const totalFormatado = (data.total || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     document.getElementById('abc-result-msg').innerText = `${data.message} Total analisado: ${totalFormatado}`;
     loadProducts(); // Recarrega para mostrar os novos badges A, B, C
+}
+
+// -- Função para "deletar" o produto (atualiza a coluna "indicativo-exclusao" para TRUE)
+async function softDeleteProduct(id, nome) {
+    // Verificação de Segurança Visual
+    if (!confirm(`ATENÇÃO: Deseja remover o produto "${nome}" do catálogo?\n\nO histórico de vendas será preservado, mas ele não aparecerá mais para novas vendas.`)) {
+        return;
+    }
+
+    try {
+        const res = await fetch(`http://localhost:3000/produtos/${id}`, {
+            method: 'DELETE' // Chama a nossa rota de Soft Delete
+        });
+
+        if (res.ok) {
+            alert("Produto removido do catálogo!");
+            loadProducts(); // Recarrega a lista (o produto vai sumir pois o indicativo agora é True)
+        } else {
+            alert("Erro ao excluir produto.");
+        }
+    } catch (e) {
+        console.error(e);
+        alert("Erro de conexão.");
+    }
 }

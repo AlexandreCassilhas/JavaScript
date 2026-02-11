@@ -277,6 +277,12 @@ async function renderHistory() {
     const historyList = document.getElementById('sales-history-list');
     const filterName = document.getElementById('filterName').value.toLowerCase();
     const filterDate = document.getElementById('filterDate').value;
+
+    // Pega a data atual para atribuir como default no campo de filtro de data do histórico
+    const hoje = new Date();
+    const formatoISO = hoje.toISOString().split("T")[0];
+    document.getElementById('filterDate').value = formatoISO;
+
     
     // Elementos do resumo
     const summaryCount = document.getElementById('summary-count');
