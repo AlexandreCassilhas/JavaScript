@@ -1,13 +1,31 @@
-const ultimo = 10;
-let paragrafo1 = document.getElementById('p01');
-let paragrafo2 = document.getElementById('p02');
-
-var result = '';
-
-for (let i=1; i <= ultimo; i++){
-  result += `Valor da Variável é: ${i}; \n`
+const soImpar = (tam) => {
+  var result = '';
+  for(let cont = 1; cont <= tam; cont++){
+    if(cont%2 != 0) {
+        result += `Valor da Variável: ${cont} \n`;
+    }
+  }
+  return result;
 }
-paragrafo1.innerText = result;
+
+// -----------------------------------------------------------------------
+
+const calculaMedia = (...notas) => {
+  const tam = notas.length;
+  let somaNotas = 0;
+  for(let i = 0; i < tam; i++) {
+    somaNotas += notas[i];
+  }
+  const media = somaNotas / tam;
+  return media;
+}
+
+let paragrafo1 = document.getElementById('p01');
+paragrafo1.innerText = soImpar(10);
+
+let paragrafo2 = document.getElementById('p02');
+var notas = [5, 8.5 , 8.5, 10, 6.5, 10];
+paragrafo2.innerText = `A média das notas é: ${calculaMedia(...notas).toFixed(2)}`;
 
 let cont = 0;
 var result2 = ''
@@ -29,12 +47,3 @@ function formatBRL(valor) {
   const valorBRL = new Intl.NumberFormat("pt-br", {style: "currency", currency: "BRL"}).format(valor);
   return valorBRL;
 }
-
- // Pega a data atual para atribuir como default no campo de filtro de data do histórico
-    const hoje = new Date();
-    const formatoISO = hoje.toISOString().split("T")[0];
-    if (filterDate === "") {
-        document.getElementById('filterDate').value = formatoISO;
-    } else{
-        document.getElementById('filterDate').value = "";
-    }
