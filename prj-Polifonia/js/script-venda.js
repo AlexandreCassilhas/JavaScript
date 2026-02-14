@@ -83,7 +83,8 @@ let cartItems = [];
 //let salesHistory = JSON.parse(localStorage.getItem('polifonia_sales')) || [];
 
 // Carregar histórico ao iniciar renderHistory
-window.onload = carregarProdutosDoBanco(), renderHistory();
+
+//window.onload = carregarProdutosDoBanco(), renderHistory();
 
 function updatePrice() {
     const productSelect = document.getElementById('product');
@@ -186,7 +187,11 @@ async function finishSale() {
 
 function resetFilters() {
     document.getElementById('filterName').value = "";
-    document.getElementById('filterDate').value = "";
+    
+    // Ao limpar, voltamos para a data de hoje em vez de deixar vazio
+    const hoje = new Date().toISOString().split('T')[0];
+    document.getElementById('filterDate').value = hoje;
+    
     renderHistory();
 }
 
@@ -264,7 +269,6 @@ function closeModal() {
     document.getElementById('receipt-modal').style.display = 'none';
     // Limpa o carrinho para a próxima venda
     cartItems = [];
-    document.getElementById('buyerName').value = "Comprador";
     renderCart();
     resetFields();
     document.getElementById('buyerName').value = "Comprador";
@@ -277,12 +281,6 @@ async function renderHistory() {
     const historyList = document.getElementById('sales-history-list');
     const filterName = document.getElementById('filterName').value.toLowerCase();
     const filterDate = document.getElementById('filterDate').value;
-
-    // Pega a data atual para atribuir como default no campo de filtro de data do histórico
-    const hoje = new Date();
-    const formatoISO = hoje.toISOString().split("T")[0];
-    document.getElementById('filterDate').value = formatoISO;
-
     
     // Elementos do resumo
     const summaryCount = document.getElementById('summary-count');
@@ -543,8 +541,17 @@ function renderPeriodChart() {
     });
 }
 
-// Atualizar o window.onload para incluir os analytics
+// Atualizar o window.onload para incluir a data default e os analytics
 window.onload = () => {
+    carregarSessaoUsuario();
+    carregarProdutosDoBanco();
+    
+    // 🛡️ Define a data de hoje como padrão no filtro
+    const hoje = new Date().toISOString().split('T')[0];
+    const campoData = document.getElementById('filterDate');
+    if (campoData) campoData.value = hoje;
+
     renderHistory();
     renderAnalytics();
 };
+

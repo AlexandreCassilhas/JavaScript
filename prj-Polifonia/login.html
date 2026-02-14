@@ -4,72 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polifonia - Acesso</title>
-    <link rel="stylesheet" href="css/style.css"> <style>
-        .login-container { max-width: 350px; margin-top: 20px; }
-        .captcha-box { display: flex; align-items: center; gap: 10px; margin: 15px 0; background: white; border-radius: 5px; padding: 5px; }
-        .captcha-img { cursor: pointer; height: 50px; }
-    </style>
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
     <div class="container login-container">
         <header>
-            <div class="logo-circle"><span class="dot"></span><span class="brand-name">polifonia</span></div>
+            <div class="logo-circle">
+                <span class="dot"></span>
+                <span class="brand-name">polifonia</span>
+            </div>
             <h2>Acesso ao Sistema</h2>
         </header>
+        <form id="formLogin">
+            <div class="form-group">
+                <label>Utilizador (CPF)</label>
+                <input type="text" id="userLogin" placeholder="000.000.000-00" 
+                    oninput="mascaraCPF(this)" maxlength="14" autocomplete="username" required>
+            </div>
 
-        <div class="form-group">
-            <label>Utilizador</label>
-            <input type="text" id="userLogin" placeholder="Seu login" autocomplete="username" required>
+            <div class="form-group">
+                <label>Senha</label>
+                <input type="password" id="userPass" placeholder="******" autocomplete="current-password" required>
+            </div>
+
+            <div class="captcha-box">
+                <div id="captcha-img-container"></div>
+                <input type="text" id="captchaInput" placeholder="Digite o código" required>
+            </div>
+            <small id="msg-advertencia">Clique na imagem para trocar o código.</small>
+
+            <button type="submit" class="btn-finish">Entrar no Sistema</button>
+            <p id="msg-erro"></p>
         </div>
+    </form>
 
-        <div class="form-group">
-            <label>Senha</label>
-            <input type="password" id="userPass" placeholder="******" autocomplete="current-password" required>
-        </div>
+    <script src="js/login.js"></script>
 
-        <div class="captcha-box">
-            <div id="captcha-img-container"></div>
-            <input type="text" id="captchaInput" placeholder="Digite o código" style="color: rgb(115, 113, 113);" required>
-        </div>
-        <small style="color: #8b949e; display: block; margin-bottom: 15px;">Clique na imagem para trocar o código.</small>
-
-        <button class="btn-finish" onclick="realizarLogin()">Entrar</button>
-        <p id="msg-erro" style="color: #ff4444; margin-top: 15px; font-size: 0.8rem;"></p>
-    </div>
-
-    <script>
-        // Carregar CAPTCHA ao abrir
-        function reloadCaptcha() {
-            fetch('http://localhost:3000/captcha')
-                .then(res => res.text())
-                .then(svg => document.getElementById('captcha-img-container').innerHTML = svg);
-        }
-        
-        document.getElementById('captcha-img-container').onclick = reloadCaptcha;
-        reloadCaptcha();
-
-        async function realizarLogin() {
-            const login = document.getElementById('userLogin').value;
-            const senha = document.getElementById('userPass').value;
-            const captcha = document.getElementById('captchaInput').value;
-
-            const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ login, senha, captcha })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                // Guardar dados da sessão (simples)
-                localStorage.setItem('polifonia_user', JSON.stringify(data));
-                window.location.href = 'dashboard.html'; // Redireciona para o Dashboard
-            } else {
-                document.getElementById('msg-erro').innerText = data.message;
-                reloadCaptcha();
-            }
-        }
-    </script>
 </body>
 </html>

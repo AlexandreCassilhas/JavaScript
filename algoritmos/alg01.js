@@ -29,3 +29,12 @@ function formatBRL(valor) {
   const valorBRL = new Intl.NumberFormat("pt-br", {style: "currency", currency: "BRL"}).format(valor);
   return valorBRL;
 }
+
+ // Pega a data atual para atribuir como default no campo de filtro de data do histórico
+    const hoje = new Date();
+    const formatoISO = hoje.toISOString().split("T")[0];
+    if (filterDate === "") {
+        document.getElementById('filterDate').value = formatoISO;
+    } else{
+        document.getElementById('filterDate').value = "";
+    }
