@@ -4,62 +4,10 @@
     <meta charset="UTF-8">
     <title>Polifonia - Estoque</title>
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* Estilos específicos do Estoque */
-        .stock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #30363d; }
-        .tab-btn { background: none; border: none; color: #8b949e; padding: 10px 20px; cursor: pointer; font-size: 1rem; border-bottom: 2px solid transparent; }
-        .tab-btn.active { color: white; border-bottom-color: #8b1a1a; font-weight: bold; }
-        
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        /* Grid de Imagens no Cadastro */
-        .image-upload-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
-        .img-slot { 
-            height: 80px; border: 1px dashed #30363d; border-radius: 4px; 
-            display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; overflow: hidden; position: relative;
-        }
-        .img-slot img { width: 100%; height: 100%; object-fit: cover; }
-        .img-slot:hover { border-color: #8b1a1a; }
-        .img-slot span { font-size: 2rem; color: #30363d; }
-
-        /* Tabela de Produtos */
-        .badge { padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
-        .badge-a { background: #238636; color: white; } /* Classe A - Verde */
-        .badge-b { background: #d29922; color: black; } /* Classe B - Amarelo */
-        .badge-c { background: #30363d; color: white; } /* Classe C - Cinza */
-        .stock-low { color: #ff4444; font-weight: bold; }
-
-        /* Área de Filtro ABC */
-        .abc-controls { background: #161b22; padding: 15px; border-radius: 8px; display: flex; gap: 10px; align-items: end; margin-bottom: 20px; }
-
-        /* Estilo do Botão de Excluir (Vazado) */
-        .btn-delete {
-            background: transparent;
-            border: 1px solid #da3633; /* Vermelho alerta */
-            color: #da3633;
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            line-height: 1;
-            margin-left: 5px;
-        }
-
-        /* Efeito Hover: Preenche o fundo e muda a cor do ícone */
-        .btn-delete:hover {
-            background: #da3633;
-            color: #ffffff;
-            box-shadow: 0 0 8px rgba(218, 54, 51, 0.4);
-        }
-    </style>
+    <link rel="stylesheet" href="css/estoque.css">
 </head>
 <body>
-    <div class="container" style="max-width: 1000px;">
+    <div class="container">
         <header class="main-header">
             <div class="header-brand">
                 <div class="logo-circle"><span class="dot"></span><span class="brand-name">polifonia</span></div>
@@ -104,7 +52,7 @@
         <div id="tab-entrada" class="tab-content">
             <div class="form-group">
                 <h3>Registrar Entrada de Mercadoria</h3>
-                <p style="color: #8b949e; margin-bottom: 20px;">Use esta tela quando chegarem novas peças da fábrica.</p>
+                <p id="nota">Use esta tela quando chegarem novas peças da fábrica.</p>
                 
                 <label>Selecione o Produto</label>
                 <select id="entryProductSelect"></select>
@@ -126,7 +74,7 @@
 
         <div id="tab-abc" class="tab-content">
             <h3>Classificação ABC Automática</h3>
-            <p style="color: #8b949e;">O sistema analisará o volume de vendas no período selecionado e classificará os produtos.</p>
+            <p id="nota">O sistema analisará o volume de vendas no período selecionado e classificará os produtos.</p>
             
             <div class="abc-controls">
                 <div class="form-group" style="flex: 1;">
@@ -140,12 +88,12 @@
                 <button class="btn-secondary" style="margin-bottom: 25px;" onclick="calculateABC()">🔄 Executar Classificação</button>
             </div>
             
-            <div id="abc-result-msg" style="margin-top: 10px; font-weight: bold;"></div>
+            <div id="abc-result-msg"></div>
         </div>
     </div>
 
     <div id="product-modal" class="modal">
-        <div class="modal-content" style="background-color: #161b22; max-width: 600px;">
+        <div class="modal-content">
             <h3 style="color: aliceblue;">Cadastrar / Editar Produto</h3>
 
             <input type="hidden" id="prodId">
@@ -157,10 +105,7 @@
 
             <div class="form-group">
                 <label>Descrição Detalhada</label>
-                <textarea id="prodDesc" rows="2" style="
-                    width: 100%; 
-                    background: #0d1117; border: 1px solid #30363d; 
-                    color: white; padding: 10px;">
+                <textarea id="prodDesc" rows="2">
                 </textarea>
             </div>
             

@@ -1,0 +1,21 @@
+
+/* CSS do modal de Editar Venda */
+
+.modal-content {
+  background-color: #161b22;
+}
+
+.titulo-modal {
+  color: whitesmoke;
+  padding-bottom: 10px;
+}
+
+#edit-buyer-name {
+  color: rgb(242, 240, 240); 
+  border: 1px solid #ccc;
+}
+
+#edit-total-value {
+   color: rgb(242, 240, 240); 
+   border: 1px solid #ccc;
+}
