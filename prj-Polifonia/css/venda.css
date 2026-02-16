@@ -1,12 +1,11 @@
-
 /* CSS do modal de Editar Venda */
 
-.modal-content {
+#edit-venda {
   background-color: #161b22;
 }
 
-.titulo-modal {
-  color: whitesmoke;
+h3.titulo-modal {
+  color: #ccc;
   padding-bottom: 10px;
 }
 
@@ -19,3 +18,5 @@
    color: rgb(242, 240, 240); 
    border: 1px solid #ccc;
 }
+
+   

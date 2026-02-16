@@ -82,9 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
 let cartItems = [];
 //let salesHistory = JSON.parse(localStorage.getItem('polifonia_sales')) || [];
 
-// Carregar histórico ao iniciar renderHistory
-
-//window.onload = carregarProdutosDoBanco(), renderHistory();
 
 function updatePrice() {
     const productSelect = document.getElementById('product');
@@ -419,31 +416,65 @@ async function removeSale(id) {
 }
 
 
-function exportToCSV() {
-    if (salesHistory.length === 0) return alert("Não há dados para exportar.");
+async function exportToCSV() {
+     try {
+        // Capturando o conteúdo dos campos filtros
+        const filterName = document.getElementById('filterName').value.toLowerCase();
+        const filterDate = document.getElementById('filterDate').value;
 
-    // Cabeçalho do arquivo
-    let csvContent = "data:text/csv;charset=utf-8,";
-    csvContent += "Data;Cliente;Itens;Pagamento;Total\n";
+        // Necessário somar 1 dia ao filterDate para compor nome do arquivo .csv
+        const dataFilter = new Date(filterDate);
+        dataFilter.setDate(dataFilter.getDate() + 1);
+        console.log(filterDate);
+        console.log(dataFilter);
+        // 1. Busca os dados do seu servidor Node.js
+        const response = await fetch('http://localhost:3000/vendas');
+        if (!response.ok) throw new Error('Falha ao buscar dados do servidor');
+        
+        // 2. Transforma a resposta em JSON e guarda na nossa "memória global"
+        currentSalesFromDB = await response.json();
 
-    // Linhas de dados
-    salesHistory.forEach(sale => {
-        const itensString = sale.items.map(i => `${i.qty}x ${i.name}`).join(" | ");
-        const row = `${sale.fullDate};${sale.buyer};${itensString};${sale.payment};${sale.total}`;
-        csvContent += row + "\n";
-    });
+        if (currentSalesFromDB.length === 0) return alert("Não há dados para exportar.");
 
-    // Criar link invisível para download
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `Relatorio_Vendas_Polifonia_${new Date().toLocaleDateString()}.csv`);
-    document.body.appendChild(link);
+            // Aplica os filtros (agora nos dados do banco)
+            const filteredSales = currentSalesFromDB.filter(sale => {
+                const matchesName = sale.comprador.toLowerCase().includes(filterName);
 
-    link.click(); // Dispara o download
-    document.body.removeChild(link);
+                // No MySQL, a data vem completa, pegamos apenas a parte YYYY-MM-DD para comparar
+                const saleDateOnly = sale.data_venda.split('T')[0]; 
+                const matchesDate = filterDate === "" || saleDateOnly === filterDate;
+                return matchesName && matchesDate;
+            });
+
+        
+        // Cabeçalho do arquivo
+        let csvContent = "data:text/csv;charset=utf-8,";
+
+        // Adicionar o BOM UTF-8 (\uFEFF) para forçar o Excel a reconhecer UTF-8
+        csvContent += "\uFEFF"; 
+
+        csvContent += "Data;Cliente;Itens;Pagamento;Total\n";
+
+         // Linhas de dados
+        filteredSales.forEach(sale => {
+            const dataFormatada = new Date(sale.data_venda).toLocaleString();
+            const itensString = sale.itens.map(({name, qty}) => `${qty} x ${name}` ).join(' | ');
+            const row = `${dataFormatada};${sale.comprador};${itensString};${sale.pagamento};${sale.total.replace('.', ',')}`;
+            csvContent += row + "\n";
+        });
+
+        // Criar link invisível para download
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `Relatorio_Vendas_Polifonia_${new Date(dataFilter).toLocaleDateString()}.csv`);
+        document.body.appendChild(link);
+
+        link.click(); // Dispara o download
+        document.body.removeChild(link);
+       
+    } catch (e) { console.error("Erro ao carregar produtos:", e); }
 }
-
 
 // Variáveis para guardar as instâncias dos gráficos
 let todayChartInstance = null;
