@@ -64,7 +64,7 @@ function renderProductsTable() {
                 <td>
                     <button class="btn-edit" onclick="openEditProduct(${p.id})" title="Editar">✎</button>
                     
-                    <button class="btn-delete" onclick="softDeleteProduct(${p.id}, '${p.nome}')" title="Excluir do Catálogo">
+                    <button class="btn-delete" onclick="softDeleteProduct(${p.id}, '${p.nome}')" title="Excluir">
                        ✖
                     </button>
                 </td>

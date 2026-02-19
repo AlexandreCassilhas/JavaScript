@@ -44,8 +44,8 @@ function renderTypesTable() {
             <td>${t.descricao}</td>
             <td><span class="badge ${t.tipo === 'Entrada' ? 'badge-entrada' : 'badge-saida'}"> ${t.tipo}</span></td>
             <td>
-                <button class="btn-edit" onclick="editTipo(${t.id})">✎</button>
-                <button class="btn-delete" onclick="softDeleteTipo(${t.id}, '${t.descricao}')">✕</button>
+                <button class="btn-edit" onclick="editTipo(${t.id})"  title="Editar">✎</button>
+                <button class="btn-delete" onclick="softDeleteTipo(${t.id}, '${t.descricao}')" title="Excluir">✕</button>
             </td>
         </tr>
     `).join('');
@@ -117,18 +117,35 @@ async function loadCaixa() {
 
 function renderCaixaTable() {
     const tbody = document.getElementById('caixa-body');
-    tbody.innerHTML = allCaixa.map(l => `
-        <tr class="${l.tipo === 'Entrada' ? 'row-entrada' : 'row-saida'}">
-            <td>${new Date(l.data_lancamento).toLocaleDateString('pt-BR')}</td>
-            <td><strong>${l.tipo_nome}</strong></td>
-            <td>${l.descricao || '-'}</td>
-            <td class="valor-cell">R$ ${Number(l.valor).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
-            <td>
-                <button class="btn-edit" onclick="editCaixa(${l.id})">✎</button>
-                <button class="btn-delete" onclick="softDeleteCaixa(${l.id})">✕</button>
-            </td>
-        </tr>
-    `).join('');
+    tbody.innerHTML = allCaixa.map(l => {
+        
+        // 🛡️ TRATAMENTO SEGURO DA DATA
+        let dataFormatada;
+        try {
+            // Se já for uma string ISO (contém 'T'), limpamos e invertemos
+            if (typeof l.data_lancamento === 'string') {
+                dataFormatada = l.data_lancamento.split('T')[0].split('-').reverse().join('/');
+            } else {
+                // Se for um objeto Date, usamos toLocaleDateString forçando UTC
+                dataFormatada = new Date(l.data_lancamento).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+            }
+        } catch (e) {
+            dataFormatada = "Data Inválida";
+        } 
+
+        return `
+            <tr class="${l.tipo === 'Entrada' ? 'row-entrada' : 'row-saida'}">
+                <td>${new Date(l.data_lancamento).toLocaleDateString('pt-BR')}</td>
+                <td><strong>${l.tipo_nome}</strong></td>
+                <td>${l.descricao || '-'}</td>
+                <td class="valor-cell">R$ ${Number(l.valor).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+                <td>
+                    <button class="btn-edit" onclick="editCaixa(${l.id})"  title="Editar">✎</button>
+                    <button class="btn-delete" onclick="softDeleteCaixa(${l.id})" title="Excluir">✕</button>
+                </td>
+            </tr>
+        `
+    }).join('');
 }
 
 function openCaixaModal() {
