@@ -6,6 +6,39 @@
   <title>Algorítmo 01</title>
 </head>
 <body>
+ <h3 style="margin-bottom: 15px;">Performance Hoje</h3>
+        <div class="kpi-grid">
+            <div class="kpi-card highlight">
+                <span class="kpi-label">Faturamento Hoje</span>
+                <span class="kpi-value" id="kpiTotal">R$ 0,00</span>
+            </div>
+            <div class="kpi-card" style="border-left-color: #238636;">
+                <span class="kpi-label">Lucro Presumido</span>
+                <span class="kpi-value" id="kpiLucro">R$ 0,00</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Vendas Realizadas</span>
+                <span class="kpi-value" id="kpiCount">0</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Ticket Médio</span>
+                <span class="kpi-value" id="kpiTicket">R$ 0,00</span>
+            </div>
+            <div class="kpi-card" style="border-left-color: #d29922; cursor: pointer;"
+                 onclick="mostrarDetalhesEstoque()" title="Clique para ver os produtos">
+                <span class="kpi-label">Itens abaixo do Mínimo</span>
+                <span class="kpi-value" id="kpiEstoque">0</span>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card" id="cardSaldo" style="border-left-color: #722ed1;">
+                    <span class="kpi-label">Saldo Livro Caixa</span>
+                    <span class="kpi-value" id="kpiSaldo">R$ 0,00</span>
+                    <small id="subSaldo" style="font-size: 0.7rem; color: #8b949e;"></small>
+                </div>
+            </div>
+        </div>
+
+
   <h1>Algorítmo 01</h1>
   <p id="p01"></p>
   <p id="p02"></p>

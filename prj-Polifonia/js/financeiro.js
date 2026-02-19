@@ -3,12 +3,19 @@ let allCaixa = [];
 const hoje = new Date().toISOString().split('T')[0];
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Definindo as datas padrão (Início do mês até hoje)
+    const dataHoje = new Date().toISOString().split('T')[0];
+    const primeiroDia = new Date(new Date().setDate(1)).toISOString().split('T')[0];
+
     // Carregar nome do usuário logado (padrão Polifonia)
     const userData = JSON.parse(localStorage.getItem('polifonia_user'));
     if (!userData) {
         window.location.href = 'login.html'
     } else {
         document.getElementById('userNameDisplay').innerText = userData.user;
+        document.getElementById('filtroInicio').value = primeiroDia;
+        document.getElementById('filtroFim').value = dataHoje;
     };
 
     loadTypes();
@@ -108,12 +115,39 @@ document.getElementById('formTipo').onsubmit = async (e) => {
 // ==========================================
 
 async function loadCaixa() {
+    const inicio = document.getElementById('filtroInicio').value;
+    const fim = document.getElementById('filtroFim').value;
+
     try {
-        const res = await fetch('http://localhost:3000/fin-caixa');
+        const res = await fetch(`http://localhost:3000/fin-caixa?inicio=${inicio}&fim=${fim}`);
         allCaixa = await res.json();
+        
         renderCaixaTable();
+        calcularResumoFinanceiro(); // Nova função
     } catch (e) { console.error("Erro ao carregar caixa:", e); }
 }
+
+function calcularResumoFinanceiro() {
+    let entradas = 0;
+    let saidas = 0;
+
+    allCaixa.forEach(l => {
+        if (l.tipo === 'Entrada') entradas += Number(l.valor);
+        else saidas += Number(l.valor);
+    });
+
+    const saldo = entradas - saidas;
+    const formato = { style: 'currency', currency: 'BRL' };
+
+    document.getElementById('resumoEntradas').innerText = entradas.toLocaleString('pt-BR', formato);
+    document.getElementById('resumoSaidas').innerText = saidas.toLocaleString('pt-BR', formato);
+    
+    const elSaldo = document.getElementById('resumoSaldo');
+    elSaldo.innerText = saldo.toLocaleString('pt-BR', formato);
+    elSaldo.style.color = saldo >= 0 ? "#238636" : "#da3633";
+}
+
+
 
 function renderCaixaTable() {
     const tbody = document.getElementById('caixa-body');
@@ -188,6 +222,16 @@ async function editCaixa(id) {
 
 document.getElementById('formCaixa').onsubmit = async (e) => {
     e.preventDefault();
+
+    // 🛡️ VALIDAÇÃO DE VALOR
+    const valorInput = document.getElementById('caixaValor').value;
+    const valorNum = parseFloat(valorInput);
+    if (isNaN(valorNum) || valorNum <= 0) {
+        alert("⚠️ O valor do lançamento deve ser maior que zero!");
+        document.getElementById('caixaValor').focus();
+        return; // Interrompe o envio para o servidor
+    }
+
     const id = document.getElementById('caixaId').value;
     const userData = JSON.parse(localStorage.getItem('polifonia_user'));
 
@@ -195,7 +239,7 @@ document.getElementById('formCaixa').onsubmit = async (e) => {
         id_tipo_lancamento: document.getElementById('caixaTipoSelect').value,
         descricao: document.getElementById('caixaDesc').value,
         data_lancamento: document.getElementById('caixaData').value,
-        valor: document.getElementById('caixaValor').value,
+        valor: valorNum,
         id_usuario: userData.id || 1 // Fallback para segurança
     };
 

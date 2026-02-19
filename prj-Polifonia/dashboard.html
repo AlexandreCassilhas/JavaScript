@@ -38,7 +38,9 @@
             </a>
         </nav>
 
-        <h3 style="margin-bottom: 15px;">Performance Hoje</h3>
+        <h3 id="title-1">
+    ⚡ Performance Hoje
+        </h3>
         <div class="kpi-grid">
             <div class="kpi-card highlight">
                 <span class="kpi-label">Faturamento Hoje</span>
@@ -56,10 +58,21 @@
                 <span class="kpi-label">Ticket Médio</span>
                 <span class="kpi-value" id="kpiTicket">R$ 0,00</span>
             </div>
-            <div class="kpi-card" style="border-left-color: #d29922; cursor: pointer;"
-                 onclick="mostrarDetalhesEstoque()" title="Clique para ver os produtos">
-                <span class="kpi-label">Itens abaixo do Mínimo</span>
+        </div>
+
+        <h3 id="title-2">
+            📊 Gestão Interna (Período Selecionado)
+        </h3>
+        <div class="kpi-grid">
+            <div class="kpi-card" style="border-left-color: #d29922; cursor: pointer;" onclick="mostrarDetalhesEstoque()">
+                <span class="kpi-label">Itens Abaixo do Mínimo</span>
                 <span class="kpi-value" id="kpiEstoque">0</span>
+            </div>
+
+            <div class="kpi-card" id="cardSaldo" style="border-left-color: #722ed1;">
+                <span class="kpi-label">Saldo Livro Caixa</span>
+                <span class="kpi-value" id="kpiSaldo">R$ 0,00</span>
+                <small id="subSaldo" style="font-size: 0.75rem; color: #8b949e; margin-top: 5px; display: block;"></small>
             </div>
         </div>
 
@@ -125,11 +138,14 @@
                 
                 // Verifica se 'data.hoje' existe antes de renderizar
                 if (data && data.hoje) {
-                    renderKPIs(data.hoje, data.estoqueCritico.length); // Passa a contagem
-                    produtosCriticos = data.estoqueCritico; // Salva a lista
+                    // Agora passamos também os dados financeiros para a função
+                    renderKPIs(data.hoje, data.estoqueCritico.length, data.financeiro); // Passa a contagem
                     renderSellerChart(data.ranking);
                     renderProductsChart(data.topProdutos);
                     renderWeekChart(data.grafico);
+
+                     // Guardamos os itens críticos para o modal de alerta
+                    produtosCriticos = data.estoqueCritico;
                 }
             } catch (err) { 
                 console.error("Erro dashboard:", err);
@@ -138,26 +154,44 @@
         }
 
         // Proteção extra na renderKPIs
-        function renderKPIs(dados, totalCritico) {
+        function renderKPIs(dados, totalCritico, dadosFin) {
+            
             if (!dados) return;
+
+            const formatoMoeda = { style: 'currency', currency: 'BRL' };
 
             const total = Number(dados.total_faturado) || 0;
             const custo = Number(dados.total_custo) || 0;
             const lucro = total - custo;
             const count = dados.qtd_vendas || 0;
             const ticket = Number(dados.ticket_medio) || 0;
-            const elEstoque = document.getElementById('kpiEstoque');
-            elEstoque.innerText = totalCritico;
 
-            // Se houver itens críticos, faz o número pulsar em vermelho/laranja
-            elEstoque.style.color = totalCritico > 0 ? "#d29922" : "white";
-
-            const formatoMoeda = { style: 'currency', currency: 'BRL' };
             document.getElementById('kpiTotal').innerText = total.toLocaleString('pt-BR', formatoMoeda);
             document.getElementById('kpiLucro').innerText = lucro.toLocaleString('pt-BR', formatoMoeda);
             document.getElementById('kpiCount').innerText = count;
             document.getElementById('kpiTicket').innerText = ticket.toLocaleString('pt-BR', formatoMoeda);
+
+            // 2. KPI de Estoque
+            const elEstoque = document.getElementById('kpiEstoque');
+            elEstoque.innerText = totalCritico;
+            // Se houver itens críticos, faz o número pulsar em vermelho/laranja
+            elEstoque.style.color = totalCritico > 0 ? "#d29922" : "white";
+
+            // 3. NOVO: KPI de Saldo Financeiro
+            const entradas = Number(dadosFin.total_entradas || 0);
+            const saidas = Number(dadosFin.total_saidas || 0);
+            const saldo = entradas - saidas;
+
+            const elSaldo = document.getElementById('kpiSaldo');
+            elSaldo.innerText = saldo.toLocaleString('pt-BR', formatoMoeda);
+            
+            // Feedback visual: Verde se positivo, Vermelho se negativo
+            elSaldo.style.color = saldo >= 0 ? "#238636" : "#da3633";
+
+            // Detalhe extra: mostra o resumo de entradas/saídas no card
+            document.getElementById('subSaldo').innerText = `E: ${entradas.toLocaleString('pt-BR', formatoMoeda)} | S: ${saidas.toLocaleString('pt-BR', formatoMoeda)}`;
         }
+
 
         // Função para mostrar quais produtos estão críticos
         function mostrarDetalhesEstoque() {
