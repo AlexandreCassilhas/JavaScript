@@ -73,7 +73,6 @@ function renderProductsTable() {
     });
 }
 
-
 // 2. Abrir Modal PREENCHIDO (Modo Edição)
 function openEditProduct(id) {
     const produto = allProducts.find(p => p.id === id);
