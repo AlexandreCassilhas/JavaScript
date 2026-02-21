@@ -425,8 +425,7 @@ async function exportToCSV() {
         // Necessário somar 1 dia ao filterDate para compor nome do arquivo .csv
         const dataFilter = new Date(filterDate);
         dataFilter.setDate(dataFilter.getDate() + 1);
-        console.log(filterDate);
-        console.log(dataFilter);
+
         // 1. Busca os dados do seu servidor Node.js
         const response = await fetch('http://localhost:3000/vendas');
         if (!response.ok) throw new Error('Falha ao buscar dados do servidor');

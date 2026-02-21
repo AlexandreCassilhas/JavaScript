@@ -24,28 +24,20 @@
         </div>
 
         <div id="tab-caixa" class="tab-content active">
-          <!--  <div class="header-actions">
-                <h2>Movimentações</h2>
-                <button class="btn-finish"  style="width: auto;" onclick="openCaixaModal()">+ Novo Lançamento</button>
-            </div> -->
             <div class="header-actions">
-
-                <h2>Movimentações</h2>
-                
-                <div class="actions-right">
-                    <button class="btn-secondary" onclick="window.print()" style="margin-right: 10px;">🖨️ Imprimir</button>
-                    <button class="btn-finish" style="width: auto;" onclick="openCaixaModal()">+ Novo Lançamento</button>
-                </div>
+                <h2 class="titulo-caixa">Movimentações</h2>
+                    <div class="actions-right">
+                        <button class="btn-secondary" onclick="window.print()" style="margin-right: 1px;">🖨️ Imprimir</button>
+                        <button class="btn-novo" style="width: auto;" onclick="openCaixaModal()">+ Novo Lançamento</button>
+                    </div>
             </div>
-
             <div class="fin-summary-bar">
                 <div class="fin-filters">
                     <input type="date" id="filtroInicio" class="input-dark">
                     <span>até</span>
                     <input type="date" id="filtroFim" class="input-dark">
-                    <button class="btn-edit" onclick="loadCaixa()" style="padding: 8px 15px;">Filtrar</button>
+                    <button id="filter-btn" class="btn-edit" onclick="loadCaixa()" style="padding: 8px 15px;">Filtrar</button>
                 </div>
-                
                 <div class="fin-balance-summary">
                     <div class="balance-item">
                         <small>Entradas</small>

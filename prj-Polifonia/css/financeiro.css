@@ -43,14 +43,6 @@
     border: 1px solid #30363d;
 }
 
-
-.header-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px 0;
-}
-
 .tabs { 
   display: flex; 
   gap: 10px; 
@@ -82,9 +74,66 @@
   display: block; 
 }
 
-/* CSS para a Nova tela de Livro Caixa (com filtros e botão de impressão */
-.fin-summary-bar {
+#filter-btn {
+    background: none;
+    border: 1px solid #1f6feb;
+    color: #1f6feb;
+    display: inline-flex;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+#filter-btn:hover {
+    background-color: rgba(31, 111, 235, 0.1);
+}
+
+.header-actions {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-novo {
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px;
+    margin-bottom: 25px;
+    display: inline-flex;
+    height: 50px;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #8b1a1a; /* Vermelho Polifonia */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.3s;
+   
+}
+
+.btn-novo:hover {
+    background-color: #a31e1e;
+}
+
+.actions-right { 
+  display: flex; 
+  gap: 10px; 
+  text-align: right; 
+}
+
+
+/* CSS para a Nova tela de Livro Caixa (com filtros e botão de impressão */
+
+.fin-summary-bar {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; /* permite quebra para baixo */
+    gap: 5px;
     justify-content: space-between;
     align-items: center;
     background: #0d1117;
@@ -94,25 +143,86 @@
     border: 1px solid #30363d;
 }
 
-.fin-filters { display: flex; align-items: center; gap: 10px; }
+.fin-filters { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+}
 
-.fin-balance-summary { display: flex; gap: 30px; text-align: right; }
+.fin-balance-summary { 
+  display: flex; 
+  gap: 30px; 
+  text-align: right; 
+}
 
-.balance-item { display: flex; flex-direction: column; }
+.balance-item { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start;
+}
 
-.balance-item small { font-size: 0.7rem; color: #8b949e; text-transform: uppercase; }
+.balance-item small { 
+  font-size: 0.7rem;
+  color: #8b949e; 
+  text-transform: uppercase; 
+}
 
-.balance-item span { font-size: 1.1rem; font-weight: bold; }
+.balance-item span { 
+  font-size: 1.1rem; 
+  font-weight: bold; 
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .titulo-caixa {
+      font-size: large;
+    }
+    .fin-summary-bar {
+        flex-direction: column; /* força os blocos a ficarem empilhados */
+        align-items: flex-start;
+    }
+
+    .fin-balance-summary {
+        width: 100%; /* ocupa toda a largura disponível */
+        justify-content: space-between;
+    }
+}
+
 
 /* 🖨️ CONFIGURAÇÃO DE IMPRESSÃO */
 @media print {
-    .tabs, .header-actions, .fin-filters, .btn-edit, .btn-delete-x, .main-header {
+    .tabs, .header-actions, .fin-filters, .btn-edit, .btn-delete, .main-header {
         display: none !important;
     }
-    body { background: white; color: black; padding: 0; }
-    .container { max-width: 100% !important; background: white; box-shadow: none; }
-    .fin-summary-bar { border: 1px solid #ccc; color: black; background: #f9f9f9; }
-    table { color: black; border-collapse: collapse; }
-    th, td { border: 1px solid #ddd; padding: 8px; color: black !important; }
+    
+    body { 
+      background: white; 
+      color: black; 
+      padding: 0; 
+    }
+
+    .container { 
+      max-width: 100% !important; 
+      background: white; 
+      box-shadow: none; 
+    }
+
+    .fin-summary-bar { 
+      border: 1px solid #ccc; 
+      color: black; 
+      background: #f9f9f9; 
+    }
+
+    table { 
+      color: black; 
+      border-collapse: collapse; 
+    }
+
+    th, td { 
+      border: 1px solid #ddd; 
+      padding: 8px; 
+      color: black !important; 
+    }
+    
     .row-entrada, .row-saida { border-left: none; }
 }

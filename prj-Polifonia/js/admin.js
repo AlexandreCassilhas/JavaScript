@@ -40,8 +40,8 @@ function renderUsersTable() {
                 <td><span class="badge">${u.nome_perfil}</span></td>
                 <td>${formatarCPF(u.cpf)}</td>
                 <td>
-                    <button class="btn-edit" onclick="openEditUser(${u.id})">✎</button>
-                    <button class="btn-delete-x" onclick="softDeleteUser(${u.id}, '${u.nome}')">✕</button>
+                    <button class="btn-edit" title="Editar" onclick="openEditUser(${u.id})">✎</button>
+                    <button class="btn-delete" title="Excluir" onclick="softDeleteUser(${u.id}, '${u.nome}')">✕</button>
                 </td>
             </tr>
         `;
@@ -131,10 +131,6 @@ document.getElementById('formCadastro').onsubmit = async (e) => {
         alert("Erro de conexão com o servidor.");
     }
 };
-
-
-
-
 
 // 5. Soft Delete (Exclusão Lógica)
 async function softDeleteUser(id, nome) {

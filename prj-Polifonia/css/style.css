@@ -474,6 +474,7 @@ td {
     margin-top: 10px;
 }
 
+/* Estilo do Botão de Editar (Vazado) */
 .btn-edit {
     background: none;
     border: 1px solid #1f6feb;
@@ -486,11 +487,13 @@ td {
 }
 
 .btn-edit:hover {
-    background-color: rgba(31, 111, 235, 0.1);
+    /* background-color: rgba(31, 111, 235, 0.1); */
+    background-color: #1f6feb;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(31, 111, 235, 0.1);
 }
 
 /* Estilo do Botão de Excluir (Vazado) */
-
 .btn-delete {
     background: transparent;
     border: 1px solid #da3633; /* Vermelho alerta */
