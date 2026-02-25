@@ -119,12 +119,17 @@ async function loadCaixa() {
     const fim = document.getElementById('filtroFim').value;
 
     try {
-        const res = await fetch(`http://localhost:3000/fin-caixa?inicio=${inicio}&fim=${fim}`);
-        allCaixa = await res.json();
+        // 1. Busca Saldo Anterior
+        const resSaldo = await fetch(`http://localhost:3000/fin-saldo-anterior?inicio=${inicio}`);
+        const { saldoAnterior } = await resSaldo.json();
+
+        // 2. Busca Lançamentos do Período
+        const resCaixa = await fetch(`http://localhost:3000/fin-caixa?inicio=${inicio}&fim=${fim}`);
+        allCaixa = await resCaixa.json();
         
-        renderCaixaTable();
-        calcularResumoFinanceiro(); // Nova função
-    } catch (e) { console.error("Erro ao carregar caixa:", e); }
+        // 3. Renderiza com o novo formato
+        renderCaixaContabil(saldoAnterior);
+    } catch (e) { console.error("Erro no Livro Caixa:", e); }
 }
 
 function calcularResumoFinanceiro() {
@@ -147,7 +152,67 @@ function calcularResumoFinanceiro() {
     elSaldo.style.color = saldo >= 0 ? "#238636" : "#da3633";
 }
 
+function renderCaixaContabil(saldoAnterior) {
+    const tbody = document.getElementById('caixa-body');
+    const tfoot = document.getElementById('caixa-footer');
+    let totalEntradas = 0;
+    let totalSaidas = 0;
 
+    // Inverte a ordem para cronológica (mais antigo primeiro) conforme padrão contábil
+    const listaCronologica = [...allCaixa].reverse();
+
+    tbody.innerHTML = listaCronologica.map((l, index) => {
+        const valor = Number(l.valor);
+        if (l.tipo === 'Entrada') totalEntradas += valor;
+        else totalSaidas += valor;
+
+        const dataFormatada = l.data_lancamento.split('T')[0].split('-').reverse().join('/');
+
+        return `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${dataFormatada}</td>
+                <td><strong>${l.tipo_nome}</strong><br><small>${l.descricao || ''}</small></td>
+                <td style="color: #238636; text-align: right;">${l.tipo === 'Entrada' ? valor.toLocaleString('pt-BR', {minimumFractionDigits: 2}) : '-'}</td>
+                <td style="color: #da3633; text-align: right;">${l.tipo === 'Saída' ? valor.toLocaleString('pt-BR', {minimumFractionDigits: 2}) : '-'}</td>
+                <td class="no-print" style="padding-left: 30px;">
+                    <button class="btn-edit" onclick="editCaixa(${l.id})">✎</button>
+                    <button class="btn-delete" onclick="softDeleteCaixa(${l.id})">✕</button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+
+    // Roda de Totais e Fechamento
+    const saldoAtual = Number(saldoAnterior) + totalEntradas - totalSaidas;
+    const formato = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+
+    tfoot.innerHTML = `
+        <tr class="footer-totals">
+            <td colspan="3" style="text-align: right; font-weight: bold;">TOTAIS DO PERÍODO:</td>
+            <td style="text-align: right; color: #238636; font-weight: bold;">R$ ${totalEntradas.toLocaleString('pt-BR', formato)}</td>
+            <td style="text-align: right; color: #da3633; font-weight: bold;">R$ ${totalSaidas.toLocaleString('pt-BR', formato)}</td>
+            <td class="no-print"></td>
+        </tr>
+        <tr class="footer-balance">
+            <td colspan="3" style="text-align: right;">(+) SALDO ANTERIOR (Transportado):</td>
+            <td colspan="2" style="text-align: right; font-weight: bold;">R$ ${Number(saldoAnterior).toLocaleString('pt-BR', formato)}</td>
+            <td class="no-print"></td>
+        </tr>
+        <tr class="footer-final">
+            <td colspan="3" style="text-align: right; font-size: 1.1rem; font-weight: bold;">(=) SALDO ATUAL:</td>
+            <td colspan="2" style="text-align: right; font-size: 1.1rem; font-weight: bold; color: ${saldoAtual >= 0 ? '#238636' : '#da3633'}">
+                R$ ${saldoAtual.toLocaleString('pt-BR', formato)}
+            </td>
+            <td class="no-print"></td>
+        </tr>
+    `;
+
+    // Atualiza também os cards de resumo no topo (opcional, para manter sincronia)
+    document.getElementById('resumoEntradas').innerText = `R$ ${totalEntradas.toLocaleString('pt-BR', formato)}`;
+    document.getElementById('resumoSaidas').innerText = `R$ ${totalSaidas.toLocaleString('pt-BR', formato)}`;
+    document.getElementById('resumoSaldo').innerText = `R$ ${saldoAtual.toLocaleString('pt-BR', formato)}`;
+}
 
 function renderCaixaTable() {
     const tbody = document.getElementById('caixa-body');

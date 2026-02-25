@@ -53,19 +53,22 @@
                     </div>
                 </div>
             </div>
-            <table>
+            <table id="tabela-contabil">
                 <thead>
                     <tr>
+                        <th>Ordem</th>
                         <th>Data</th>
-                        <th>Tipo</th>
-                        <th>Descrição</th>
-                        <th>Valor</th>
-                        <th>Ações</th>
-                    </tr>
+                        <th>Tipo / Descrição</th>
+                        <th width="100">Entrada (R$)</th>
+                        <th width="100">Saída (R$)</th>
+                        <th class="no-print">Ações</th> </tr>
                 </thead>
                 <tbody id="caixa-body"></tbody>
+                <tfoot id="caixa-footer">
+                    </tfoot>
             </table>
         </div>
+
 
         <div id="tab-tipos" class="tab-content">
             <div class="header-actions">

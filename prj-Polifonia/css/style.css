@@ -87,12 +87,6 @@ body {
     border-color: #ff4444;
 }
 
-/* Ajuste mobile */
-@media (max-width: 480px) {
-    .user-details { display: none; } /* Esconde nomes em telas muito pequenas */
-}
-
-
 /* Identidade Visual do Logo */
 header {
     text-align: center;
@@ -196,18 +190,6 @@ select, input {
     background-color: #a31e1e;
 }
 
-/* Responsividade para Telas Pequenas */
-@media (max-width: 480px) {
-    .container {
-        padding: 15px;
-    }
-    .row {
-        flex-direction: column;
-    }
-}
-
-/* ... (Manter estilos anteriores e adicionar/atualizar estes) ... */
-
 hr {
     border: 0;
     border-top: 1px solid #30363d;
@@ -267,14 +249,6 @@ td {
     font-weight: bold;
 }
 
-/* Responsividade Mobile para a Tabela */
-@media (max-width: 480px) {
-    th:nth-child(1), td:nth-child(1) { width: 50%; }
-    .total-section { font-size: 1.2rem; }
-}
-
-/* ... (Estilos anteriores) ... */
-
 /* Modal */
 .modal {
     display: none;
@@ -321,16 +295,32 @@ td {
     gap: 10px;
 }
 
-.btn-whatsapp { background-color: #25D366; color: white; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-.btn-print { background-color: #333; color: white; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-.btn-close { background-color: #ccc; border: none; padding: 12px; border-radius: 5px; cursor: pointer; }
+.btn-whatsapp { 
+    background-color: #25D366; 
+    color: white; 
+    border: none; 
+    padding: 12px; 
+    border-radius: 5px; 
+    font-weight: bold; 
+    cursor: pointer; 
+}
 
-/* Configuração de Impressão */
-@media print {
-    body * { visibility: hidden; }
-    #receipt-modal, #receipt-modal * { visibility: visible; }
-    #receipt-modal { position: absolute; left: 0; top: 0; background: white; }
-    .modal-actions { display: none; }
+.btn-print { 
+    background-color: #333; 
+    color: white; 
+    border: none; 
+    padding: 12px; 
+    border-radius: 5px; 
+    font-weight: bold; 
+    cursor: pointer; 
+}
+
+.btn-close { 
+    background-color: #ccc; 
+    border: none; 
+    padding: 12px; 
+    border-radius: 5px; 
+    cursor: pointer; 
 }
 
 /* ... (Estilos anteriores) ... */
@@ -382,8 +372,6 @@ td {
     font-size: 1rem;
 }
 
-/* ... (Estilos anteriores) ... */
-
 .filter-controls {
     display: flex;
     gap: 10px;
@@ -407,14 +395,6 @@ td {
     font-size: 0.7rem;
 }
 
-/* Ajuste mobile para os filtros */
-@media (max-width: 480px) {
-    .filter-controls {
-        flex-direction: column;
-    }
-}
-
-/* ... (Estilos anteriores) ... */
 
 .summary-container {
     display: grid;
@@ -541,3 +521,33 @@ canvas {
     max-width: 100%;
     height: auto !important;
 }
+
+
+
+/* Ajuste mobile */
+@media (max-width: 480px) {
+    .user-details { display: none; } /* Esconde nomes em telas muito pequenas */
+
+    /* Responsividade Mobile para a Tabela */
+     th:nth-child(1), td:nth-child(1) { width: 50%; }
+    .total-section { font-size: 1.2rem; }
+
+    /* Responsividade para Telas Pequenas */
+    .container {
+        padding: 15px;
+    }
+    .row {
+        flex-direction: column;
+    }
+
+    /* Ajuste mobile para os filtros */
+    .filter-controls {
+        flex-direction: column;
+    }
+
+}
+
+
+
+
+
