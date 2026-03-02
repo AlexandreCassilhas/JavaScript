@@ -57,9 +57,15 @@
 
           const data = await response.json();
 
+          // Se Perfil "Administrador" -> Dashboard, senão -> "Venda"
           if (response.ok) {
               localStorage.setItem('polifonia_user', JSON.stringify(data));
-              window.location.href = 'dashboard.html';
+              if(!data.perfis.includes('Administrador')) {
+                window.location.href = 'venda.html';
+              } else {
+                window.location.href = 'dashboard.html';
+              };
+             
           } else {
               document.getElementById('msg-erro').innerText = data.message;
               reloadCaptcha();

@@ -70,6 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    if (!userData.perfis.includes('Administrador')) {
+        document.getElementById('btn-dash').style.display = 'none'; // esconde o botão de "Voltar ao DashBoard"
+    }
+
     // Exemplo de Restrição: Só administradores vêm o botão de Limpar Histórico
     const isAdmin = userData.perfis.includes('Administrador');
     const clearBtn = document.querySelector('.btn-clear');

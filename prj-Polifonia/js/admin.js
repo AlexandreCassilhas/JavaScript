@@ -1,7 +1,12 @@
 let allUsers = [];
 let fotoBase64 = null;
 
-document.addEventListener('DOMContentLoaded', loadUsers);
+document.addEventListener('DOMContentLoaded', () => {
+    // Carregar Perfil
+    const userData = JSON.parse(localStorage.getItem('polifonia_user'));
+    if (userData) document.getElementById('userNameDisplay').innerText = userData.user;
+    loadUsers();
+} );
 
 // Formata 11 dígitos para 000.000.000-00
 function formatarCPF(cpf) {

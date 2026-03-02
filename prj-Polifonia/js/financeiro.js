@@ -184,7 +184,8 @@ function renderCaixaContabil(saldoAnterior) {
     }).join('');
 
     // Roda de Totais e Fechamento
-    const saldoAtual = Number(saldoAnterior) + totalEntradas - totalSaidas;
+    const saldoPeriodo = totalEntradas - totalSaidas;
+    const saldoAtual = Number(saldoAnterior) + saldoPeriodo;
     const formato = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
 
     tfoot.innerHTML = `
@@ -211,7 +212,7 @@ function renderCaixaContabil(saldoAnterior) {
     // Atualiza também os cards de resumo no topo (opcional, para manter sincronia)
     document.getElementById('resumoEntradas').innerText = `R$ ${totalEntradas.toLocaleString('pt-BR', formato)}`;
     document.getElementById('resumoSaidas').innerText = `R$ ${totalSaidas.toLocaleString('pt-BR', formato)}`;
-    document.getElementById('resumoSaldo').innerText = `R$ ${saldoAtual.toLocaleString('pt-BR', formato)}`;
+    document.getElementById('resumoSaldo').innerText = `R$ ${saldoPeriodo.toLocaleString('pt-BR', formato)}`;
 }
 
 function renderCaixaTable() {
