@@ -37,7 +37,7 @@ h3.titulo-modal {
         background: white;
     }
     .modal-actions {
-        display: none;
+        display: none !important;
     }
 }
 
